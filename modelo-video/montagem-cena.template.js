@@ -2,7 +2,7 @@
 // Alvos, resetarPecas e animadores são fornecidos pelo projeto de cada vídeo.
 import * as THREE from 'three';
 import { samplePose } from './kit/camera/diretor.js';
-import * as moves from './kit/personagens/ze-desmonte/moves.js';
+import * as moves from './kit/personagens/ze/moves.js';
 import { criarDestaques } from './kit/efeitos/destaque-peca.js';
 
 // Scene events hang on spoken words, so a new voice take needs no rewrite.

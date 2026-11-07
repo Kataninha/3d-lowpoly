@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#eae4d8;overflow:hidden;font:600 22px system-ui,sans-serif;color:#3a2a22}canvas{display:block}.r{position:absolute;margin:0;padding:6px 10px;background:#eae4d8cc}</style>
+<script type="importmap">{"imports":{"three":"../../../vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../../vendor/RoundedBoxGeometry.js"}}</script>
+<script type="module">
+// Folha de contato: cada pose nova de moves.js num instante-chave (fim da entrada ou pico do ciclo). ?sil=1 pinta de preto.
+import * as THREE from 'three'; import * as v3 from '../ze-v3.js'; import * as mv from '../moves.js';
+const q=new URLSearchParams(location.search), COLS=6, TW=400, TH=640, W=COLS*TW, H=2*TH;
+const r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});r.setSize(W,H);r.setClearColor(0xeae4d8);r.setScissorTest(true);document.body.appendChild(r.domElement);
+const alvoMarreta=new THREE.Vector3(0,.4,4), alvoVento=new THREE.Vector3(6,3,3);
+const lista=[['M10_marretar · no alto t=0,9',mv.M10_marretar,.9],['M10_marretar · impacto t=1,06',mv.M10_marretar,1.06],['M11_empurrar · t=1,1',mv.M11_empurrar,1.1],['M12_sinalizar · t=1,0',mv.M12_sinalizar,1.0],['M13_carregarOmbro · t=1,0',mv.M13_carregarOmbro,1.0],['M14_bombear · embaixo t=0,85',mv.M14_bombear,.85],
+ ['M15_capaceteErguer · agachado t=.6',mv.M15_capaceteErguer,.6],['M15_capaceteErguer · alto t=1,5',mv.M15_capaceteErguer,1.5],['M16_gangorra · inclinada t=0,85',mv.M16_gangorra,.85],['M17_cinto · t=1,0',mv.M17_cinto,1.0],['M18_ventania · t=1,2',mv.M18_ventania,1.2],['M19_negarDedo · t=1,05',mv.M19_negarDedo,1.05]];
+if(q.has('t'))lista.forEach(l=>l[2]=+q.get('t'));
+const camera=new THREE.PerspectiveCamera(26,TW/TH,.1,100);camera.position.set(0,2.9,16.5);camera.lookAt(0,2.9,0);
+const z=v3.criarZe({capacete:q.has('capacete')});
+const fails=[];
+lista.forEach(([nome,fn,t],i)=>{
+  const scene=new THREE.Scene();v3.luzPadrao(scene);scene.add(z.raiz);const sombra=v3.sombraDeContato();scene.add(sombra);
+  try{fn(z,t,{olhar:undefined});z.atualizar(t,{piscar:false,respirar:false});}catch(e){fails.push(nome+': '+e.message);}
+  if(q.has('sil'))scene.traverse(o=>{if(o.isMesh)o.material=new THREE.MeshBasicMaterial({color:0});});
+  const x=(i%COLS)*TW,y=(1-Math.floor(i/COLS))*TH;
+  r.setViewport(x,y,TW,TH);r.setScissor(x,y,TW,TH);r.render(scene,camera);scene.remove(z.raiz);
+  const d=document.createElement('p');d.className='r';d.textContent=nome;d.style.cssText=`left:${x+4}px;top:${(Math.floor(i/COLS))*TH+4}px;font-size:18px`;document.body.appendChild(d);
+});
+document.body.dataset.test=JSON.stringify(fails);window.__pronto=true;
+</script>

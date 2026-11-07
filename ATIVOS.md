@@ -1,14 +1,14 @@
-# Reusable assets
+# Ativos reutilizáveis
 
-Use the catalog and origins before creating an asset. The library is the source for all new projects.
+Use o catálogo e as origens antes de criar um ativo. A biblioteca é a fonte de todos os projetos novos.
 
-| Category | Location |
+| Categoria | Local |
 |---|---|
-| Zé v3 and poses | `biblioteca/personagens/ze-desmonte/` |
-| Scenes and mechanisms | `biblioteca/cenarios/` and `biblioteca/objetos/` |
-| Camera | `biblioteca/camera/` |
-| Effects and sound | `biblioteca/efeitos/` and `biblioteca/sons/` |
-| Brand and runtime | `biblioteca/identidade/` and `biblioteca/vendor/` |
-| Camera guide | `refs/CAMERA.md` |
+| Zé e poses | `biblioteca/personagens/ze/` |
+| Cenários e mecanismos | `biblioteca/cenarios/` e `biblioteca/objetos/` |
+| Câmera | `biblioteca/camera/` |
+| Efeitos e som | `biblioteca/efeitos/` e `biblioteca/sons/` |
+| Marca e runtime | `biblioteca/identidade/` e `biblioteca/vendor/` |
+| Guia de câmera | `refs/CAMERA.md` |
 
-Select items with `biblioteca.lock.json`. The project copies assets into `kit/` and records exact files in `kit.manifest.json`. See [CATALOGO.md](CATALOGO.md).
+Escolha os itens em `biblioteca.lock.json`. O projeto copia os ativos para `kit/` e registra os arquivos exatos em `kit.manifest.json`. Veja [CATALOGO.md](CATALOGO.md).

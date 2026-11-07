@@ -1,14 +1,14 @@
-"""Track video production stages and prepare user-provided voice recordings.
+"""Controla as etapas de produção do vídeo e prepara a gravação de voz enviada pelo usuário.
 
-Schema 2 binds progress and render approval to SHA-256 inputs. Legacy states are
-not migrated implicitly. `verificar VIDEO --etapa montagem` exports current
-hashes for review evidence. `avancar VIDEO P2|P3 --evidencia qc/review.json`
-requires: resultado="aprovado", revisor, relatorio (relative nonempty file),
-arquivos_abertos (relative paths including a PNG/JPEG and MP4 actually reviewed),
-and inputs_sha256 (the exact hashes from verificar). The reviewer supplies these
-facts; the CLI verifies provenance, not visual quality or a person's identity.
-`aprovar-render VIDEO --usuario NAME --evidencia qc/user-approval.md` records an
-existing explicit user authorization after P3. --forcar never bypasses these gates.
+O schema 2 liga o progresso e a aprovação de render aos SHA-256 das entradas. Estados antigos
+não são migrados em silêncio. `verificar VIDEO --etapa montagem` exporta os hashes atuais
+para a evidência de revisão. `avancar VIDEO P2|P3 --evidencia qc/revisao.json`
+exige: resultado="aprovado", revisor, relatorio (arquivo relativo não vazio),
+arquivos_abertos (caminhos relativos com um PNG/JPEG e um MP4 realmente revisados)
+e inputs_sha256 (os hashes exatos de verificar). O revisor fornece esses fatos;
+a CLI confere a origem, não a qualidade visual nem a identidade de uma pessoa.
+`aprovar-render VIDEO --usuario NOME --evidencia qc/aprovacao-usuario.md` registra uma
+autorização explícita já dada pelo usuário depois do P3. --forcar nunca contorna esses portões.
 """
 import argparse
 from datetime import datetime, timedelta, timezone
@@ -41,7 +41,7 @@ MEDIA_EXTENSIONS = {'.mp3', '.wav', '.ogg', '.opus', '.m4a', '.aac', '.flac', '.
                     '.png', '.jpg', '.jpeg', '.webp', '.gif', '.bmp', '.tif', '.tiff', '.svg',
                     '.glb', '.gltf', '.obj', '.fbx', '.stl', '.blend', '.dae', '.usdz', '.3ds', '.ply'}
 
-# Earliest completed stage that remains valid after each input changes.
+# Primeira etapa concluída que continua válida depois que cada entrada muda.
 RESET_STAGE = {'esqueleto.md': 'esqueleto_pendente', 'roteiro.txt': 'roteiro_pendente',
                'plano-visual.md': 'plano_pendente', 'direcao.md': 'plano_pendente',
                'voz/voz.wav': 'plano_aprovado', 'voz/tempos.json': 'voz',
@@ -84,7 +84,7 @@ def save_state(video, state):
 def versioned(state):
     version = state.get('schema_version')
     if version is not None and (type(version) is not int or version != SCHEMA_VERSION):
-        raise ValueError(f'Unsupported state schema: {version}')
+        raise ValueError(f'Schema de estado não suportado: {version}')
     return version == SCHEMA_VERSION
 
 
@@ -96,7 +96,7 @@ def refresh_state(video, state):
     if not versioned(state):
         return state
     if state.get('etapa') not in STAGES or not isinstance(state.get('hashes'), dict):
-        raise ValueError('Invalid versioned state')
+        raise ValueError('Estado versionado inválido')
     current = input_hashes(video)
     changed = sorted(name for name in current.keys() | state['hashes'].keys()
                      if current.get(name) != state['hashes'].get(name))
@@ -118,13 +118,13 @@ def refresh_state(video, state):
 
 def local_file(video, name):
     if not isinstance(name, str) or not name.strip():
-        raise ValueError('Evidence requires a relative file path')
+        raise ValueError('A evidência exige um caminho de arquivo relativo')
     relative = Path(name)
     path = video / relative
     if relative.is_absolute() or '..' in relative.parts or not path.resolve().is_relative_to(video.resolve()):
-        raise ValueError(f'File outside project: {name}')
+        raise ValueError(f'Arquivo fora do projeto: {name}')
     if not path.is_file() or not path.stat().st_size:
-        raise ValueError(f'Missing or empty file: {name}')
+        raise ValueError(f'Arquivo ausente ou vazio: {name}')
     return path
 
 
@@ -140,15 +140,15 @@ def review_record(video, state, evidence):
     data = json.loads(source.read_text(encoding='utf-8-sig'))
     if not isinstance(data, dict) or data.get('resultado') != 'aprovado' \
             or not isinstance(data.get('revisor'), str) or not data['revisor'].strip():
-        raise ValueError('Review requires resultado=aprovado and revisor')
+        raise ValueError('A revisão exige resultado=aprovado e revisor')
     if data.get('inputs_sha256') != state['hashes']:
-        raise ValueError('Review hashes differ from current inputs; review again')
+        raise ValueError('Os hashes da revisão diferem das entradas atuais; revise de novo')
     opened = data.get('arquivos_abertos')
     if not isinstance(opened, list) or not opened or not all(isinstance(p, str) for p in opened):
-        raise ValueError('Review requires arquivos_abertos')
+        raise ValueError('A revisão exige arquivos_abertos')
     extensions = {Path(p).suffix.lower() for p in opened}
     if '.mp4' not in extensions or not extensions.intersection({'.png', '.jpg', '.jpeg', '.webp'}):
-        raise ValueError('Review requires opened video and image proofs')
+        raise ValueError('A revisão exige vídeo e imagens de prova abertos')
     paths = [evidence, data.get('relatorio'), *opened]
     files = {name: sha256(local_file(video, name)) for name in paths}
     return {**data, 'arquivos_sha256': files, 'data': datetime.now(timezone.utc).isoformat()}
@@ -157,13 +157,13 @@ def review_record(video, state, evidence):
 def require_review(video, state, stage):
     record = state.get('evidencias', {}).get(stage)
     if not isinstance(record, dict) or record.get('resultado') != 'aprovado' or not record.get('arquivos_sha256'):
-        raise ValueError(f'{stage} requires recorded proof review (--evidencia)')
+        raise ValueError(f'{stage} exige revisão de prova registrada (--evidencia)')
     old = record.get('inputs_sha256', {})
     names = old.keys() | state['hashes'].keys()
     if stage == 'P2':
         names = {name for name in names if STAGES.index(rollback_for(name)) < STAGES.index('P2')}
     if any(old.get(name) != state['hashes'].get(name) for name in names):
-        raise ValueError(f'{stage}: stale proof review')
+        raise ValueError(f'{stage}: revisão de prova desatualizada')
     for name, digest in record['arquivos_sha256'].items():
         if sha256(local_file(video, name)) != digest:
             raise ValueError(f'{stage}: proof changed: {name}')
@@ -173,9 +173,9 @@ def require_render_approval(video, state):
     approval = state.get('aprovacao_render')
     if not isinstance(approval, dict) or not approval.get('usuario') or not approval.get('data') \
             or approval.get('inputs_sha256') != state['hashes']:
-        raise ValueError('Final render requires explicit user approval: aprovar-render')
+        raise ValueError('O render final exige aprovação explícita do usuário: aprovar-render')
     if sha256(local_file(video, approval.get('evidencia'))) != approval.get('evidencia_sha256'):
-        raise ValueError('User approval evidence changed')
+        raise ValueError('A evidência de aprovação do usuário mudou')
 
 
 def require_stage(video, state, stage, approval=True):
@@ -196,13 +196,13 @@ def require_stage(video, state, stage, approval=True):
         takes = json.loads(local_file(video, 'takes.json').read_text(encoding='utf-8-sig'))
         score = json.loads(local_file(video, 'partitura.json').read_text(encoding='utf-8-sig'))
         if not isinstance(takes, list) or not takes or not isinstance(score, dict) or not score.get('takes'):
-            raise ValueError('takes.json and partitura.json require nonempty takes')
+            raise ValueError('takes.json e partitura.json exigem takes não vazios')
         for take in score['takes']:
             validate_intent(take)
             proofs = take.get('prova')
             if not isinstance(proofs, list) or not proofs or not all(
                     type(t) in (int, float) and math.isfinite(t) and take['t0'] <= t < take['t1'] for t in proofs):
-                raise ValueError('Each take requires real proof times inside its interval')
+                raise ValueError('Cada take exige tempos de prova reais dentro do seu intervalo')
     if rank >= STAGES.index('P2'):
         camera = json.loads(local_file(video, 'camera.json').read_text(encoding='utf-8-sig'))
         validate_selected_camera(camera, score['takes'])
@@ -213,7 +213,7 @@ def require_stage(video, state, stage, approval=True):
         manifest = json.loads(local_file(video, 'kit.manifest.json').read_text(encoding='utf-8-sig'))
         if manifest.get('schema_version') != 1 or not manifest.get('files') \
                 or manifest['files'] != file_manifest(video / 'kit'):
-            raise ValueError('Kit differs from its SHA-256 file manifest')
+            raise ValueError('O kit difere do seu manifesto de arquivos SHA-256')
     if rank >= STAGES.index('P3'):
         require_review(video, state, 'P3')
     if rank >= STAGES.index('render') and approval:
@@ -226,7 +226,7 @@ def read_state(video):
         return None
     state = json.loads(path.read_text(encoding='utf-8-sig'))
     if not isinstance(state, dict):
-        raise ValueError('estado.json must be an object')
+        raise ValueError('estado.json deve ser um objeto')
     return refresh_state(video, state)
 
 
@@ -340,7 +340,7 @@ def pending(root):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--videos', type=Path, default=ROOT / 'videos', help='Pasta dos videos')
+    parser.add_argument('--videos', type=Path, default=ROOT / 'videos', help='Pasta dos vídeos')
     sub = parser.add_subparsers(dest='command', required=True)
     sub.add_parser('status')
     sub.add_parser('pendente')
@@ -355,14 +355,14 @@ def main(argv=None):
     advance.add_argument('video')
     advance.add_argument('etapa', choices=STAGES)
     advance.add_argument('--forcar', action='store_true')
-    advance.add_argument('--evidencia', help='P2/P3 review JSON, relative to the video folder')
-    verify = sub.add_parser('verificar', help='Check current inputs and gates; export hashes as JSON')
+    advance.add_argument('--evidencia', help='JSON de revisão P2/P3, relativo à pasta do vídeo')
+    verify = sub.add_parser('verificar', help='Confere entradas e portões atuais; exporta os hashes em JSON')
     verify.add_argument('video')
     verify.add_argument('--etapa', choices=STAGES)
-    approve = sub.add_parser('aprovar-render', help='Record an existing explicit user authorization after P3')
+    approve = sub.add_parser('aprovar-render', help='Registra uma autorização explícita do usuário já dada depois do P3')
     approve.add_argument('video')
     approve.add_argument('--usuario', required=True)
-    approve.add_argument('--evidencia', required=True, help='File with the user authorization, relative to video')
+    approve.add_argument('--evidencia', required=True, help='Arquivo com a autorização do usuário, relativo ao vídeo')
     reject = sub.add_parser('reprovar')
     reject.add_argument('video')
     voice = sub.add_parser('preparar-voz')
@@ -414,14 +414,14 @@ def main(argv=None):
                 return 2 if errors else 0
             if args.command == 'aprovar-render':
                 if not versioned(state) or state['etapa'] != 'P3':
-                    raise ValueError('aprovar-render requires a versioned project at P3')
+                    raise ValueError('aprovar-render exige um projeto versionado no P3')
                 require_inputs(video, 'render')
                 require_stage(video, state, 'render', approval=False)
                 if not args.usuario.strip():
-                    raise ValueError('User name cannot be empty')
+                    raise ValueError('O nome do usuário não pode ficar vazio')
                 source = local_file(video, args.evidencia)
                 if not source.read_text(encoding='utf-8-sig').strip():
-                    raise ValueError('Empty user approval evidence')
+                    raise ValueError('Evidência de aprovação do usuário vazia')
                 state['aprovacao_render'] = {'usuario': args.usuario.strip(), 'evidencia': args.evidencia,
                     'evidencia_sha256': sha256(source), 'inputs_sha256': state['hashes'],
                     'data': datetime.now(timezone.utc).isoformat()}
@@ -461,7 +461,7 @@ def main(argv=None):
                         raise ValueError(f'Transicao invalida de {previous} para {args.etapa}; use --forcar para excecao')
                     if args.evidencia:
                         if not versioned(state) or args.etapa not in ('P2', 'P3'):
-                            raise ValueError('--evidencia is only valid for versioned P2/P3 reviews')
+                            raise ValueError('--evidencia só vale para revisões P2/P3 de projetos versionados')
                         state.setdefault('evidencias', {})[args.etapa] = review_record(video, state, args.evidencia)
                     require_stage(video, state, args.etapa)
                     if args.etapa == 'P4':

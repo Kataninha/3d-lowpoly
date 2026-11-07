@@ -27,3 +27,5 @@ conferencias/
 arquivo/
 !biblioteca/**/referencias/*.png
 !ferramentas/fixtures/*.wav
+!modelo-video/som/*.wav
+!docs/img/*

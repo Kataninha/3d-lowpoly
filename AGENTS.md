@@ -1,45 +1,45 @@
-# HyperFrames workspace — agent instructions
+# Workspace HyperFrames — instruções para agentes
 
-Purpose: produce YouTube / TikTok / Instagram content (explainers, Reels, Shorts) for the channel Mundo100Manual with HyperFrames (HTML + GSAP, rendered to video), Three.js low poly and ffmpeg.
-User-facing messages are in Portuguese. Code, files, skills and rules are in English (recipes and team notes are in Portuguese).
+Objetivo: produzir conteúdo para YouTube, TikTok e Instagram (explicativos, Reels, Shorts) do canal Mundo100Manual com HyperFrames (HTML + GSAP renderizados em vídeo), Three.js low poly e ffmpeg.
+Todo texto — mensagens ao usuário, arquivos, skills, regras, receitas e notas da equipe — é em português. Só os identificadores de código seguem o que já existe.
 
-## Where the rules live (single source each; do not copy them here)
-- Production stages and gates: `WORKFLOW_MESTRE_ZE_DESMONTE.md`. Camera reference: `refs/CAMERA.md`.
-- **Editorial preflight.** Before drafting, revising, or reviewing a video skeleton, script, visual plan, animation, or cut, open the current `receitas/receita-unificada.md` and read the applicable sections. For scripts, apply §1 and check each cycle for a visible limit, a solution, an observable result, and the technical name after the demonstration. Check that the result leads to the next limit before submitting for approval. Consider Retrocesso Causal under §1.1 during the skeleton. When selected, carry the approved return and its purpose through the visual plan and apply §§4 and 8 in production and review.
-- Pipeline order and commands: skill `desmonta-pipeline` (`.claude/skills/desmonta-pipeline/SKILL.md` for Claude, `.agents/skills/desmonta-pipeline/SKILL.md` for Codex and other agents; both files are identical, `ferramentas/test_docs.py` checks it).
-- Your own role: `equipe/<role>.md`.
-- Live status: `equipe/painel.md` (note `0 — PAINEL`) and `python ferramentas/pipeline.py status`. Permanent decisions: `receitas/decisoes.md`. Bugs: `BUGS.md` (read before any task; add an entry, never delete one, only change its status).
-- Effects kit: `biblioteca/efeitos/EFEITOS.md`. Catalog: `CATALOGO.md`, `ATIVOS.md`.
+## Onde ficam as regras (uma fonte para cada; não copie aqui)
+- Etapas e portões de produção: `WORKFLOW_MESTRE.md`. Referência de câmera: `refs/CAMERA.md`.
+- **Pré-voo editorial.** Antes de redigir, revisar ou conferir esqueleto, roteiro, plano visual, animação ou corte, abra `receitas/receita-unificada.md` e leia as seções aplicáveis. Em roteiros, aplique o §1 e confira, em cada ciclo, o limite visível, a solução, o resultado observável e o nome técnico depois da demonstração. Confira que o resultado leva ao próximo limite antes de pedir aprovação. Considere o Retrocesso Causal (§1.1) no esqueleto. Se for escolhido, leve o retorno aprovado e seu propósito até o plano visual e aplique os §§4 e 8 na produção e na revisão.
+- Ordem e comandos do pipeline: skill `mundo100manual-pipeline` (`.claude/skills/mundo100manual-pipeline/SKILL.md` para o Claude, `.agents/skills/mundo100manual-pipeline/SKILL.md` para o Codex e outros agentes; os dois arquivos são idênticos e `ferramentas/test_docs.py` confere).
+- Seu próprio papel: `equipe/<papel>.md`.
+- Estado vivo: `equipe/painel.md` e `python ferramentas/pipeline.py status`. Decisões permanentes: `receitas/decisoes.md`. Bugs: `BUGS.md` (leia antes de qualquer tarefa; acrescente uma entrada, nunca apague, só mude o status).
+- Kit de efeitos: `biblioteca/efeitos/EFEITOS.md`. Catálogo: `CATALOGO.md` e `ATIVOS.md`.
 
-## Team
-Roles are fixed; the model behind each role is the user's choice (default: Claude Opus as Maestro, Claude Sonnet for the others). Every model follows the same rules and files.
-- Maestro: the leader. Plans, decides quality, approves, the only agent that talks to the user.
-- MODELADOR-3D, ANIMADOR, ACABAMENTO, REVISOR-CODIGO: implement, each within the files of their role.
-- DIRETOR-VISUAL: read-only visual review.
-- A subagent inherits the caller's task, editable files and limits.
+## Equipe
+Os papéis são fixos; o modelo por trás de cada papel é escolha do usuário (padrão: Claude Opus como Maestro e Claude Sonnet nos demais). Todo modelo segue as mesmas regras e arquivos.
+- Maestro: o líder. Planeja, decide a qualidade, aprova e é o único agente que fala com o usuário.
+- MODELADOR-3D, ANIMADOR, ACABAMENTO, REVISOR-CODIGO: implementam, cada um dentro dos arquivos do seu papel.
+- DIRETOR-VISUAL: revisão visual somente leitura.
+- Um subagente herda a tarefa, os arquivos editáveis e os limites de quem o chamou.
 
-## Working method (any agent)
-- Read the source files: `equipe/<role>.md`, `equipe/painel.md`, `receitas/receita-unificada.md`.
-- Video state: `python ferramentas/pipeline.py status`, then `videos/<NN>/estado.json`, `direcao.md`, `takes.json`, `partitura.json`, `registro.md` and `tarefas/`.
-- Report results in your own session (summary, paths, measured numbers).
-- Acting as Maestro: keep `equipe/painel.md` and `videos/<NN>/registro.md` current.
+## Método de trabalho (qualquer agente)
+- Leia as fontes: `equipe/<papel>.md`, `equipe/painel.md`, `receitas/receita-unificada.md`.
+- Estado do vídeo: `python ferramentas/pipeline.py status`, depois `videos/<NN>/estado.json`, `direcao.md`, `takes.json`, `partitura.json`, `registro.md` e `tarefas/`.
+- Relate os resultados na sua própria sessão (resumo, caminhos, números medidos).
+- Como Maestro, mantenha `equipe/painel.md` e `videos/<NN>/registro.md` em dia.
 
-## Hard rules
-- Reuse first: read `ATIVOS.md`, `CATALOGO.md`, `biblioteca/` before creating an asset, script or template.
-- One agent edits a given file at a time; the owner is the agent holding the active service order in `videos/<NN>/tarefas/`. Work on your own git floor/branch; no `backup-*` folders (git keeps versions).
-- Never delete, move, rename or overwrite existing user files without the user's approval (via the Maestro). Write new output to new folders.
-- Never interrupt running processes (previews, http.server, frame extraction).
-- No paid APIs. Only authenticated subscriptions. ElevenLabs / Google Flow only with explicit approval.
-- Visual honesty: never describe an image or video that was not actually opened. State the file paths inspected, or the exact limitation.
-- Text files are UTF-8 (B31).
+## Regras duras
+- Reuse primeiro: leia `ATIVOS.md`, `CATALOGO.md` e `biblioteca/` antes de criar um ativo, script ou modelo.
+- Um agente edita um arquivo por vez; o dono é quem tem a ordem de serviço ativa em `videos/<NN>/tarefas/`. Trabalhe no seu próprio branch git; sem pastas `backup-*` (o git guarda as versões).
+- Nunca apague, mova, renomeie nem sobrescreva arquivos existentes do usuário sem a aprovação dele (via Maestro). Escreva a saída nova em pastas novas.
+- Nunca interrompa processos em andamento (prévias, http.server, extração de quadros).
+- Sem APIs pagas. Só assinaturas autenticadas. ElevenLabs e Google Flow só com aprovação explícita.
+- Honestidade visual: nunca descreva imagem ou vídeo que não foi aberto de fato. Informe os caminhos inspecionados ou a limitação exata.
+- Arquivos de texto em UTF-8 (B31).
 
-## Autonomy
-Allowed without asking: read anything; create new files/folders in this workspace; run tests; preview and low-resolution renders; ffmpeg on copies; update notes.
-Ask the user first (through the Maestro): publishing/uploading; deleting, moving or overwriting existing files; structural changes to an existing project; installing dependencies; anything with a cost. Final render requires the user’s explicit approval of the reviewed P3 cut.
+## Autonomia
+Permitido sem perguntar: ler qualquer coisa; criar arquivos e pastas novos neste workspace; rodar testes; prévias e renders em baixa resolução; ffmpeg em cópias; atualizar notas.
+Pergunte antes ao usuário (via Maestro): publicar ou enviar; apagar, mover ou sobrescrever arquivos existentes; mudanças estruturais em projeto existente; instalar dependências; qualquer coisa com custo. O render final exige aprovação explícita do usuário para o corte P3 revisado.
 
-## Conventions
-- Each video: `videos/<NN>-<slug>/` made by `ferramentas/novo_video.py` (own `AGENTS.md`, `roteiro.txt`, `partitura.json`, `registro.md`, `tarefas/`). Nothing from one video goes into another's folder.
-- Universal library `biblioteca/`: one item per folder (`personagens/`, `objetos/`, `cenarios/<slug>/`) with main file, previews and `origem.json`; lowercase names with hyphens, no accents; register new items in `CATALOGO.md`. Channel character: Zé Desmonte (`ze-desmonte`; new videos import `ze-desmonte-padrao.js`). Do not use "Kiko" in new files.
-- Direction (presence of Zé, rhythm, cuts, effects) is decided per video in `direcao.md`; reference numbers are starting points, never targets.
-- Use the HyperFrames skills for composition rules; `hyperframes check` with no errors is a requirement, never an approval.
-- Colors: only the meaningful `--cor-*` tokens for texts and icons; theme teal/orange only for the brand.
+## Convenções
+- Cada vídeo: `videos/<NN>-<slug>/`, criado por `ferramentas/novo_video.py` (com `AGENTS.md`, `roteiro.txt`, `partitura.json`, `registro.md` e `tarefas/` próprios). Nada de um vídeo entra na pasta de outro.
+- Biblioteca universal `biblioteca/`: um item por pasta (`personagens/`, `objetos/`, `cenarios/<slug>/`) com arquivo principal, previews e `origem.json`; nomes em minúsculas com hífen, sem acento; registre itens novos em `CATALOGO.md`. Personagem do canal: Zé (`ze`; vídeos novos importam `ze-padrao.js`). Não use "Kiko" em arquivos novos.
+- A direção (presença do Zé, ritmo, cortes, efeitos) é decidida por vídeo em `direcao.md`; números de referência são pontos de partida, nunca metas.
+- Use as skills do HyperFrames para as regras de composição; `hyperframes check` sem erros é requisito, nunca aprovação.
+- Cores: só os tokens `--cor-*` com significado em textos e ícones; teal e laranja do tema só para a marca.

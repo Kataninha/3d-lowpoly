@@ -1,12 +1,12 @@
 # Receita editorial Mundo100Manual — v4.4
 
-**Versão 4.4 — 06/11/2026.** Acrescenta ao §1.2 o modelo de roteirista do usuário (demonstrar em vez de informar, sem drama inventado, pergunta-ponte por bloco e verificação científica). **Versão 4.3.** Mantém a v4.1 e fixa o roteiro no estilo causa e efeito (§1.2): causa e efeito, curto, uma ideia por frase. A v4.2 (pente de lacunas, explicação longa) foi retirada. A v4.1 incorporou o Retrocesso Causal. Fluxo e portões no mestre. Câmera no estudo atual de Motor, Ponte e Futebol em [refs/CAMERA.md](../refs/CAMERA.md).
+**Versão 4.4 — 06/11/2026.** Roteiro em causa e efeito (§1.2), com o modelo de roteirista do canal (demonstrar em vez de informar, sem drama inventado, pergunta-ponte por bloco e verificação científica). Retrocesso Causal opcional (§1.1). Fluxo e portões no mestre. Câmera em [refs/CAMERA.md](../refs/CAMERA.md).
 
 Decisões permanentes (uma linha cada): `receitas/decisoes.md`. Placar e retro por vídeo: `receitas/evolucao.md`. Bugs: `BUGS.md` (ler antes de qualquer tarefa).
 
 **Princípio:** o Maestro (Claude) é o produtor e decide o grau de qualidade. **O que explica é o protagonista; cada vídeo decide como contar.** O usuário aprova só três portões antes da produção (esqueleto, roteiro, plano visual com a ficha de direção, §0), solta a voz e aprova o corte P3 antes do render final. Perguntas ao usuário: publicar, apagar/mover, custo, instalar.
 
-**Identidade do canal (nunca muda):** 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível, solução, demonstração, nome); a imagem mostra o que a fala explica; mundo coerente que evolui; legenda curta, cores com significado, nome visto e ouvido; abertura forte; final com o resultado e pedido de comentário; nível igual ou acima das bases.
+**Identidade do canal (nunca muda):** 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível, solução, demonstração, nome); a imagem mostra o que a fala explica; mundo coerente que evolui; legenda curta, cores com significado, nome visto e ouvido; abertura forte; final com o resultado e pedido de comentário; nível igual ou acima dos números de referência.
 
 **Requisitos fixos (técnicos e de qualidade):** formato, LUFS e pico (§5), legibilidade e margens, escala coerente, nada atravessando nem flutuando, corte 3D real, determinismo, prova em quadro real.
 
@@ -34,7 +34,7 @@ Perguntas de roteiro: ângulo, público, nível técnico, quais mitos, o que a p
 
 2. **Esqueleto** (`esqueleto.md`, com a ordem técnica confirmada em fonte listada em `pesquisa.md` antes de escrever): abertura, uma linha por ciclo (falha → solução → demonstração → nome; cada falha nasce do efeito da anterior), mito, piada, final, **cenário detalhado (ambiente, paleta/luz, objetos de fundo, texturas, zonas livres do Zé, easter eggs, mudanças por bloco)**, objetos necessários. Aprovar → `esqueleto_aprovado`.
 3. **Roteiro** (§1). Aprovar → `roteiro_aprovado`.
-4. **Plano visual** (`plano-visual.md`, tabela aprovada gravada no arquivo e mostrada no chat): `Tempo | Fala | Protagonista | Câmera | Zé e motivo | Peça/efeito | SFX | Texto/ícone`. Vem junto de um resumo curto da **ficha de direção** (`direcao.md`): base e por quê, quem protagoniza, quando e por que o Zé aparece, figurantes, ritmo, câmera e cortes, o que muda no mundo e no clima, figurino, final, experimento e o que das bases não serve aqui. Aprovar → `plano_aprovado` (o pipeline recusa ficha com "a decidir").
+4. **Plano visual** (`plano-visual.md`, tabela aprovada gravada no arquivo e mostrada no chat): `Tempo | Fala | Protagonista | Câmera | Zé e motivo | Peça/efeito | SFX | Texto/ícone`. Vem junto de um resumo curto da **ficha de direção** (`direcao.md`): base e por quê, quem protagoniza, quando e por que o Zé aparece, figurantes, ritmo, câmera e cortes, o que muda no mundo e no clima, figurino, final, experimento e o que dos números de referência não serve aqui. Aprovar → `plano_aprovado` (o pipeline recusa ficha com "a decidir").
 Depois da prévia P3, peça autorização explícita para render final. O plano aprovado vira a `partitura.json` (P1); mudar ação visível depois exige nova aprovação. Tempos são estimados pelo roteiro e reajustados com `tempos.json` depois da voz.
 
 ---
@@ -88,7 +88,7 @@ O tema é explicado só por causa e efeito, em frases curtas.
 
 1. **Cadeia.** Falha → causa em uma frase → solução → efeito visível → nome → o efeito cria a próxima falha. Sem salto: "então", "por isso" e "mas" ligam cada passo.
 2. **Uma ideia por frase.** Conectores "Então / Mas / Por isso". Comparação do dia a dia só quando destrava a causa; sem aula, sem número sem necessidade.
-3. **Curto.** Modelo: roteiros 12-vidro-box e 13-piscina-no-topo (~270 palavras). Nunca alongue para "explicar mais"; corte repetição.
+3. **Curto.** Modelo: o roteiro de `exemplos/13-piscina-no-topo` (~270 palavras). Nunca alongue para "explicar mais"; corte repetição.
 4. **Sem pente de lacunas, sem `lacunas.md`.** O Teste do leigo basta.
 5. **Demonstrar, não informar.** Nenhuma frase é só informativa quando a imagem pode demonstrá-la. Cada mecanismo tem causa, funcionamento e consequência visíveis.
 6. **Sem drama inventado.** Nenhuma falha ou risco é criado para dar tensão; toda falha do roteiro existe na física ou no uso real.
@@ -110,7 +110,7 @@ Escolha o foco pela fala, pela ação e pelo que o público deve entender. Regis
 - **Corte/raio-X 3D de verdade:** parede com espessura e conteúdo em volume (caldo, grãos, peças soltas). Placa plana colada é proibida; usar `clippingPlanes` ou transparência (carcaça 1 → 0,25 em 0,4 s). Peças conectadas são filhas do pai (`THREE.Group`) e se movem juntas; nada atravessa nem flutua.
 - **Uma cor fixa por componente** durante o vídeo todo.
 - **Cores com significado** (tokens `--cor-*` em `biblioteca/identidade/tokens.css`): branco legenda; amarelo destaque (nome, medida); verde positivo; vermelho negativo; azul frio/aperto/informação; laranja quente/tração; rosa invisível. Teal/laranja do tema só na marca (tarja, logo, uniforme do Zé).
-- **Zé Desmonte** (`biblioteca/personagens/ze-desmonte/`; `ze-desmonte-padrao.js` para vídeos novos; v3 só nos vídeos 10–14). **Tela da peça é só da peça**: o Zé é o "você" nos momentos fortes (abertura, falha, reação, piada, final) e entra grande só com motivo. Quanto ele aparece depende do tema e vai na ficha. Teste do take: "sem o Zé, a frase perde sentido?" Se não, ele sai ou fica pequeno ao fundo, trabalhando. Sem função no take, sai de quadro: nunca estátua, nunca cortado na borda. **Entra em movimento**, de fora do quadro, quando couber. **Figurino contínuo** no vídeo inteiro, salvo troca mostrada. Reações do `EFEITOS.md`. Sem deslizar de lado: troca de lugar fora de quadro.
+- **Zé** (`biblioteca/personagens/ze/`; `ze-padrao.js` para vídeos novos; v3 só nos vídeos 10–14). **Tela da peça é só da peça**: o Zé é o "você" nos momentos fortes (abertura, falha, reação, piada, final) e entra grande só com motivo. Quanto ele aparece depende do tema e vai na ficha. Teste do take: "sem o Zé, a frase perde sentido?" Se não, ele sai ou fica pequeno ao fundo, trabalhando. Sem função no take, sai de quadro: nunca estátua, nunca cortado na borda. **Entra em movimento**, de fora do quadro, quando couber. **Figurino contínuo** no vídeo inteiro, salvo troca mostrada. Reações do `EFEITOS.md`. Sem deslizar de lado: troca de lugar fora de quadro.
 - **Figurantes, clima e mundo que muda:** só quando o tema pedir, definidos na ficha. O item nasce no vídeo e vai para `biblioteca/` no 2º uso.
 - **Regras de ouro do movimento:**
   1. Luva/braço nunca dentro da peça; colher só a concha, cabo com cotovelo para fora.
@@ -131,7 +131,7 @@ Escolha o foco pela fala, pela ação e pelo que o público deve entender. Regis
 
 **Textos:**
 1. **Legenda** de 1–2 palavras por vez, branca, contorno escuro, sem tarja, um pouco abaixo do centro; a palavra-nome fica amarela.
-2. **Nome da peça** (`.apv-nome`, `kit/efeitos/rotulos-peca.js`): texto amarelo grande, traço preto, sobre a peça e inclinado com ela, sem placa. É overlay 2D ancorado; texto 3D e placa escura são proibidos (B47). **A peça ou o objeto inteiro acende** com `destacarPeca` (bases: 2 pulsos de ≈0,5 s); peça já amarela acende em branco. **Automático (usuário, 31/10, aprovado no 09):** toda peça que aparece ou é nomeada pulsa amarelo nela mesma, na palavra que a nomeia; vem do campo `destaque` do take (`[[alvo, palavra]]`) ou, sem ele, de `termos` + `alvo`; o modelo `criarMontagem` aplica sozinho. Momento decidido por take; na base estádio, destaque e nome começam em "Esse é…", ≈0,5 s antes da palavra, e o nome fica ≈1,7 s. Um destaque por vez; nada fica aceso depois do nome. Não contraria "sem contorno 3D": é transitório.
+2. **Nome da peça** (`.apv-nome`, `kit/efeitos/rotulos-peca.js`): texto amarelo grande, traço preto, sobre a peça e inclinado com ela, sem placa. É overlay 2D ancorado; texto 3D e placa escura são proibidos (B47). **A peça ou o objeto inteiro acende** com `destacarPeca` (padrão: 2 pulsos de ≈0,5 s); peça já amarela acende em branco. **Automático (usuário, 31/10, aprovado no 09):** toda peça que aparece ou é nomeada pulsa amarelo nela mesma, na palavra que a nomeia; vem do campo `destaque` do take (`[[alvo, palavra]]`) ou, sem ele, de `termos` + `alvo`; o modelo `criarMontagem` aplica sozinho. Momento decidido por take; na base estádio, destaque e nome começam em "Esse é…", ≈0,5 s antes da palavra, e o nome fica ≈1,7 s. Um destaque por vez; nada fica aceso depois do nome. Não contraria "sem contorno 3D": é transitório.
 3. **Pílula `• TEXTO`** (fundo branco, borda da cor do ponto, ponto colorido) explica, não nomeia; acompanha a peça na tela. **Cor do ponto = natureza:** vermelho problema/carga, verde benefício, azul água/frio, marrom terra.
 4. **Explicação gráfica** só quando ajuda: setas 3D de força (vermelho carga, verde sustentação), termômetro, medida amarela, partículas térmicas.
 
@@ -146,7 +146,7 @@ Entram em 3–5 quadros e somem em ~4. Ícones de edição incluem ▶▶ para p
 ## 5. Som
 
 - Voz contínua; **sem trilha** a não ser que o usuário peça. Loudness final **-14 LUFS ±0,5**, pico ≤ **-1 dBTP**.
-- **SFX só nas ações** (peça entra, encaixa, solta, chia, ferve, falha, clique); quantidade conforme o tema (bases: até ~14 por minuto). Proibido trem de bipes/tics sob a voz. Som contínuo (fervura, chiado) só no trecho do evento, baixo. Gerados por `ferramentas/sons.py`; amostras reais do usuário em `insumos/` têm prioridade.
+- **SFX só nas ações** (peça entra, encaixa, solta, chia, ferve, falha, clique); quantidade conforme o tema (ponto de partida: até ~14 por minuto). Proibido trem de bipes/tics sob a voz. Som contínuo (fervura, chiado) só no trecho do evento, baixo. Gerados por `ferramentas/sons.py`; amostras reais do usuário em `insumos/` têm prioridade.
 - Medir o arquivo final: `ffmpeg -i video.mp4 -af ebur128=peak=true -f null -`. Rodar `conferir.py --sfx som/sfx.wav` (faixa só dos efeitos) no P3.
 
 ---
@@ -222,8 +222,7 @@ Nada avança sem o portão anterior aprovado e registrado na nota `VÍDEO NN`.
 - [ ] Gancho forte, resultado final visível e pedido de comentário. Quando a ficha pedir "Parabéns", conferir a fala e o brilho.
 - [ ] LUFS -14 ±0,5; pico ≤ -1 dBTP.
 
-**Referências de qualidade (decisão do usuário, 30/10/2026):** a máquina de lavar **deixa de ser referência**.
-- Referência de qualidade visual: [guia de câmera](../refs/CAMERA.md) e o estudo que o fundamenta.
+**Referência de qualidade visual:** o [guia de câmera](../refs/CAMERA.md).
 
 ## 10. Retro e evolução
 
@@ -235,4 +234,4 @@ Registre decisões em [decisoes.md](decisoes.md), resultado em [evolucao.md](evo
 
 **v4.1:** critérios de retenção no roteiro e Retrocesso Causal opcional, do esqueleto à conferência no P3.
 
-**v4.0:** estudo Motor, Ponte e Futebol como referência atual. Famílias por intenção, checagem de quadros, câmera fixa quando serve à ação e autorização de render vinculada à revisão.
+**v4.0:** famílias de câmera por intenção, checagem de quadros, câmera fixa quando serve à ação e autorização de render vinculada à revisão.

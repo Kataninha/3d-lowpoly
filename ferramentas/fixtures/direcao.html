@@ -1,10 +1,10 @@
 <!doctype html><meta charset="utf-8">
 <style>:root{--cor-destaque:#ffd400}</style>
-<script type="importmap">{"imports":{"three":"/biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"/biblioteca/vendor/RoundedBoxGeometry.js","/modelo-video/kit/personagens/ze-desmonte/moves.js":"/biblioteca/personagens/ze-desmonte/moves.js","/modelo-video/kit/camera/diretor.js":"/biblioteca/camera/diretor.js","/modelo-video/kit/efeitos/destaque-peca.js":"/biblioteca/efeitos/destaque-peca.js"}}</script>
+<script type="importmap">{"imports":{"three":"/biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"/biblioteca/vendor/RoundedBoxGeometry.js","/modelo-video/kit/personagens/ze/moves.js":"/biblioteca/personagens/ze/moves.js","/modelo-video/kit/camera/diretor.js":"/biblioteca/camera/diretor.js","/modelo-video/kit/efeitos/destaque-peca.js":"/biblioteca/efeitos/destaque-peca.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
-import * as moves from '/biblioteca/personagens/ze-desmonte/moves.js';
-import {criarZeDesmonte} from '/biblioteca/personagens/ze-desmonte/ze-desmonte-v2.js';
+import * as moves from '/biblioteca/personagens/ze/moves.js';
+import {criarZe} from '/biblioteca/personagens/ze/ze-v2.js';
 import {calcularCamera, criarMontagem} from '/modelo-video/montagem-cena.template.js';
 const errors=[];
 async function check(name, f) {try {await f()} catch(e) {errors.push(name+': '+e.message)}}
@@ -20,13 +20,13 @@ await check('rotulos na peca',async ()=>{
  const [a,b]=raiz.children; assert(a.style.transform.includes('rotate(5deg)') && b.style.display==='none','posição do nome'); raiz.remove();
 });
 await check('zé segue a partitura',()=>{
- const ze=criarZeDesmonte(), camera=new THREE.PerspectiveCamera(45,1), alvo=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+ const ze=criarZe(), camera=new THREE.PerspectiveCamera(45,1), alvo=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
  const takes=[{take:1,t0:0,t1:1,alvo:'a',ze:'ausente',ze_tam:'fora'},{take:2,t0:1,t1:2,alvo:'a',ze:'ausente',ze_tam:'pequeno'}];
  const atualizar=criarMontagem({ze,camera,cameraData:{keyframes:[{tempo:0,duracao:2,alvo:'a',direcao:[0,0,1],fov:45}]},partitura:takes,alvos:{a:alvo},animadores:{},resetarPecas(){}});
  atualizar(.5); assert(ze.raiz.visible===false,'Zé fora apareceu'); atualizar(1.5); assert(ze.raiz.visible,'Zé não voltou'); atualizar(.5); assert(!ze.raiz.visible,'seek para trás');
 });
 await check('destaque automático pela partitura',()=>{
- const ze=criarZeDesmonte(), camera=new THREE.PerspectiveCamera(45,1);
+ const ze=criarZe(), camera=new THREE.PerspectiveCamera(45,1);
  const peca=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0x3366aa}));
  const tempos={frases:[{n:0,inicio:0,fim:2}],palavras:[{frase:0,palavra:'Motor',inicio:1,fim:1.2}]};
  const make=(destaque,alvos={p:peca})=>criarMontagem({ze,camera,cameraData:{keyframes:[{tempo:0,duracao:3,alvo:'p',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:3,ze:'ausente',alvo:'p',destaque}],alvos,animadores:{},resetarPecas(){},tempos});
@@ -56,7 +56,7 @@ await check('camera easing',()=>{
  }
 });
 await check('olhar',()=>{
- const ze=criarZeDesmonte(), alvo=new THREE.Vector3(100,2,0);
+ const ze=criarZe(), alvo=new THREE.Vector3(100,2,0);
  assert(typeof moves.olharPara==='function','olharPara ausente');
  moves.olharPara(ze,alvo,.9,{t0:1,t1:1.3}); const antes=ze.juntas.cabeca.rotation.y;
  moves.olharPara(ze,alvo,1.3,{t0:1,t1:1.3}); const fim=ze.juntas.cabeca.rotation.y;
@@ -64,7 +64,7 @@ await check('olhar',()=>{
  assert(Math.abs(antes)>0 && Math.abs(fim)<=Math.PI/3+1e-6 && Math.abs(ze.juntas.cabeca.rotation.y-antes)<1e-8,'olhar, limite ou seek');
 });
 await check('movimento natural e seek',()=>{
- const ze=criarZeDesmonte(), alvo=new THREE.Vector3(-.85,1.95,.45);
+ const ze=criarZe(), alvo=new THREE.Vector3(-.85,1.95,.45);
  for(const move of ['M01_segurar','M02_girarBotao','M03_pegarCabo']) {
   const sample=(t,estilo)=>{moves[move](ze,t,{alvo,alvoLocal:alvo,t0:1,t1:1.3,estilo});return ze.juntas.ombroD.quaternion.toArray()};
   const natural=sample(1.06,'natural'), seco=sample(1.06,'seco');
@@ -133,7 +133,7 @@ await check('janelas e camera sem auxiliares',async()=>{
  run(8,false); fx.rotuloEmPerspectiva(mesh,'B',8,{t0:3}); assert(mesh.children.length===0,'resíduo ao final');
 });
 await check('olhar na montagem',()=>{
- const ze=criarZeDesmonte(), obj=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)); obj.position.set(5,1,0);
+ const ze=criarZe(), obj=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)); obj.position.set(5,1,0);
  const cam=new THREE.PerspectiveCamera(45,1);
  const atualizar=criarMontagem({ze,camera:cam,cameraData:{keyframes:[{tempo:0,duracao:4,alvo:'p',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:1,ze:'ausente'},{t0:1,t1:2,ze:'M04',alvo:'p',olhar:{antecede:.25}}],alvos:{p:obj},animadores:{},resetarPecas:()=>{}});
  atualizar(.75); const inicio=ze.juntas.cabeca.rotation.y;
@@ -142,12 +142,12 @@ await check('olhar na montagem',()=>{
  atualizar(.9); assert(Math.abs(inicio)<1e-9 && Math.abs(antes)>0 && Math.abs(gesto)>Math.abs(antes) && Math.abs(ze.juntas.cabeca.rotation.y-antes)<1e-9,'olhar antecipado ou seek falhou');
 });
 await check('olhares consecutivos',()=>{
- const ze=criarZeDesmonte(), a=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)), b=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+ const ze=criarZe(), a=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)), b=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
  a.position.set(-5,1,0); b.position.set(5,1,0);
  const cam=new THREE.PerspectiveCamera(45,1);
  const atualizar=criarMontagem({ze,camera:cam,cameraData:{keyframes:[{tempo:0,duracao:4,alvo:'a',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:1,ze:'ausente',alvo:'a',olhar:{antecede:.25}},{t0:1,t1:2,ze:'ausente',alvo:'b',olhar:{antecede:.25}}],alvos:{a,b},animadores:{},resetarPecas:()=>{}});
  atualizar(.9); const real=ze.juntas.cabeca.rotation.y;
- const esperado=criarZeDesmonte(); moves.M08_idle(esperado,.9,{base:{posicao:esperado.raiz.position.clone(),rotacao:esperado.raiz.rotation.clone()}}); moves.olharPara(esperado,b,.9,{t0:1,t1:1.3,antecede:.25});
+ const esperado=criarZe(); moves.M08_idle(esperado,.9,{base:{posicao:esperado.raiz.position.clone(),rotacao:esperado.raiz.rotation.clone()}}); moves.olharPara(esperado,b,.9,{t0:1,t1:1.3,antecede:.25});
  assert(Math.abs(real-esperado.juntas.cabeca.rotation.y)<1e-9 && Math.abs(real)>0,'próximo olhar não antecipou');
  atualizar(1.5); atualizar(.9); assert(Math.abs(ze.juntas.cabeca.rotation.y-real)<1e-9,'seek inverso alterou o olhar');
 });

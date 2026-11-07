@@ -1,4 +1,4 @@
-"""Build partitura.json and partitura.md from a video's takes.json and its voice timings (or an estimate before the voice)."""
+"""Gera partitura.json e partitura.md a partir de takes.json e dos tempos da voz (ou de uma estimativa antes da voz)."""
 import argparse
 import json
 from pathlib import Path
@@ -38,7 +38,7 @@ def achar(dados, frase, palavra):
 
 
 def destaques(take, dados):
-    """[alvo, palavra] per take; default is the take's alvo on each of its termos. Returns [alvo, palavra, frase]."""
+    """[alvo, palavra] por take; o padrão é o alvo do take em cada um dos seus termos. Retorna [alvo, palavra, frase]."""
     termos = take.get('termos') or []
     pares = take.get('destaque') or ([[take['alvo'], t] for t in ([termos] if isinstance(termos, str) else termos)] if take.get('alvo') else [])
     saida = []

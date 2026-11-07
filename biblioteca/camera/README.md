@@ -1,7 +1,7 @@
-# Camera planning
+# Planejamento de câmera
 
-Use `sceneRegistry({stableId: object3D})`, then `planCandidates(take, registry, updateAt)`. A take contains `start`, `end`, `shotType`, `subjectId`, and optional `relatedIds` and `requiredVisibleIds`. Fill these from the score, using `t0` and `t1` for the times. Supply an absolute-time scene update and a list of possible occluders when available.
+Use `sceneRegistry({idEstavel: object3D})` e depois `planCandidates(take, registry, updateAt)`. Um take contém `start`, `end`, `shotType`, `subjectId` e, opcionalmente, `relatedIds` e `requiredVisibleIds`. Preencha esses campos a partir da partitura, usando `t0` e `t1` para os tempos. Informe uma atualização da cena em tempo absoluto e, quando houver, uma lista de possíveis oclusores.
 
-The candidates fit sampled object bounds against a caption-safe frame. Center-ray diagnostics indicate possible occlusion. Review actual frames, select A, B or C for each take and save `selectedCamera(takes, candidates, selection)` as camera.json. Pass that data to the mounting template. To try a specific pose directly, use `applyPose(camera, samplePose(candidate.samples, time))`. See the technical pilot.
+Os candidatos ajustam os limites amostrados dos objetos a um quadro com margem para legenda. Os diagnósticos de raio central indicam possível oclusão. Revise quadros reais, escolha A, B ou C para cada take e salve `selectedCamera(takes, candidates, selection)` como camera.json. Passe esses dados ao modelo de montagem. Para testar uma pose específica direto, use `applyPose(camera, samplePose(candidate.samples, time))`.
 
-The planner proposes framing. Section geometry, motion, scene lighting, continuity and label placement require authored direction and visual review.
+O planejador propõe o enquadramento. Geometria de corte, movimento, iluminação da cena, continuidade e posição dos rótulos exigem direção autoral e revisão visual.

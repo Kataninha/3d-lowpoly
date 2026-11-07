@@ -19,4 +19,4 @@ Overlays e som integrados, `hyperframes check` com 0 erros, `conferir` + mediç�
 ## Antes de responder
 Testes (`python -m unittest discover -s ferramentas -p "test_*.py"`), commit. Reporte: resumo + caminhos + números medidos. Tarefa ≤ 90 min; se estourar, pare e reporte.
 
-Para a etapa atual, siga o `WORKFLOW_MESTRE_ZE_DESMONTE.md` e os critérios de `refs/CAMERA.md`.
+Para a etapa atual, siga o `WORKFLOW_MESTRE.md` e os critérios de `refs/CAMERA.md`.

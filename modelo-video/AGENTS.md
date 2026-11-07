@@ -1,7 +1,7 @@
-# Video project
+# Projeto de vídeo
 
-Read ../../WORKFLOW_MESTRE_ZE_DESMONTE.md, ../../receitas/receita-unificada.md and ../../refs/CAMERA.md.
-Use Zé v3, the copied kit and one camera source. Never mark a gate approved without its evidence.
-Read the HyperFrames skills before editing HTML. Run check, inspect real frames, prove repeated seek.
-Final render requires recorded user approval. Publishing is separate and requires explicit authorization.
-The parent template is technical scaffolding, not an approved production scene or narration.
+Leia ../../WORKFLOW_MESTRE.md, ../../receitas/receita-unificada.md e ../../refs/CAMERA.md.
+Use o Zé, o kit copiado e uma única fonte de câmera. Nunca marque um portão como aprovado sem a sua evidência.
+Leia as skills do HyperFrames antes de editar o HTML. Rode o check, inspecione quadros reais e prove o seek repetido.
+O render final exige aprovação registrada do usuário. Publicar é separado e exige autorização explícita.
+O modelo-pai é andaime técnico, não uma cena nem uma narração aprovadas.

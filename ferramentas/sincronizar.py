@@ -1,4 +1,4 @@
-"""Build a video kit from its library manifest without overwriting files."""
+"""Monta o kit de um vídeo a partir do manifesto da biblioteca, sem sobrescrever arquivos."""
 import argparse
 import hashlib
 import json
@@ -13,41 +13,41 @@ def sha256(path):
 
 
 def file_manifest(directory):
-    """Hash actual regular files; never accept links to mutable library content."""
+    """Calcula o hash de arquivos regulares; nunca aceita links para conteúdo mutável da biblioteca."""
     result = {}
     for path in sorted(Path(directory).rglob('*')):
         if path.is_symlink() or (hasattr(path, 'is_junction') and path.is_junction()):
-            raise ValueError(f'Linked asset is not an immutable copy: {path}')
+            raise ValueError(f'O ativo ligado não é uma cópia imutável: {path}')
         if path.is_file():
             result[path.relative_to(directory).as_posix()] = sha256(path)
     return result
 
 
 def sync(video, copy=True):
-    """Create an independent kit. The legacy copy argument is accepted but links are never made."""
+    """Cria um kit independente. O argumento antigo de cópia é aceito, mas links nunca são criados."""
     video = Path(video).resolve()
     library = ROOT / 'biblioteca'
     manifest = json.loads((video / 'biblioteca.lock.json').read_text(encoding='utf-8'))
     if manifest.get('version') != 1 or not isinstance(manifest.get('items'), list):
-        raise ValueError('Invalid library manifest')
+        raise ValueError('Manifesto da biblioteca inválido')
     items = []
     for item in manifest['items']:
         relative = Path(item)
         if relative.is_absolute() or '..' in relative.parts or not relative.parts:
-            raise ValueError(f'Invalid library item: {item}')
+            raise ValueError(f'Item da biblioteca inválido: {item}')
         src = library / relative
         if not src.is_dir() or not src.resolve().is_relative_to(library.resolve()):
-            raise ValueError(f'Library item missing: {item}')
+            raise ValueError(f'Item da biblioteca ausente: {item}')
         items.append((src, relative))
     for index, (src, relative) in enumerate(items):
         if any(relative == other or relative in other.parents or other in relative.parents
                for _, other in items[:index]):
-            raise ValueError(f'Overlapping library item: {relative}')
+            raise ValueError(f'Item da biblioteca sobreposto: {relative}')
         file_manifest(src)
     kit = video / 'kit'
     lock = video / 'kit.manifest.json'
     if lock.exists() or kit.exists() or kit.is_symlink():
-        raise FileExistsError(f'Kit already exists: {kit}')
+        raise FileExistsError(f'O kit já existe: {kit}')
     kit.mkdir()
     for src, rel in items:
         dest = kit / rel

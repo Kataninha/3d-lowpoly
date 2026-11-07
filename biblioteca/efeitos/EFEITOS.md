@@ -1,11 +1,11 @@
-# Efeitos e reações do Zé Desmonte — como transmitir tudo VISUALMENTE
+# Efeitos e reações do Zé — como transmitir tudo VISUALMENTE
 
 Nos vídeos de referência, nenhuma sensação fica só na narração. Cansaço vira suor, cheiro ruim vira linhas verdes, barulho vira texto tremendo e descoberta vira lâmpada.
 Este guia explica como fazer isso no Mundo100Manual usando `kit/efeitos/efeitos.js`.
 
 Referências visuais:
 - `referencias/folha_05_reacoes.png`: todas as reações paradas.
-- `videos/00-exemplo-reacoes/zeDesmonte-reacoes.mp4`: todas as reações animadas (19,6 s).
+- `videos/00-exemplo-reacoes/zePersonagem-reacoes.mp4`: todas as reações animadas (19,6 s).
 - `videos/00-exemplo-reacoes/index.html`: código de exemplo para copiar.
 
 ---
@@ -17,8 +17,8 @@ Nos vídeos de referência nada "pula": o boneco muda de pose deslizando, o rost
 
 | O que muda | Como fazer (sempre) | Duração mínima |
 | --- | --- | --- |
-| Pose do Zé Desmonte | `zeDesmonte.misturarPoses('de', 'para', (t - inicio) / dur)` ou `zeDesmonte.irParaPose('para', k)` | 0,3 a 0,5 s |
-| Emoção do Zé Desmonte | `zeDesmonte.misturarEmocoes('de', 'para', (t - inicio) / dur)`: sobrancelhas deslizam e olhos e boca piscam na troca | 0,25 a 0,35 s |
+| Pose do Zé | `zePersonagem.misturarPoses('de', 'para', (t - inicio) / dur)` ou `zePersonagem.irParaPose('para', k)` | 0,3 a 0,5 s |
+| Emoção do Zé | `zePersonagem.misturarEmocoes('de', 'para', (t - inicio) / dur)`: sobrancelhas deslizam e olhos e boca piscam na troca | 0,25 a 0,35 s |
 | Reação (`reagir`) | Já é fluida: entra e sai em `transicao` (padrão 0,4 s). Nunca use `transicao: 0` | automática |
 | Efeitos (suor, fedor…) | Já entram e saem com fade e "pulo" | automática |
 | Objeto aparecendo | Cresce (escala 0 → 1 com `suavizar`) ou desliza para o lugar; nunca `visible = true` de uma vez | 0,3 s |
@@ -29,24 +29,24 @@ Nos vídeos de referência nada "pula": o boneco muda de pose deslizando, o rost
 | Textos de tela | Entram com GSAP (`back.out`, `power3.out`), nunca aparecem secos | 0,2 a 0,3 s |
 
 **Proibido:**
-- chamar `zeDesmonte.pose('outra')` ou `zeDesmonte.emocao('outra')` diferente da do quadro anterior sem mistura;
+- chamar `zePersonagem.pose('outra')` ou `zePersonagem.emocao('outra')` diferente da do quadro anterior sem mistura;
 - trocar `visible` de objeto grande no meio da cena;
 - teleportar a câmera. Corte seco só é permitido no CTA final, e mesmo assim os cartões entram animados.
 
 **Modelo de troca de pose + emoção no roteiro:**
 
 ```js
-// de 2,0 s a 2,4 s o Zé Desmonte sai de "explicar/feliz" para "apontar/surpreso"
+// de 2,0 s a 2,4 s o Zé sai de "explicar/feliz" para "apontar/surpreso"
 const k = (t - 2.0) / 0.4;
-if (t < 2.0)      zeDesmonte.pose("explicar").emocao("feliz");
-else if (t < 2.4) zeDesmonte.misturarPoses("explicar", "apontar", k).misturarEmocoes("feliz", "surpreso", k);
-else              zeDesmonte.pose("apontar").emocao("surpreso");
+if (t < 2.0)      zePersonagem.pose("explicar").emocao("feliz");
+else if (t < 2.4) zePersonagem.misturarPoses("explicar", "apontar", k).misturarEmocoes("feliz", "surpreso", k);
+else              zePersonagem.pose("apontar").emocao("surpreso");
 ```
 
 **Modelo de câmera viajando (sem corte):**
 
 ```js
-import { suavizar } from "./kit/personagens/ze-desmonte/ze-desmonte.js";
+import { suavizar } from "./kit/personagens/ze/ze.js";
 const k = suavizar(Math.min(Math.max((t - 6.0) / 0.8, 0), 1));   // 0,8 s de viagem
 camera.position.lerpVectors(posA, posB, k);
 alvo.lerpVectors(alvoA, alvoB, k);
@@ -70,7 +70,7 @@ O espectador sente uma viagem contínua, não um corte.
 | --- | --- |
 | "cansa", "difícil", "esforço" | `reagir('suando')`: gotas de suor + rosto cansado + corpo curvado |
 | "fica com medo", "e se der errado?" | `reagir('nervoso')`: suor + tremor leve |
-| "estraga", "apodrece", "fedor" | `reagir('fedor')`: linhas verdes + moscas + Zé Desmonte tapando o nariz |
+| "estraga", "apodrece", "fedor" | `reagir('fedor')`: linhas verdes + moscas + Zé tapando o nariz |
 | "esquenta demais", "trava", "não funciona" | `reagir('raiva')`: veia pulsando + vapor saindo da cabeça + tremor |
 | "então…", "a solução é…" | `reagir('ideia')`: lâmpada acendendo + brilhos + braço para cima |
 | "como assim?", "por quê?" | `reagir('duvida')`: três "?" aparecendo + coçar a cabeça |
@@ -91,7 +91,7 @@ O espectador sente uma viagem contínua, não um corte.
 ### Passo 1: importar e preparar a fonte
 
 ```js
-import { criarZeDesmonte } from "./kit/personagens/ze-desmonte/ze-desmonte.js";
+import { criarZe } from "./kit/personagens/ze/ze.js";
 import { prepararEfeitos, reagir, criarEfeito, tremer, pararTremor } from "./kit/efeitos/efeitos.js";
 
 const pronto = prepararEfeitos();   // carrega a fonte Poppins usada em "?", "Z", "!" e onomatopeias
@@ -108,11 +108,11 @@ await pronto;
 Crie tudo **uma vez**, fora do `desenhar`:
 
 ```js
-const zeDesmonte = criarZeDesmonte();
-cena.add(zeDesmonte.raiz);
+const zePersonagem = criarZe();
+cena.add(zePersonagem.raiz);
 
-const cansaco = reagir(zeDesmonte, "suando", { inicio: 2.5, duracao: 2.0 });  // de 2,5 s a 4,5 s
-const nojo    = reagir(zeDesmonte, "fedor",  { inicio: 6.0, duracao: 1.8 });
+const cansaco = reagir(zePersonagem, "suando", { inicio: 2.5, duracao: 2.0 });  // de 2,5 s a 4,5 s
+const nojo    = reagir(zePersonagem, "fedor",  { inicio: 6.0, duracao: 1.8 });
 const motorOn = criarEfeito("barulho", { alvo: motor, texto: "RRR-RRR!", inicio: 9.0, duracao: 1.5 });
 ```
 
@@ -120,11 +120,11 @@ const motorOn = criarEfeito("barulho", { alvo: motor, texto: "RRR-RRR!", inicio:
 
 ```js
 desenhar = (t) => {
-  zeDesmonte.pose("parado").emocao("neutro");   // 1) pose e emoção normais do roteiro
+  zePersonagem.pose("parado").emocao("neutro");   // 1) pose e emoção normais do roteiro
   cansaco.atualizar(t);                   // 2) reações: dentro da janela, trocam pose, emoção, efeitos e tremor
   nojo.atualizar(t);
   motorOn.atualizar(t);
-  zeDesmonte.atualizar(t);                      // 3) piscada e respiração
+  zePersonagem.atualizar(t);                      // 3) piscada e respiração
   renderer.render(cena, camera);
 };
 ```
@@ -135,13 +135,13 @@ A ordem importa. Se a reação vier antes da pose normal, a pose normal apaga a 
 
 ## 3. Opções
 
-### `reagir(zeDesmonte, nome, opcoes)`
+### `reagir(zePersonagem, nome, opcoes)`
 
 | Opção | Padrão | O que faz |
 | --- | --- | --- |
 | `inicio` | 0 | Segundo em que a reação começa |
 | `duracao` | infinito | Quanto tempo dura (entra com fade de 0,12 s e sai com 0,2 s) |
-| `pose` | `true` | `false` mantém a pose atual do Zé Desmonte (por exemplo, suar enquanto pedala) |
+| `pose` | `true` | `false` mantém a pose atual do Zé (por exemplo, suar enquanto pedala) |
 | `transicao` | 0,4 | Segundos para entrar e sair da reação, partindo da pose e emoção atuais |
 | `escala` | 1 | Tamanho dos efeitos (1,3 = 30% maior) |
 
@@ -149,8 +149,8 @@ A ordem importa. Se a reação vier antes da pose normal, a pose normal apaga a 
 
 | Opção | O que faz |
 | --- | --- |
-| `alvo` | **Obrigatório.** Onde o efeito fica preso: `zeDesmonte.juntas.cabeca`, um objeto da cena, uma peça do motor… |
-| `posicao` | `[x, y, z]` em relação ao alvo (cada efeito já tem um padrão para a cabeça do Zé Desmonte) |
+| `alvo` | **Obrigatório.** Onde o efeito fica preso: `zePersonagem.juntas.cabeca`, um objeto da cena, uma peça do motor… |
+| `posicao` | `[x, y, z]` em relação ao alvo (cada efeito já tem um padrão para a cabeça do Zé) |
 | `inicio`, `duracao`, `escala` | Iguais aos da reação |
 | `texto` | Só em `barulho`: a onomatopeia |
 | `cor` | Em `barulho`, `forca` e `fumaca`: troca a cor |
@@ -159,7 +159,7 @@ A ordem importa. Se a reação vier antes da pose normal, a pose normal apaga a 
 
 ### `tremer(objeto, t, intensidade, frequencia)`
 
-Faz qualquer objeto tremer: o Zé Desmonte com medo, uma máquina ligada ou uma panela fervendo.
+Faz qualquer objeto tremer: o Zé com medo, uma máquina ligada ou uma panela fervendo.
 Chame em todo quadro durante o tremor e `pararTremor(objeto)` quando acabar.
 Intensidades: leve `0.01`, médio `0.02`, forte `0.04`.
 
@@ -181,7 +181,7 @@ Intensidades: leve `0.01`, médio `0.02`, forte `0.04`.
 | Batida, pancada | `PÁ!` | amarelo |
 | Algo quebrando | `CRACK!` | branco |
 
-Regras: a onomatopeia sempre **perto da fonte do som** (no motor, não no Zé Desmonte), dura de 0,8 a 1,5 s e entra junto com o efeito sonoro de verdade, se houver.
+Regras: a onomatopeia sempre **perto da fonte do som** (no motor, não no Zé), dura de 0,8 a 1,5 s e entra junto com o efeito sonoro de verdade, se houver.
 
 ```js
 criarEfeito("barulho", { alvo: motor, posicao: [0, 0.8, 0], texto: "BUM!", cor: CORES_EFEITO.raiva, inicio: 4, duracao: 1 });
@@ -192,12 +192,12 @@ criarEfeito("barulho", { alvo: motor, posicao: [0, 0.8, 0], texto: "BUM!", cor: 
 ## 5. Boas práticas (o que deixa igual aos vídeos de referência)
 
 1. **Exagerar.** Efeito pequeno não é percebido no celular. Use `escala` de 1,2 a 1,5 em planos abertos.
-2. **Um sentimento por vez.** No máximo uma reação ativa no Zé Desmonte. Efeitos em objetos (fumaça, barulho) podem acontecer junto.
+2. **Um sentimento por vez.** No máximo uma reação ativa no Zé. Efeitos em objetos (fumaça, barulho) podem acontecer junto.
 3. **Duração:** reação de 1,2 a 2,5 s. Menos que 0,8 s ninguém vê; mais que 3 s cansa.
 4. **Sincronia:** a reação começa **na palavra** da narração (o tempo vem da transcrição da voz).
 5. **Câmera:** durante uma reação, aproxime o rosto (close de 0,5 a 1 s), como a referência faz no "rosto triste".
 6. **Emoção combina com o efeito:** suor com rosto alegre confunde. Use as reações prontas ou siga a tabela da seção 1.
-7. **Fedor e fumaça saem do objeto,** não do Zé Desmonte. Para fedor de uma comida: `criarEfeito('fedor', { alvo: comida })` e, no Zé Desmonte, `reagir(zeDesmonte, 'fedor')` (que tapa o nariz).
+7. **Fedor e fumaça saem do objeto,** não do Zé. Para fedor de uma comida: `criarEfeito('fedor', { alvo: comida })` e, no Zé, `reagir(zePersonagem, 'fedor')` (que tapa o nariz).
 8. **Não cobrir o rosto:** efeitos de cima (`ideia`, `duvida`, `susto`, `barulho`) ficam acima da cabeça. Se a câmera estiver muito perto, eles podem sair do quadro: afaste a câmera ou use `posicao` mais baixa.
 9. **Texto da tela e efeito juntos:** se a palavra-chave da legenda for "FEDOR", o efeito de fedor aparece na mesma hora.
 
@@ -214,12 +214,12 @@ criarEfeito("barulho", { alvo: motor, posicao: [0, 0.8, 0], texto: "BUM!", cor: 
 
 ---
 
-## 7. Poses e emoções novas no Zé Desmonte (usadas pelas reações)
+## 7. Poses e emoções novas no Zé (usadas pelas reações)
 
 - **Poses:** `taparNariz`, `cocarCabeca`, `ideia`, `frio`.
 - **Emoções:** `nojo` (olhos semicerrados e sobrancelhas franzidas), `tonto` (olhos em X).
 
-Também podem ser usadas sozinhas: `zeDesmonte.pose('cocarCabeca').emocao('tonto')`.
+Também podem ser usadas sozinhas: `zePersonagem.pose('cocarCabeca').emocao('tonto')`.
 
 ---
 
@@ -228,9 +228,9 @@ Também podem ser usadas sozinhas: `zeDesmonte.pose('cocarCabeca').emocao('tonto
 - [ ] Nenhuma pose, emoção, objeto, cor ou câmera muda em um único quadro (tudo misturado em 0,25 s ou mais).
 - [ ] Toda sensação, som ou cheiro citado na narração tem um efeito visual.
 - [ ] O efeito começa na palavra certa (confira com a transcrição).
-- [ ] Nenhum efeito cobre o rosto do Zé Desmonte nem sai do quadro.
+- [ ] Nenhum efeito cobre o rosto do Zé nem sai do quadro.
 - [ ] Onomatopeias ficam perto da fonte do som.
-- [ ] No máximo uma reação ativa no Zé Desmonte por vez.
+- [ ] No máximo uma reação ativa no Zé por vez.
 - [ ] `prepararEfeitos()` foi aguardado antes de criar efeitos de texto.
 - [ ] Snapshot conferido no começo, meio e fim de cada efeito.
 

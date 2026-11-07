@@ -1,10 +1,10 @@
-# Tool entry points
+# Pontos de entrada das ferramentas
 
-See [the production workflow](../WORKFLOW_MESTRE_ZE_DESMONTE.md) for command order, approvals and evidence.
+Veja o [workflow de produção](../WORKFLOW_MESTRE.md) para a ordem dos comandos, as aprovações e as evidências.
 
-- novo_video.py creates a project and a copied, hashed asset kit.
-- pipeline.py coordinates stages and blocks final render until approval.
-- importar_transcricao.py and gerar_partitura.py bind word timing to the take score.
-- mapa.py, provas.py and conferir.py collect the animatic and QA evidence.
-- render_final.py renders the approved cut from its video folder.
-- Run tests with `python -B -m unittest discover -s ferramentas`.
+- `novo_video.py` cria um projeto e um kit de ativos copiado, com hash.
+- `pipeline.py` coordena as etapas e bloqueia o render final até a aprovação.
+- `importar_transcricao.py` e `gerar_partitura.py` ligam o tempo por palavra à partitura de takes.
+- `mapa.py`, `provas.py` e `conferir.py` coletam o animatic e as evidências de QA.
+- `render_final.py` renderiza o corte aprovado a partir da pasta do vídeo.
+- Rode os testes com `python -B -m unittest discover -s ferramentas`.

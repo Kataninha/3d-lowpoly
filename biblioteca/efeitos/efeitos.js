@@ -11,8 +11,8 @@
  * Uso rápido:
  *   import { prepararEfeitos, criarEfeito, reagir } from './kit/efeitos/efeitos.js';
  *   await prepararEfeitos();                       // carrega a fonte das onomatopeias
- *   const suor = criarEfeito('suor', { alvo: zeDesmonte.juntas.cabeca, inicio: 2, duracao: 3 });
- *   const fedor = reagir(zeDesmonte, 'fedor', { inicio: 5, duracao: 2.5 });
+ *   const suor = criarEfeito('suor', { alvo: zePersonagem.juntas.cabeca, inicio: 2, duracao: 3 });
+ *   const fedor = reagir(zePersonagem, 'fedor', { inicio: 5, duracao: 2.5 });
  *   // dentro de desenhar(t):
  *   suor.atualizar(t);
  *   fedor.atualizar(t);
@@ -274,7 +274,7 @@ export function pararTremor(objeto) {
 // 4. CATÁLOGO DE EFEITOS
 //    Cada um recebe (grupo, opcoes) e devolve atualizar(u, k):
 //    u = segundos desde o início do efeito · k = opacidade geral (entrada/saída)
-//    Posições pensadas para o alvo zeDesmonte.juntas.cabeca (centro da cabeça).
+//    Posições pensadas para o alvo zePersonagem.juntas.cabeca (centro da cabeça).
 // ============================================================
 const CATALOGO = {
   /** Gotas de suor escorrendo da testa (cansaço, nervoso, calor). */
@@ -480,7 +480,7 @@ const CATALOGO = {
 
 export const EFEITOS = Object.keys(CATALOGO);
 
-// Posição padrão de cada efeito em relação ao alvo (centro da cabeça do Zé Desmonte)
+// Posição padrão de cada efeito em relação ao alvo (centro da cabeça do Zé)
 const POSICAO_PADRAO = { fedor: [0.95, -0.55, 0.3], barulho: [0, 1.15, 0], forca: [0, 0, 0], fumaca: [0, 0.5, 0] };
 
 /**
@@ -534,17 +534,17 @@ export const REACOES = {
 };
 
 /**
- * Aplica uma reação completa ao Zé Desmonte dentro de uma janela de tempo.
- * Chame atualizar(t) em todo quadro, DEPOIS de definir a pose/posição normal do Zé Desmonte:
+ * Aplica uma reação completa ao Zé dentro de uma janela de tempo.
+ * Chame atualizar(t) em todo quadro, DEPOIS de definir a pose/posição normal do Zé:
  * dentro da janela ela troca emoção e pose (a menos que opcoes.pose === false),
  * mostra os efeitos e aplica o tremor.
  */
-export function reagir(zeDesmonte, nome, opcoes = {}) {
+export function reagir(zePersonagem, nome, opcoes = {}) {
   const r = REACOES[nome];
   if (!r) throw new Error(`Reação desconhecida: ${nome}. Use uma de: ${Object.keys(REACOES).join(', ')}`);
   const { inicio = 0, duracao = Infinity, pose = true, escala = 1, transicao = 0.4 } = opcoes;
-  // transicao = segundos para entrar/sair (padrão 0,4 s). Nunca use 0: o Zé Desmonte "teleportaria".
-  const efeitos = r.efeitos.map((e) => criarEfeito(e, { alvo: zeDesmonte.juntas.cabeca, inicio, duracao, escala }));
+  // transicao = segundos para entrar/sair (padrão 0,4 s). Nunca use 0: o Zé "teleportaria".
+  const efeitos = r.efeitos.map((e) => criarEfeito(e, { alvo: zePersonagem.juntas.cabeca, inicio, duracao, escala }));
   return {
     nome,
     efeitos,
@@ -556,11 +556,11 @@ export function reagir(zeDesmonte, nome, opcoes = {}) {
         const entrada = limitar(u / transicao);
         const saida = Number.isFinite(duracao) ? limitar((duracao - u) / transicao) : 1;
         const k = Math.min(entrada, saida);
-        if (pose) zeDesmonte.irParaPose(r.pose, k);
-        zeDesmonte.misturarEmocoes(zeDesmonte.emocaoAtual, r.emocao, k);
-        if (r.tremor) tremer(zeDesmonte.raiz, t, r.tremor); else pararTremor(zeDesmonte.raiz);
+        if (pose) zePersonagem.irParaPose(r.pose, k);
+        zePersonagem.misturarEmocoes(zePersonagem.emocaoAtual, r.emocao, k);
+        if (r.tremor) tremer(zePersonagem.raiz, t, r.tremor); else pararTremor(zePersonagem.raiz);
       } else if (r.tremor) {
-        pararTremor(zeDesmonte.raiz);
+        pararTremor(zePersonagem.raiz);
       }
       efeitos.forEach((e) => e.atualizar(t));
     },

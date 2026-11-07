@@ -1,4 +1,4 @@
-"""Measure video dynamics and audio with FFmpeg; estimates are not camera/SFX ground truth."""
+"""Mede a dinâmica do vídeo e o áudio com FFmpeg; as estimativas não são verdade absoluta de câmera ou SFX."""
 import argparse, json, math, re, subprocess, tempfile
 from pathlib import Path
 
@@ -9,7 +9,7 @@ def probe(path):
     return json.loads(run(['ffprobe','-v','error','-show_format','-show_streams','-of','json',str(path)]).stdout)
 
 def count_onsets(path):
-    """Count energy rises at 20 ms resolution; mixed audio includes speech and music."""
+    """Conta subidas de energia em resolução de 20 ms; o áudio misturado inclui fala e música."""
     import array, sys
     proc=subprocess.run(['ffmpeg','-v','error','-i',str(path),'-vn','-ac','1','-ar','8000','-f','s16le','-'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=True)
     samples=array.array('h'); samples.frombytes(proc.stdout)
@@ -46,7 +46,7 @@ def measure(path, sfx_path=None):
     return result
 
 def resumo_direcao(takes):
-    """Summarise the score's direction choices for the producer; nothing here is a target."""
+    """Resume as escolhas de direção da partitura para o produtor; nada aqui é meta."""
     tempo={}; camera={}; total=0
     for take in takes:
         d=take['t1']-take['t0']; total+=d
@@ -79,7 +79,7 @@ def write_report(output,source,ref,data):
     (output/'resumo.md').write_text(report,encoding='utf-8')
 
 def sheet(video, ref, output, duration):
-    # Use one image per five seconds, then pair each with the corresponding reference.
+    # Usa uma imagem a cada cinco segundos e emparelha cada uma com a referência correspondente.
     frames=output/'quadros'; frames.mkdir()
     run(['ffmpeg','-hide_banner','-loglevel','error','-i',str(video),'-vf','fps=1/5,scale=180:320:force_original_aspect_ratio=decrease,pad=180:320:(ow-iw)/2:(oh-ih)/2','-n',str(frames/'video_%04d.png')])
     videos=sorted(frames.glob('video_*.png'))

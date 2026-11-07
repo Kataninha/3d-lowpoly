@@ -16,10 +16,10 @@ Formato: `### [ID] título` · Sintoma · Causa · Correção/Evitar · Status (
 - Fato: junctions funcionam; testar em `/api/projects/<id>/preview/kit/...`. Status: informativo.
 
 ### [B6] Acento em nome de arquivo (`zé_desmonte.js`)
-- Evitar: caminhos/imports sempre sem acento (`ze-desmonte`). Status: regra.
+- Evitar: caminhos/imports sempre sem acento (`ze`). Status: regra.
 
 ### [B7] Várias versões de `kiko.js` / "Kiko" nos projetos antigos
-- Evitar: só usar `biblioteca/personagens/ze-desmonte/ze-desmonte.js`. Projetos antigos intocados até aprovação. Status: aberto.
+- Evitar: só usar `biblioteca/personagens/ze/ze.js`. Projetos antigos intocados até aprovação. Status: aberto.
 
 ### [B8] Gemini inventa links e views em pesquisa
 - Sintoma: na T2, `pesquisa-tema/gemini.md` citou 3 vídeos do YouTube (kY3w6B6k3vE, 0kF6lX5U2t0, FTmeTVz24nG) que não existem (oEmbed 404/400), com views de milhões.

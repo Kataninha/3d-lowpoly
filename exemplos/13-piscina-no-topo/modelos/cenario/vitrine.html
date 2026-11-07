@@ -10,7 +10,7 @@
 <script>window.addEventListener('error', (e) => { document.body.dataset.test = JSON.stringify({ erro: String(e.message) + ' @' + e.filename + ':' + e.lineno }); });</script>
 <script type="module">
 import * as THREE from 'three';
-import { criarZeDesmonte, MEDIDAS } from '../../kit/personagens/ze-desmonte/ze-desmonte-v3.js';
+import { criarZe, MEDIDAS } from '../../kit/personagens/ze/ze-v3.js';
 import { criarCenario, criarSala } from './cenario.js';
 import { TORRE } from './torre.js';
 import { criarCorte } from './corte.js';
@@ -54,9 +54,9 @@ const B = (o) => new THREE.Box3().setFromObject(o, true), r = (x) => +x.toFixed(
 const solida = (o) => { const b = new THREE.Box3(); o.traverse((c) => { if (c.isMesh && c.name !== 'sombra-contato') b.expandByObject(c, true); }); return b; };
 
 // Ze v3 mede ~4,84 u de topete a bota; escala para 1,75 m = 3,5 u
-function escalaZe() { const z = criarZeDesmonte({ figurino: 'casa' }); const b = B(z.raiz); return 3.5 / (b.max.y - b.min.y); }
+function escalaZe() { const z = criarZe({ figurino: 'casa' }); const b = B(z.raiz); return 3.5 / (b.max.y - b.min.y); }
 function sentarZe(sala) {
-  const ze = criarZeDesmonte({ figurino: 'casa' });
+  const ze = criarZe({ figurino: 'casa' });
   ze.raiz.scale.setScalar(escalaZe());
   const j = ze.juntas; j.pernaE.rotation.x = j.pernaD.rotation.x = -1.25; j.joelhoE.rotation.x = j.joelhoD.rotation.x = 1.25;
   j.ombroE.rotation.set(0, 0, 0.15); j.ombroD.rotation.set(0, 0, -0.15); j.cotoveloE.rotation.x = j.cotoveloD.rotation.x = -0.4;
@@ -76,7 +76,7 @@ if (cfg.sala) {
   const ze = sentarZe(sala);
   sala.updateAt(t, cfg.p);
   if (cfg.corte) { sala.group.getObjectByName('paisagem').visible = false; const caps = new THREE.Group(); scene.add(caps); criarCorte(caps).aplicar(sala.group, new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0)); }
-  const zeEmPe = criarZeDesmonte({ figurino: 'casa' }); zeEmPe.raiz.scale.setScalar(escalaZe());
+  const zeEmPe = criarZe({ figurino: 'casa' }); zeEmPe.raiz.scale.setScalar(escalaZe());
   const bz = B(ze.raiz), sf = solida(sala.sofa);
   Object.assign(teste, {
     zeEmPeAltura: r(B(zeEmPe.raiz).max.y - B(zeEmPe.raiz).min.y), zeSentadoAltura: r(bz.max.y - bz.min.y), zeSentadoSoloY: r(bz.min.y),
@@ -92,7 +92,7 @@ if (cfg.sala) {
   const plano = cfg.corte ? new THREE.Plane(new THREE.Vector3(0, 0, -1), 0) : null;
   cen.updateAt(t, { ...cfg.p, corte: plano ? { plano } : undefined });
   cen.ambiente.sol.target.position.set(0, 30, 0); cen.ambiente.sol.target.updateMatrixWorld();
-  const ze = criarZeDesmonte({ figurino: 'casa' }); ze.raiz.scale.setScalar(escalaZe());
+  const ze = criarZe({ figurino: 'casa' }); ze.raiz.scale.setScalar(escalaZe());
   const zeAlt = B(ze.raiz).max.y - B(ze.raiz).min.y, andar = (i) => B(cen.torre.andares[i]);
   Object.assign(teste, {
     zeAltura: r(zeAlt), torreAltura: r(B(cen.torre.cobertura).max.y), alturaAndar: TORRE.H, razaoZe_Andar: r(zeAlt / TORRE.H), razaoTorre_Ze: r(B(cen.torre.cobertura).max.y / zeAlt),

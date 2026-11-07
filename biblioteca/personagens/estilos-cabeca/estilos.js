@@ -7,7 +7,7 @@
  *   cena.add(p.raiz); p.pose('acenar').emocao('feliz');
  */
 import * as THREE from 'three';
-import { criarZeDesmonte, MEDIDAS, PALETA } from '../ze-desmonte/ze-desmonte-v4.js';
+import { criarZe, MEDIDAS, PALETA } from '../ze/ze-v4.js';
 
 const [SX, SY, SZ] = MEDIDAS.cabeca.map((v) => v / 2);   // semi-eixos da cabeça
 
@@ -130,7 +130,7 @@ export const ESTILOS = {
 export function criarPersonagem(estilo = 'tigela', opcoes = {}) {
   const e = typeof estilo === 'string' ? ESTILOS[estilo] : estilo;
   if (!e || !(e.cabelo in CABELOS) || !(e.cabeca in CABECAS)) throw new Error(`Estilo desconhecido: ${JSON.stringify(estilo)}`);
-  const p = criarZeDesmonte(opcoes);
+  const p = criarZe(opcoes);
   const cabelo = p.raiz.getObjectByName('cabelo');
   const cabecaVisual = cabelo.parent;
   const pele = cabecaVisual.children[0].children[0];   // primeira peça do grupo da cabeça = pele

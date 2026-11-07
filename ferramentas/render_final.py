@@ -1,4 +1,4 @@
-"""Render an approved video with the pinned HyperFrames version."""
+"""Renderiza um vídeo aprovado com a versão fixada do HyperFrames."""
 import argparse
 from pathlib import Path
 import re
@@ -15,11 +15,11 @@ def main():
     args = parser.parse_args()
     video = Path.cwd().resolve()
     if video.parent != (ROOT / 'videos').resolve() or not re.fullmatch(r'[\w-]+\.mp4', args.name):
-        parser.error('Run from videos/<NN>-<slug> with a new MP4 filename')
+        parser.error('Rode a partir de videos/<NN>-<slug> com um nome novo de arquivo MP4')
     try:
         state = read_state(video)
         if not state or state.get('etapa') != 'P3' or state.get('schema_version') != 2:
-            raise ValueError('Expected a schema 2 video at approved P3')
+            raise ValueError('Esperado um vídeo schema 2 com P3 aprovado')
         require_inputs(video, 'render')
         require_stage(video, state, 'render')
         output = video / 'render' / args.name

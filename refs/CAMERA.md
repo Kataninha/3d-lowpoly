@@ -1,20 +1,20 @@
-# Camera direction from the current reference
+# Direção de câmera
 
-Source: the author's own study of three finished vertical 30 fps videos (motor, bridge and stadium). The study is not distributed with this repository. Camera paths and software are unknown. QA values are starting criteria for Mundo100Manual.
+Guia próprio do Mundo100Manual, nascido do estudo de vídeos verticais de 30 fps com motor, ponte e estádio. Os caminhos de câmera e o software desses vídeos são desconhecidos. Os valores de QA abaixo são critérios de partida, não metas.
 
-| Family | Use it when |
+| Família | Use quando |
 |---|---|
-| EST | Orient the viewer in the complete system |
-| HUM | Give an action, reaction or consequence human scale |
-| TRK | Follow a subject moving through space with room in front |
-| MEC | Keep a cycle readable while parts move |
-| DET | Identify a local component or fault |
-| SEC | Show an internal section from a clear angle or profile |
-| REL | Keep the cause, connection and effect visible in one view |
-| REV | Recover the whole system after a detail |
+| EST | Situar o espectador no sistema completo |
+| HUM | Dar escala humana a uma ação, reação ou consequência |
+| TRK | Seguir um sujeito que se move pelo espaço, com espaço à frente |
+| MEC | Manter um ciclo legível enquanto as peças se movem |
+| DET | Identificar um componente local ou uma falha |
+| SEC | Mostrar uma seção interna de um ângulo ou perfil claro |
+| REL | Manter causa, ligação e efeito visíveis numa única vista |
+| REV | Recuperar o sistema inteiro depois de um detalhe |
 
-Decide the action and target first. Use camera movement only when it reveals, follows or clarifies something. A locked shot is often best for a repeated mechanism. A section requires actual geometry or a clipping plane. Use cuts, split screen and before/after comparisons as editing choices. Keep left/right relationships and scale readable between cuts.
+Decida primeiro a ação e o alvo. Use movimento de câmera só quando ele revela, acompanha ou esclarece algo. Um plano travado costuma ser o melhor para um mecanismo que se repete. Uma seção exige geometria real ou um plano de corte. Use cortes, tela dividida e comparações antes/depois como escolhas de edição. Mantenha legíveis as relações esquerda/direita e a escala entre os cortes.
 
-Start QA with at least 90% of the required target box in the usable frame, side margins around 6–10%, and room for captions. Use three samples for stationary takes and five for moving ones. Adjust for intentional close crops, delayed reveals and validated caption placement. Log the reason, test the sequence and open the real frames. Treat an obscured principal action as a failure until the view changes or the reveal resolves it.
+Comece o QA com pelo menos 90% da caixa do alvo no quadro útil, margens laterais de 6–10% e espaço para legendas. Use três amostras em takes parados e cinco nos em movimento. Ajuste para recortes fechados intencionais, revelações atrasadas e posições de legenda validadas. Registre o motivo, teste a sequência e abra os quadros reais. Trate uma ação principal encoberta como falha até a vista mudar ou a revelação resolver.
 
-Use `sceneRegistry` to assign IDs to the actual objects. For a relation shot add both parts and the connecting element to `requiredVisibleIds`. A profile can be the clearest section view. No universal angle, mandatory orbit, minimum push-in or fixed cut cadence applies.
+Use `sceneRegistry` para atribuir IDs aos objetos reais. Em um plano de relação, inclua as duas peças e o elemento que as liga em `requiredVisibleIds`. Um perfil pode ser a vista de seção mais clara. Não existe ângulo universal, órbita obrigatória, aproximação mínima nem cadência fixa de cortes.

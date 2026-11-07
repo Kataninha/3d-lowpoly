@@ -1,4 +1,4 @@
-"""Create a new numbered video project from the shared template."""
+"""Cria um novo projeto de vídeo numerado a partir do modelo compartilhado."""
 import argparse
 import json
 from pathlib import Path
@@ -8,7 +8,7 @@ from sincronizar import ROOT, sync
 from pipeline import new_state
 
 def ignore_template_files(directory, names):
-    # Keep the editable template under modelos/, while omitting root-level backups.
+    # Mantém o modelo editável em modelos/ e omite os backups da raiz.
     if Path(directory).resolve() == (ROOT / 'modelo-video').resolve():
         return {name for name in ('index.v1.html', 'index.gerado.html', 'index.modelo.html', '.hyperframes') if name in names}
     if Path(directory).resolve() == (ROOT / 'modelo-video' / 'voz').resolve():
@@ -19,9 +19,9 @@ def ignore_template_files(directory, names):
 
 FICHA = '''# Ficha de direção - {slug}
 
-Decisões deste vídeo. Os números das bases são pontos de partida; o produtor decide por tema.
+Decisões deste vídeo. Os números de referência são pontos de partida; o produtor decide por tema.
 
-- Base(s) e por quê: a decidir
+- Referência(s) e por quê: a decidir
 - Quem protagoniza: a decidir
 - Quando e por que o Zé aparece: a decidir
 - Figurantes: a decidir
@@ -30,7 +30,7 @@ Decisões deste vídeo. Os números das bases são pontos de partida; o produtor
 - Figurino: a decidir
 - Final e pedido de comentário: a decidir
 - Experimento deste vídeo: a decidir
-- O que das bases não serve aqui, e o motivo: a decidir
+- O que dos números de referência não serve aqui, e o motivo: a decidir
 '''
 
 def main():
@@ -39,7 +39,7 @@ def main():
     parser.add_argument('--copy', action='store_true')
     args = parser.parse_args()
     if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', args.slug):
-        parser.error('Slug must contain lowercase letters, digits and hyphens')
+        parser.error('O slug deve ter só letras minúsculas, dígitos e hífens')
     videos = ROOT / 'videos'
     videos.mkdir(exist_ok=True)
     numbers = [int(m.group(1)) for p in videos.iterdir() if (m := re.match(r'^(\d+)-', p.name))]

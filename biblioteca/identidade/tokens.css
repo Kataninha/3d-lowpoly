@@ -10,7 +10,7 @@
 @font-face { font-family: "Poppins"; font-weight: 900; src: url("fontes/poppins-latin-900-normal.woff2") format("woff2"); }
 
 :root {
-  /* cores oficiais (as mesmas do Zé Desmonte) */
+  /* cores oficiais (as mesmas do Zé) */
   --apv-teal: #16858c;
   --apv-teal-escuro: #0b3b40;
   --apv-laranja: #ff7a1a;
@@ -78,7 +78,7 @@
   text-transform: uppercase;
 }
 
-/* ---------- BALÃO DE REAÇÃO DO ZÉ DESMONTE ---------- */
+/* ---------- BALÃO DE REAÇÃO DO ZÉ ---------- */
 .apv-balao {
   position: absolute;
   padding: 18px 32px;

@@ -1,11 +1,11 @@
-"""Convert HyperFrames word timestamps to tempos.json without estimating alignment.
+"""Converte os tempos por palavra do HyperFrames em tempos.json sem estimar alinhamento.
 
-Usage: python ferramentas/importar_transcricao.py videos/10-topic words.json
-Input: a HyperFrames word array, or {"words": [{"word": "...", "start": 0.1, "end": 0.4}], "duration": 1.0}.
-The `text` spelling of `word` is also accepted. Duration is measured from voz.wav.
-Script lines define phrases; bracketed voice directions are removed. Every spoken
-word must match the script in order (case/punctuation only). No fuzzy correction,
-word splitting, interpolation, or output overwrite is performed.
+Uso: python ferramentas/importar_transcricao.py videos/10-tema palavras.json
+Entrada: lista de palavras do HyperFrames, ou {"words": [{"word": "...", "start": 0.1, "end": 0.4}], "duration": 1.0}.
+A grafia `text` no lugar de `word` também é aceita. A duração é medida em voz.wav.
+Cada linha do roteiro define uma frase; direções de voz entre colchetes são removidas. Toda palavra
+falada deve corresponder ao roteiro, em ordem (só maiúsculas e pontuação podem diferir). Não há
+correção aproximada, divisão de palavras, interpolação nem sobrescrita de saída.
 """
 import argparse
 import json
@@ -24,7 +24,7 @@ METHOD = 'hyperframes words; real word timestamps; exact script match'
 
 def number(value, label):
     if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
-        raise ValueError(f'{label}: expected a finite number in seconds')
+        raise ValueError(f'{label}: esperado um número finito em segundos')
     return value
 
 
@@ -47,44 +47,44 @@ def reject_estimates(data):
     for key in ('method', 'metodo', 'alignment', 'source', 'timing_method'):
         label = str(data.get(key, '')).casefold()
         if any(term in label for term in ('estimat', 'estimad', 'estimativ', 'interpol', 'heuristic', 'pausas')):
-            raise ValueError('Estimated timestamps are not accepted')
+            raise ValueError('Tempos estimados não são aceitos')
     if data.get('estimated') or data.get('estimado'):
-        raise ValueError('Estimated timestamps are not accepted')
+        raise ValueError('Tempos estimados não são aceitos')
     if data.get('status') in ('failed', 'error') or data.get('error'):
-        raise ValueError('Transcription reports an alignment error')
+        raise ValueError('A transcrição relata erro de alinhamento')
 
 
 def convert(data, script, duration):
-    """Preserve timestamps verbatim, accepting only exact one-to-one alignment."""
+    """Preserva os tempos como vieram e aceita apenas alinhamento exato, palavra a palavra."""
     if isinstance(data, list):
         data = {'words': data}
     if not isinstance(data, dict) or not isinstance(data.get('words'), list) or not data['words']:
-        raise ValueError('Expected a nonempty HyperFrames words list')
+        raise ValueError('Esperada uma lista de palavras do HyperFrames não vazia')
     reject_estimates(data)
     number(duration, 'duration')
     if duration <= 0:
-        raise ValueError('Invalid audio duration')
+        raise ValueError('Duração de áudio inválida')
     if 'duration' in data and abs(number(data['duration'], 'duration') - duration) > .1:
-        raise ValueError('Transcript duration differs from the actual audio')
+        raise ValueError('A duração da transcrição difere do áudio real')
     lines = script_lines(script)
     expected = [(index, word) for index, line in enumerate(lines) for word in line]
     if len(expected) != len(data['words']):
-        raise ValueError(f'Script/transcript word count mismatch: {len(expected)} != {len(data["words"])}')
+        raise ValueError(f'Contagem de palavras diferente entre roteiro e transcrição: {len(expected)} != {len(data["words"])}')
     words = []
     previous_end = 0
     for index, ((phrase, expected_word), word) in enumerate(zip(expected, data['words'])):
         if not isinstance(word, dict):
-            raise ValueError(f'Invalid word at {index}')
+            raise ValueError(f'Palavra inválida na posição {index}')
         reject_estimates(word)
         spoken = word.get('word', word.get('text'))
         if not isinstance(spoken, str) or token(spoken) != token(expected_word):
-            raise ValueError(f'Script/transcript mismatch at word {index}: {expected_word!r} != {spoken!r}')
+            raise ValueError(f'Divergência entre roteiro e transcrição na palavra {index}: {expected_word!r} != {spoken!r}')
         start, end = number(word.get('start'), 'start'), number(word.get('end'), 'end')
         if not 0 <= start < end <= duration or start < previous_end:
-            raise ValueError(f'Invalid, overlapping or out-of-order timestamps at word {index}')
+            raise ValueError(f'Tempos inválidos, sobrepostos ou fora de ordem na palavra {index}')
         for field in ('probability', 'confidence'):
             if field in word and not .5 <= number(word[field], field) <= 1:
-                raise ValueError(f'Unreliable alignment at word {index}: {field}')
+                raise ValueError(f'Alinhamento não confiável na palavra {index}: {field}')
         words.append({'frase': phrase, 'palavra': re.sub(r'^\W+|\W+$', '', expected_word),
                       'inicio': start, 'fim': end})
         previous_end = end
@@ -108,21 +108,21 @@ def audio_duration(path):
 
 
 def validate_timings(video):
-    """Validate provenance and alignment again before a versioned project advances."""
+    """Valida de novo a origem e o alinhamento antes de um projeto versionado avançar."""
     video = Path(video)
     data = json.loads((video / 'voz/tempos.json').read_text(encoding='utf-8-sig'))
     origin = data.get('origem', {})
     if data.get('metodo') != METHOD or origin.get('voz_sha256') != sha256(video / 'voz/voz.wav') \
             or origin.get('roteiro_sha256') != sha256(video / 'roteiro.txt'):
-        raise ValueError('tempos.json requires real transcription bound to the current voice and script')
+        raise ValueError('tempos.json exige transcrição real ligada à voz e ao roteiro atuais')
     raw = {'words': [{'word': w['palavra'], 'start': w['inicio'], 'end': w['fim']}
                      for w in data['palavras']], 'duration': data['duracao']}
     checked = convert(raw, (video / 'roteiro.txt').read_text(encoding='utf-8-sig'),
                       audio_duration(video / 'voz/voz.wav'))
     if checked['palavras'] != data['palavras'] or checked['frases'] != data['frases']:
-        raise ValueError('Invalid phrase alignment in tempos.json')
+        raise ValueError('Alinhamento de frases inválido em tempos.json')
     if not re.fullmatch('[a-f0-9]{64}', origin.get('transcricao_sha256', '')):
-        raise ValueError('Missing transcription hash')
+        raise ValueError('Hash da transcrição ausente')
     return data
 
 
@@ -130,17 +130,17 @@ def import_transcript(video, transcript, output='voz/tempos.json'):
     video, transcript = Path(video).resolve(), Path(transcript).resolve()
     target = video / output
     if not target.resolve().is_relative_to(video):
-        raise ValueError('Output must stay inside the video folder')
+        raise ValueError('A saída deve ficar dentro da pasta do vídeo')
     if target.exists():
         raise FileExistsError(target)
     voice, script = video / 'voz/voz.wav', video / 'roteiro.txt'
     data = json.loads(transcript.read_text(encoding='utf-8-sig'))
     if isinstance(data, dict) and data.get('audio') and Path(data['audio']).name != voice.name:
-        raise ValueError('Transcript audio name differs from voz/voz.wav')
+        raise ValueError('O nome do áudio da transcrição difere de voz/voz.wav')
     hashes = {'voz_sha256': sha256(voice), 'roteiro_sha256': sha256(script),
               'transcricao_sha256': sha256(transcript)}
     if isinstance(data, dict) and data.get('audio_sha256', hashes['voz_sha256']) != hashes['voz_sha256']:
-        raise ValueError('Transcript audio hash mismatch')
+        raise ValueError('O hash do áudio da transcrição não confere')
     result = convert(data, script.read_text(encoding='utf-8-sig'), audio_duration(voice))
     result['origem'] = hashes
     target.parent.mkdir(parents=True, exist_ok=True)

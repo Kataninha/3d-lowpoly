@@ -3,7 +3,7 @@
 <div id="r"></div>
 <script type="importmap">{"imports":{"three":"../../vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../vendor/RoundedBoxGeometry.js"}}</script>
 <script type="module">
-import * as THREE from 'three'; import { luzPadrao, EMOCOES } from '../ze-desmonte/ze-desmonte-v4.js'; import { criarPersonagem } from './estilos.js';
+import * as THREE from 'three'; import { luzPadrao, EMOCOES } from '../ze/ze-v4.js'; import { criarPersonagem } from './estilos.js';
 const q=new URLSearchParams(location.search), grupo=q.get('grupo')||'novas', W=1500,H=1200,cw=W/5,ch=H/4;
 const nomes=grupo==='novas'?Object.keys(EMOCOES).slice(11):Object.keys(EMOCOES).slice(0,11);
 const r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});r.setSize(W,H);r.setClearColor(0xeae4d8);r.setScissorTest(true);document.body.prepend(r.domElement);

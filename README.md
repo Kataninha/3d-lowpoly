@@ -1,10 +1,32 @@
 # Mundo100Manual — estúdio de vídeos explicativos em 3D low poly
 
-Repositório de produção do canal **Mundo100Manual**: vídeos verticais (9:16, 1080 × 1920, 30 fps) para YouTube Shorts, TikTok e Instagram Reels, que explicam como as coisas funcionam com **causa e efeito**, mecanismos 3D low poly de brinquedo e um personagem fixo, o **Zé Desmonte**.
+Repositório de produção do canal **Mundo100Manual**: vídeos verticais (9:16, 1080 × 1920, 30 fps) para YouTube Shorts, TikTok e Instagram Reels, que explicam como as coisas funcionam com **causa e efeito**, mecanismos 3D low poly de brinquedo e um personagem fixo, o **Zé**.
 
 Tudo é código: cenas em **Three.js**, animação em **GSAP**, composição e render em **[HyperFrames](https://hyperframes.heygen.com)** (HTML renderizado para vídeo), som procedural em Python e conferência com **FFmpeg**. Nenhuma API paga é necessária.
 
 > O repositório entrega o **método e as ferramentas** (pipeline com portões, biblioteca de ativos, receita editorial, papéis de equipe, testes). Os MP4 dos vídeos publicados **não** estão aqui; ver [O que não está incluído](#o-que-não-está-incluído).
+
+## Como fica o resultado
+
+Quadros do vídeo de exemplo (`exemplos/13-piscina-no-topo`), produzido inteiramente com este repositório:
+
+| Abertura | Mecanismo | Cenário |
+|---|---|---|
+| ![Abertura do vídeo: sala, pipoca e teto que estala](docs/img/video-abertura.jpg) | ![Viga sob carga, com nome da peça e ícone de erro](docs/img/video-mecanismo.jpg) | ![Prédio em corte com piscina no topo](docs/img/video-cenario.jpg) |
+
+O **Zé**, personagem do canal, e os 10 estilos de figurantes que usam o mesmo corpo:
+
+| Zé (padrão) | Figurantes |
+|---|---|
+| ![Zé, personagem padrão do canal](docs/img/ze-padrao.png) | ![Dez estilos de cabelo e cabeça](docs/img/estilos-personagens.png) |
+
+O Zé tem **31 expressões de rosto**; esta folha mostra 20 delas:
+
+![Folha de 20 expressões do Zé](docs/img/emocoes.png)
+
+E o que um projeto novo já traz pronto, sem escrever nada (cenário, Zé, legenda, etiqueta, ícones e pedido de comentário, tudo no `modelo-video/`):
+
+![Quadros do modelo inicial em 2 s, 5 s e 7,76 s](docs/img/modelo-inicial.jpg)
 
 ---
 
@@ -12,21 +34,22 @@ Tudo é código: cenas em **Three.js**, animação em **GSAP**, composição e r
 
 1. [Como o repositório funciona (visão rápida)](#como-o-repositório-funciona-visão-rápida)
 2. [Requisitos e instalação](#requisitos-e-instalação)
-3. [Mapa de pastas](#mapa-de-pastas)
-4. [O workflow, etapa por etapa](#o-workflow-etapa-por-etapa)
-5. [Criar o primeiro vídeo (passo a passo)](#criar-o-primeiro-vídeo-passo-a-passo)
-6. [Voz e tempo por palavra](#voz-e-tempo-por-palavra)
-7. [Takes, partitura e câmera](#takes-partitura-e-câmera)
-8. [Biblioteca de ativos](#biblioteca-de-ativos)
-9. [Som](#som)
-10. [Conferência, aprovação e render final](#conferência-aprovação-e-render-final)
-11. [Estado, hashes e invalidação](#estado-hashes-e-invalidação)
-12. [Equipe e uso com agentes de IA](#equipe-e-uso-com-agentes-de-ia)
-13. [Receita editorial](#receita-editorial)
-14. [Testes](#testes)
-15. [Vídeo de exemplo](#vídeo-de-exemplo)
-16. [O que não está incluído](#o-que-não-está-incluído)
-17. [Licença e terceiros](#licença-e-terceiros)
+3. [Primeiros passos (10 minutos)](#primeiros-passos-10-minutos)
+4. [Mapa de pastas](#mapa-de-pastas)
+5. [O workflow, etapa por etapa](#o-workflow-etapa-por-etapa)
+6. [Criar o primeiro vídeo (passo a passo)](#criar-o-primeiro-vídeo-passo-a-passo)
+7. [Voz e tempo por palavra](#voz-e-tempo-por-palavra)
+8. [Takes, partitura e câmera](#takes-partitura-e-câmera)
+9. [Biblioteca de ativos](#biblioteca-de-ativos)
+10. [Som](#som)
+11. [Conferência, aprovação e render final](#conferência-aprovação-e-render-final)
+12. [Estado, hashes e invalidação](#estado-hashes-e-invalidação)
+13. [Equipe e uso com agentes de IA](#equipe-e-uso-com-agentes-de-ia)
+14. [Receita editorial](#receita-editorial)
+15. [Testes](#testes)
+16. [Vídeo de exemplo](#vídeo-de-exemplo)
+17. [O que não está incluído](#o-que-não-está-incluído)
+18. [Licença e terceiros](#licença-e-terceiros)
 
 ---
 
@@ -40,7 +63,7 @@ tema ──► esqueleto ──► roteiro ──► plano visual ──► voz 
 - Cada vídeo é uma **pasta numerada** em `videos/<NN>-<slug>/`, criada por `ferramentas/novo_video.py` a partir de `modelo-video/`.
 - O andamento de cada vídeo fica em `estado.json`. **`ferramentas/pipeline.py` é o guardião**: só deixa avançar de etapa se a anterior tem as aprovações e as provas exigidas, e impede o render final sem aprovação explícita do corte.
 - A **biblioteca** (`biblioteca/`) guarda tudo o que se reaproveita: personagem, cenários, objetos, efeitos, câmera, identidade visual. Cada vídeo recebe uma **cópia com hash** dessa biblioteca (`kit/`), então um vídeo antigo sempre se reconstrói igual.
-- A **receita editorial** (`receitas/receita-unificada.md`) define como escrever, filmar e revisar. O **workflow mestre** (`WORKFLOW_MESTRE_ZE_DESMONTE.md`) define a ordem, os comandos e as evidências.
+- A **receita editorial** (`receitas/receita-unificada.md`) define como escrever, filmar e revisar. O **workflow mestre** (`WORKFLOW_MESTRE.md`) define a ordem, os comandos e as evidências.
 - Humanos e agentes de IA (Claude, Codex, Gemini) seguem os mesmos arquivos. Os papéis estão em `equipe/`.
 
 Identidade do canal (nunca muda): 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível → solução → demonstração → nome técnico); a imagem mostra o que a fala explica; legenda curta; abertura forte; final com o resultado e pedido de comentário.
@@ -56,6 +79,9 @@ Identidade do canal (nunca muda): 3D low poly de brinquedo, 9:16, cores vivas; c
 | FFmpeg e FFprobe | qualquer recente, no `PATH` | quadros de prova, medição de som, render |
 | Chrome/Chromium | recente | snapshots e render (HyperFrames usa headless) |
 | HyperFrames CLI | `0.8.191` (fixada) | `check`, `snapshot`, `preview`, `render`, `transcribe` |
+| Playwright (Python) | opcional | só para `ferramentas/renderizar.py` (fotos do Zé e dos objetos em PNG) |
+
+O pipeline usa só a biblioteca padrão do Python: não há `pip install` obrigatório.
 
 Instalação:
 
@@ -75,13 +101,56 @@ O texto dos arquivos é sempre **UTF-8**. No Windows, use PowerShell ou Git Bash
 
 > A versão do HyperFrames é fixada de propósito: o render precisa ser reproduzível. Mudar a versão exige atualizar `package.json` do modelo e rever as provas.
 
+### Como usar o HyperFrames neste repositório
+
+O HyperFrames transforma uma página HTML (a composição do vídeo) em MP4. Você **não** instala nada dentro do repositório: a CLI é chamada por `npx`, sempre na versão fixada.
+
+1. **Uma vez por máquina, com internet:** `npx hyperframes@0.8.191 --version`. Isso guarda a CLI no cache do `npx`.
+2. **Depois disso tudo roda offline.** Os scripts usam `npx --offline --no-install hyperframes@0.8.191 ...`. Se aparecer erro de pacote não encontrado, repita o passo 1.
+3. Na pasta de um vídeo (`videos/<NN>-<slug>/`) valem estes atalhos do `package.json`:
+
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Abre a prévia no navegador, com a linha do tempo da composição. |
+| `npm run check` | Valida a composição (estrutura, áudio, contraste, layout). Zero erros é requisito, nunca aprovação. |
+| `npm run render -- nome.mp4` | Render final protegido (só depois do P3 aprovado; ver [Conferência](#conferência-aprovação-e-render-final)). |
+
+4. Para olhar quadros sem renderizar o vídeo todo: `npx --offline --no-install hyperframes@0.8.191 snapshot . --at 2,5` (a CLI salva PNGs e uma folha de contato em `.hyperframes/artifacts/snapshots/`).
+5. Transcrição local da voz (`transcribe`): veja [Voz e tempo por palavra](#voz-e-tempo-por-palavra).
+6. Para entender as regras de composição (atributos `data-*`, trilhas, timeline pausada do GSAP), consulte a documentação do HyperFrames em https://hyperframes.heygen.com.
+
+---
+
+## Primeiros passos (10 minutos)
+
+Teste o ambiente com um projeto descartável. Os passos 1 a 3 foram executados neste repositório com o resultado descrito; o passo 4 só abre o servidor de prévia.
+
+```bash
+# 1) Cria videos/10-demo a partir do modelo (já traz cenário, Zé, legenda e ícones)
+python ferramentas/novo_video.py demo
+
+# 2) Valida a composição com a CLI fixada (esperado: "Check passed", 0 erros)
+cd videos/10-demo
+npx --offline --no-install hyperframes@0.8.191 check
+
+# 3) Gera quadros em 2 s e 5 s (e no fim) para você olhar
+npx --offline --no-install hyperframes@0.8.191 snapshot . --at 2,5
+
+# 4) Abre a prévia no navegador
+npm run dev
+```
+
+O `check` avisa 3 vezes sobre trilhas densas (`timeline_track_too_dense`, `nested_structure_needs_subcomposition`). São avisos do modelo inicial, não erros.
+
+Quando terminar, apague a pasta `videos/10-demo` (ela é só um teste) antes de criar o primeiro vídeo real com `python ferramentas/novo_video.py <slug>`. Se não apagar, o vídeo real será o 11.
+
 ---
 
 ## Mapa de pastas
 
 | Pasta / arquivo | Para que serve |
 |---|---|
-| `WORKFLOW_MESTRE_ZE_DESMONTE.md` | **Comece aqui.** Etapas, comandos, evidências e regras de fluxo. |
+| `WORKFLOW_MESTRE.md` | **Comece aqui.** Etapas, comandos, evidências e regras de fluxo. |
 | `receitas/receita-unificada.md` | Receita editorial: roteiro, câmera, visual, som, partitura, portões, checklist. |
 | `receitas/decisoes.md` | Decisões permanentes, uma linha cada. |
 | `receitas/evolucao.md` | Retrospectiva por vídeo (o que deu errado e o que mudou). |
@@ -92,7 +161,7 @@ O texto dos arquivos é sempre **UTF-8**. No Windows, use PowerShell ou Git Bash
 | `biblioteca/` | Ativos reutilizáveis (um item por pasta, com `origem.json`). |
 | `ferramentas/` | Scripts Python do pipeline e testes (`test_*.py`). |
 | `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` | Instruções para agentes de IA. |
-| `.claude/skills/` e `.agents/skills/` | Skill `desmonta-pipeline` (cópias idênticas; `test_docs.py` confere). |
+| `.claude/skills/` e `.agents/skills/` | Skill `mundo100manual-pipeline` (cópias idênticas; `test_docs.py` confere). |
 | `CATALOGO.md`, `ATIVOS.md` | Índice dos ativos da biblioteca e onde cada coisa mora. |
 | `BUGS.md` | Memória de bugs: ler antes de qualquer tarefa; só se acrescenta, nunca se apaga. |
 
@@ -215,7 +284,7 @@ Um item por pasta, com arquivo principal, previews e `origem.json`. Nomes em min
 
 | Pasta | Conteúdo |
 |---|---|
-| `personagens/ze-desmonte/` | Zé Desmonte (versões v2–v4 e **padrão**), movimentos (`moves.js`), 31 expressões de rosto, figurinos. Vídeos novos importam `ze-desmonte-padrao.js`. |
+| `personagens/ze/` | Zé (versões v2–v4 e **padrão**), movimentos (`moves.js`), 31 expressões de rosto, figurinos. Vídeos novos importam `ze-padrao.js`. |
 | `personagens/estilos-cabeca/` | 10 estilos de personagem (NPCs/figurantes) sobre o corpo do Zé. |
 | `objetos/` | Carrinho com pneu e macaquinho, grua-torre, guindaste móvel, liquidificador (v1/v2), macaco hidráulico, panela de pressão. |
 | `cenarios/` | Cozinha (v1/v2), lavanderia, cobertura de obra. Escala: 1 unidade ≈ 0,5 m. |
@@ -306,7 +375,7 @@ Regras práticas para qualquer agente (detalhes em [`AGENTS.md`](AGENTS.md)):
 - Sem APIs pagas. Só assinaturas autenticadas. Publicar, apagar, instalar e custo pedem aprovação.
 - Manter `equipe/painel.md`, `videos/<NN>/registro.md` e `receitas/decisoes.md` atualizados.
 
-`CLAUDE.md` e `GEMINI.md` apenas acrescentam particularidades de cada ferramenta e importam `AGENTS.md`. A skill `desmonta-pipeline` (`.claude/skills/` e `.agents/skills/`) dispara o fluxo quando chega um tema.
+`CLAUDE.md` e `GEMINI.md` apenas acrescentam particularidades de cada ferramenta e importam `AGENTS.md`. A skill `mundo100manual-pipeline` (`.claude/skills/` e `.agents/skills/`) dispara o fluxo quando chega um tema.
 
 ---
 
@@ -339,7 +408,7 @@ Cobrem pipeline e portões, importação de transcrição, geração de partitur
 
 Ele fica **fora de `videos/`** de propósito: é material de leitura, e o pipeline só enxerga o que está em `videos/`. A pasta `kit/`, a voz, o som e as imagens de prova não estão no repositório, então o exemplo não renderiza como está; use-o para ler e copiar padrões (por exemplo, a organização de `modelos/mecanicas/`).
 
-`videos/` começa vazio. O primeiro vídeo que você criar será o `10-<slug>`.
+`videos/` começa vazio. O primeiro vídeo que você criar será o `10-<slug>`. Para ver um projeto rodando de verdade, use os [Primeiros passos](#primeiros-passos-10-minutos): o modelo inicial renderiza uma cena completa com o Zé.
 
 ---
 
@@ -347,7 +416,6 @@ Ele fica **fora de `videos/`** de propósito: é material de leitura, e o pipeli
 
 - MP4 de vídeos publicados, prévias e gravações de voz (ficam com o autor; `.gitignore` bloqueia `*.mp4`, `*.wav`, `*.mp3`, `*.png`, `*.jpg` fora das exceções de referência).
 - Os demais vídeos de produção do canal (10–12 e 14–19).
-- Estudo de referência de terceiros usado para calibrar a câmera (só o guia resultante, `refs/CAMERA.md`).
 - Configurações pessoais de ferramentas de IA (hooks e permissões locais).
 
 ---

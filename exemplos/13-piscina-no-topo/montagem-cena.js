@@ -3,8 +3,8 @@
 // A camera vem so de camera.json (samples por keyframe); sem camera.json a cena usa uma vista fixa de conferencia.
 import * as THREE from 'three';
 import { samplePose } from './kit/camera/diretor.js';
-import { criarZeDesmonte, MEDIDAS, sombraDeContato } from './kit/personagens/ze-desmonte/ze-desmonte-v3.js';
-import * as moves from './kit/personagens/ze-desmonte/moves.js';
+import { criarZe, MEDIDAS, sombraDeContato } from './kit/personagens/ze/ze-v3.js';
+import * as moves from './kit/personagens/ze/moves.js';
 import { tremer } from './kit/efeitos/efeitos.js';
 import { criarCenario } from './modelos/cenario/cenario.js';
 import { CENAS } from './modelos/mecanicas/index.js';
@@ -200,7 +200,7 @@ const guardaChuva = new THREE.Group(); scene.add(guardaChuva);
 
 // ---------- Ze: duas instancias (casa na sala, oficina na obra) ----------
 function criarAtor(figurino) {
-  const ze = criarZeDesmonte({ figurino });
+  const ze = criarZe({ figurino });
   const caixa = new THREE.Box3().setFromObject(ze.raiz);
   ze.raiz.scale.setScalar(3.5 / (caixa.max.y - caixa.min.y));   // 1,75 m = 3,5 u
   scene.add(ze.raiz);

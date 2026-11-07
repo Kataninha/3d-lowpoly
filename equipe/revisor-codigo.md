@@ -17,4 +17,4 @@ Somente `videos/<NN>/conferencia/revisao-codigo-rN.md`.
 ## Relatório
 `PASS` ou `FALHA` por item, com comando, saída decisiva e `arquivo:linha`. Para cada falha: dono (MODELADOR/ANIMADOR/ACABAMENTO) e correção sugerida. Reporte: PASS/FALHA + caminho do relatório. Tarefa ≤ 60 min.
 
-Para a etapa atual, siga o `WORKFLOW_MESTRE_ZE_DESMONTE.md` e os critérios de `refs/CAMERA.md`.
+Para a etapa atual, siga o `WORKFLOW_MESTRE.md` e os critérios de `refs/CAMERA.md`.

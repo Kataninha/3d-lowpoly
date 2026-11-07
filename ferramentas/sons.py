@@ -1,4 +1,4 @@
-"""Generate deterministic procedural SFX and an event list from JSON, without external libraries."""
+"""Gera SFX procedurais determinísticos e uma lista de eventos a partir de JSON, sem bibliotecas externas."""
 import argparse, array, json, math, random, wave
 from pathlib import Path
 SR=44100
@@ -10,7 +10,7 @@ def _passa_baixa(a):
     return lambda x: y.__setitem__(0,y[0]+a*(x-y[0])) or y[0]
 
 def _novos(nome,rng):
-    """Percussive/ambient SFX of video 08; each returns f(u, dur) with its own envelope."""
+    """SFX percussivos e ambientes; cada um retorna f(u, dur) com seu próprio envelope."""
     ruido=lambda: rng.uniform(-1,1)
     lp=_passa_baixa(0.08)
     if nome=='rangido': return lambda u,d: (tri(120+35*math.sin(2*math.pi*6*u),u)*0.5+lp(ruido())*0.8)*math.sin(math.pi*u/d)
@@ -48,7 +48,7 @@ def generate(video, events_path, timing_path="voz/tempos.json", output_dir="som"
             if (target.is_symlink() or not target.is_file() or not original.is_file()
                     or target.resolve() == original.resolve()
                     or target.read_bytes() != original.read_bytes()):
-                raise FileExistsError('SFX output already exists')
+                raise FileExistsError('A saída de SFX já existe')
     triggers=[]
     for event in events:
         if 'tempo' in event: start=float(event['tempo'])

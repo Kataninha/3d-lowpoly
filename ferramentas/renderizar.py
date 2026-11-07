@@ -1,11 +1,11 @@
 """Renderiza páginas do kit (Three.js) em PNG com fundo transparente.
 
 Uma foto:
-    python3 ferramentas/renderizar.py ferramentas/foto-zeDesmonte.html saida.png "pose=acenar&emocao=feliz" [largura] [altura]
+    python3 ferramentas/renderizar.py ferramentas/foto-ze.html saida.png "pose=acenar&emocao=feliz" [largura] [altura]
 
 Várias fotos (usado por gerar_referencias.py):
     from renderizar import renderizar_lote
-    renderizar_lote("ferramentas/foto-zeDesmonte.html", [("a.png", "pose=parado", 800, 1000), ...])
+    renderizar_lote("ferramentas/foto-ze.html", [("a.png", "pose=parado", 800, 1000), ...])
 
 Requisitos: pip install playwright && playwright install chromium
 """

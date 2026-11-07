@@ -1,18 +1,18 @@
-"""Build a composition from a video directory and a word timing JSON."""
+"""Monta uma composição a partir da pasta do vídeo e do JSON de tempos por palavra."""
 import argparse, html, json, re, unicodedata
 from pathlib import Path
 
 VOICE_MARKER = re.compile(r'\[[^\[\]\r\n]+\]')
 
 def caption_text(raw: str) -> str:
-    """Remove voice directions while preserving audio timing metadata."""
+    """Remove as direções de voz e preserva os metadados de tempo do áudio."""
     return VOICE_MARKER.sub('', raw).strip()
 
 def normalizar_termo(texto: str) -> str:
-    """Ignore accents, case and outer punctuation; preserve inner separators.
+    """Ignora acentos, maiúsculas e pontuação externa; preserva separadores internos.
 
-    Compound terms match a single caption token exactly: hyphens and spaces
-    are distinct, and separate caption tokens are not joined automatically.
+    Termos compostos casam exatamente com um único token de legenda: hífens e espaços
+    são distintos, e tokens de legenda separados não são juntados automaticamente.
     """
     decomposed = unicodedata.normalize('NFD', texto.casefold())
     normalized = ''.join(c for c in decomposed if unicodedata.category(c) != 'Mn')
@@ -25,7 +25,7 @@ def normalizar_termo(texto: str) -> str:
 
 
 def marcar_termos(data, partitura):
-    """Mark matching words only within the take's half-open time interval."""
+    """Marca palavras correspondentes só dentro do intervalo de tempo semiaberto do take."""
     takes = partitura if isinstance(partitura, list) else partitura.get('takes', [])
     for take in takes:
         termos = {normalizar_termo(t) for t in take.get('termos', []) if normalizar_termo(t)}
@@ -46,7 +46,7 @@ ICONES_CARTAO = {
 
 
 def gerar_cartoes(data, partitura):
-    """Build cards from unique spoken words within each take."""
+    """Monta cartões a partir de palavras faladas únicas dentro de cada take."""
     takes = partitura if isinstance(partitura, list) else partitura.get('takes', [])
     cartoes = []
     for indice, take in enumerate(takes):

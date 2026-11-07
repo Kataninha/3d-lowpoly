@@ -2,13 +2,13 @@
 <script type="importmap">{"imports":{"three":"./kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"./kit/vendor/RoundedBoxGeometry.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
-import {criarZeDesmonte} from './kit/personagens/ze-desmonte/ze-desmonte-v2.js';
+import {criarZe} from './kit/personagens/ze/ze-v2.js';
 import {criarMontagem,converterParametros} from './montagem-cena.template.js';
 const errors=[];
 try {
   const score=await (await fetch('./partitura.json')).json();
   const cameraData=await (await fetch('./camera.template.json')).json();
-  const scene=new THREE.Scene(), ze=criarZeDesmonte();scene.add(ze.raiz);
+  const scene=new THREE.Scene(), ze=criarZe();scene.add(ze.raiz);
   const objeto=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,.08),new THREE.MeshBasicMaterial());
   objeto.position.set(-.85,1.95,.45);scene.add(objeto);
   const alvos={objeto,detalhe:objeto,ze:ze.raiz}, camera=new THREE.PerspectiveCamera(45,1,.1,100);

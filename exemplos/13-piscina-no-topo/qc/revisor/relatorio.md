@@ -53,7 +53,7 @@ Nenhum.
 
 **B4 (baixo) — estado "visible && ..." depende do cenário zerar antes.** `montagem-cena.js:725` (`arvores.visible && n !== 4`) e `:729` (`casca-cobertura`). Hoje correto porque `cen.updateAt` repõe a visibilidade a cada quadro (a varredura de seek não achou diferença nos takes 4 e 15). Frágil se `obra.updateAt`/`torre.updateAt` deixarem de repor. Dono: ANIMADOR. Correção: atribuir `= n !== 4` só se a camada de baixo garantir, ou comentar a dependência.
 
-**B5 (baixo) — resíduos no kit.** BOM UTF-8 em `kit/efeitos/contorno-toon.js` (B31 pede UTF-8; módulo carrega, mas `cp` do kit repete o BOM). Cópias não usadas em `kit/personagens/ze-desmonte/` (`ze-desmonte.js`, `ze-desmonte-v2.js`, `ze-desmonte.pre-wf-h.js`); vídeo só importa `ze-desmonte-v3.js` e `moves.js`. Dono: MAESTRO (lock/manifesto). Correção: remover do kit só com aprovação (regra: não apagar arquivo existente).
+**B5 (baixo) — resíduos no kit.** BOM UTF-8 em `kit/efeitos/contorno-toon.js` (B31 pede UTF-8; módulo carrega, mas `cp` do kit repete o BOM). Cópias não usadas em `kit/personagens/ze/` (`ze.js`, `ze-v2.js`, `ze.pre-wf-h.js`); vídeo só importa `ze-v3.js` e `moves.js`. Dono: MAESTRO (lock/manifesto). Correção: remover do kit só com aprovação (regra: não apagar arquivo existente).
 
 ## Notas
 - Falso alarme meu: em uma sessão headless, depois de duas chamadas de ferramenta interrompidas por timeout durante laços longos, o canvas ficou com desvio-padrão fixo (3,69) e `gl.getError() = 1282`. Reproduzi com página nova: 2700 quadros em ordem aleatória sem erro. Não é vazamento da cena; ainda assim reforça B58: manter o detector de quadro vazio a cada render.

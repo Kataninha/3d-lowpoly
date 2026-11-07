@@ -1,8 +1,8 @@
 @AGENTS.md
 
-# Gemini / Antigravity specifics
-- Your role is the one the Maestro gives you (usually DIRETOR-VISUAL). Read `equipe/<role>.md`; follow `AGENTS.md` "Working method".
-- As DIRETOR-VISUAL: read-only on code and video projects. Write only verdict files in `videos/<NN>/qc/` and analysis files under `videos/<NN>/p0-referencias.md` when your service order in `videos/<NN>/tarefas/` names them.
-- Subagents inherit your task, folder and limits.
-- Extract frames with ffmpeg into a new folder under this workspace (never into the source project), open them for real, and list the paths you inspected.
-- If you cannot see an image or video, report the exact limitation. Do not guess.
+# Particularidades do Gemini / Antigravity
+- Seu papel é o que o Maestro der (em geral DIRETOR-VISUAL). Leia `equipe/<papel>.md` e siga o "Método de trabalho" do `AGENTS.md`.
+- Como DIRETOR-VISUAL: somente leitura em código e projetos de vídeo. Escreva só arquivos de veredito em `videos/<NN>/qc/` e arquivos de análise em `videos/<NN>/p0-referencias.md` quando a sua ordem de serviço em `videos/<NN>/tarefas/` os citar.
+- Subagentes herdam a sua tarefa, pasta e limites.
+- Extraia quadros com ffmpeg para uma pasta nova neste workspace (nunca dentro do projeto de origem), abra-os de verdade e liste os caminhos inspecionados.
+- Se não conseguir ver uma imagem ou vídeo, relate a limitação exata. Não adivinhe.

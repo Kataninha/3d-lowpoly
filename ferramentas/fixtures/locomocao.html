@@ -2,8 +2,8 @@
 <script type="importmap">{"imports":{"three":"/biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"/biblioteca/vendor/RoundedBoxGeometry.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
-import * as moves from '/biblioteca/personagens/ze-desmonte/moves.js';
-import {criarZeDesmonte} from '/biblioteca/personagens/ze-desmonte/ze-desmonte-v3.js';
+import * as moves from '/biblioteca/personagens/ze/moves.js';
+import {criarZe} from '/biblioteca/personagens/ze/ze-v3.js';
 // Mede, quadro a quadro, altura da sola e patinação do pé de apoio em M09.
 const casos=[
   {nome:'escala1-curta',escala:1,de:[0,0,0],para:[1.2,0,0],dur:1.5},
@@ -13,7 +13,7 @@ const casos=[
 ];
 const out=[], FPS=30;
 for (const c of casos) {
-  const ze=criarZeDesmonte(); ze.raiz.scale.setScalar(c.escala);
+  const ze=criarZe(); ze.raiz.scale.setScalar(c.escala);
   const de=new THREE.Vector3(...c.de), para=new THREE.Vector3(...c.para);
   const dir=para.clone().sub(de).normalize();
   const base={posicao:new THREE.Vector3(0,0,0)};

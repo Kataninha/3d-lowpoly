@@ -15,7 +15,7 @@ Formato: `### [ID] título` · Sintoma · Causa · Correção/Evitar · Status (
 - Sintoma: `localhost:<porta>/kit/...` devolve o HTML do studio, não o arquivo.
 - Fato: junctions funcionam; testar em `/api/projects/<id>/preview/kit/...`. Status: informativo.
 
-### [B6] Acento em nome de arquivo (`zé_desmonte.js`)
+### [B6] Acento em nome de arquivo (`zé_personagem.js`)
 - Evitar: caminhos/imports sempre sem acento (`ze`). Status: regra.
 
 ### [B7] Várias versões de `kiko.js` / "Kiko" nos projetos antigos

@@ -1,0 +1,2 @@
+Arquivos solicitados: musica.mp3, clique.wav, whoosh.wav, encaixe.wav, aspirador-loop.wav, scanner.wav, toque-obstaculo.wav, bipe.wav, conclusao.wav.
+Música instrumental sem voz, com pelo menos 2min15s. Efeitos curtos sem música embutida. WAV ou MP3; nomes diferentes podem ser identificados na montagem.

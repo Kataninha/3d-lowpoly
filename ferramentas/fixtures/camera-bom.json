@@ -1,0 +1,34 @@
+{
+  "fontes": [
+    "camera.json"
+  ],
+  "keyframes": [
+    {
+      "tempo": 0,
+      "duracao": 1,
+      "alvo": "peca",
+      "posicao": [
+        0,
+        0,
+        2
+      ],
+      "fimPosicao": [
+        0,
+        0,
+        2
+      ],
+      "fov": 45
+    },
+    {
+      "tempo": 1,
+      "duracao": 1,
+      "alvo": "peca",
+      "posicao": [
+        0,
+        0,
+        2
+      ],
+      "fov": 45
+    }
+  ]
+}

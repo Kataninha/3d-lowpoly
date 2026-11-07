@@ -1,0 +1,2514 @@
+{
+ "candidatos": [
+  {
+   "take": 1,
+   "t0": 0,
+   "t1": 7.273,
+   "alvo": "ze",
+   "shotType": "HUM",
+   "requeridos": [
+    "ze",
+    "sofa",
+    "painel-carga",
+    "piscina"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 0.22,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.914,
+       "painel-carga": 1,
+       "piscina": 0
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 1.82,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.914,
+       "painel-carga": 1,
+       "piscina": 0
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 3.64,
+      "ratios": {
+       "ze": 1,
+       "sofa": 1,
+       "painel-carga": 1,
+       "piscina": 0.085
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 5.45,
+      "ratios": {
+       "ze": 1,
+       "sofa": 1,
+       "painel-carga": 1,
+       "piscina": 0.977
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 7.05,
+      "ratios": {
+       "ze": 1,
+       "sofa": 1,
+       "painel-carga": 1,
+       "piscina": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 0,
+      "position": [
+       -1.665,
+       69.577,
+       11.327
+      ],
+      "target": [
+       3.2,
+       68.319,
+       0.4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 2.61828,
+      "position": [
+       -1.668,
+       69.583,
+       11.335
+      ],
+      "target": [
+       3.2,
+       68.325,
+       0.4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 3.27285,
+      "position": [
+       -3.007,
+       71.251,
+       14.342
+      ],
+      "target": [
+       3.2,
+       69.647,
+       0.4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 4.0728800000000005,
+      "position": [
+       -3.024,
+       71.275,
+       14.379
+      ],
+      "target": [
+       3.2,
+       69.667,
+       0.4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 7.273,
+      "position": [
+       -5.52,
+       79.741,
+       52.52
+      ],
+      "target": [
+       0,
+       69.476,
+       0
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 2,
+   "t0": 7.273,
+   "t1": 12.073,
+   "alvo": "ze",
+   "shotType": "HUM",
+   "requeridos": [
+    "ze",
+    "sofa"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 7.42,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.971
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 8.47,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.956
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 9.67,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.939
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 10.87,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.922
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 11.93,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.907
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 7.273,
+      "position": [
+       -2.391,
+       70.411,
+       12.712
+      ],
+      "target": [
+       3.091,
+       68.994,
+       0.4
+      ],
+      "fov": 46
+     },
+     {
+      "t": 12.073,
+      "position": [
+       -1.834,
+       70.29,
+       11.463
+      ],
+      "target": [
+       3.092,
+       69.017,
+       0.4
+      ],
+      "fov": 46
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 3,
+   "t0": 12.073,
+   "t1": 15.927,
+   "alvo": "torre",
+   "shotType": "EST",
+   "requeridos": [
+    "torre"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 12.19,
+      "ratios": {
+       "torre": 0.939
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 13.04,
+      "ratios": {
+       "torre": 0.815
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 14,
+      "ratios": {
+       "torre": 0.489
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 14.96,
+      "ratios": {
+       "torre": 0.214
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 15.81,
+      "ratios": {
+       "torre": 0.056
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 12.073,
+      "position": [
+       32.039,
+       24.073,
+       117.204
+      ],
+      "target": [
+       -2.2,
+       37.129,
+       -2.2
+      ],
+      "fov": 46
+     },
+     {
+      "t": 12.53548,
+      "position": [
+       32.039,
+       24.073,
+       117.204
+      ],
+      "target": [
+       -2.2,
+       37.129,
+       -2.2
+      ],
+      "fov": 46
+     },
+     {
+      "t": 15.927,
+      "position": [
+       22,
+       54,
+       54
+      ],
+      "target": [
+       0,
+       75,
+       3
+      ],
+      "fov": 42
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 4,
+   "t0": 15.927,
+   "t1": 22.473,
+   "alvo": "balanca",
+   "shotType": "MEC",
+   "requeridos": [
+    "balanca"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": false,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 16.12,
+      "ratios": {
+       "balanca": 0.841
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 17.56,
+      "ratios": {
+       "balanca": 0.836
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 19.2,
+      "ratios": {
+       "balanca": 0.829
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 20.84,
+      "ratios": {
+       "balanca": 0.641
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 22.28,
+      "ratios": {
+       "balanca": 0.818
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 15.927,
+      "position": [
+       -17.59,
+       4.065,
+       16.804
+      ],
+      "target": [
+       4,
+       1.787,
+       14.915
+      ],
+      "fov": 38
+     },
+     {
+      "t": 22.473,
+      "position": [
+       -17.11,
+       4.025,
+       16.762
+      ],
+      "target": [
+       4,
+       1.797,
+       14.915
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 5,
+   "t0": 22.473,
+   "t1": 28.655,
+   "alvo": "ze",
+   "shotType": "REL",
+   "requeridos": [
+    "ze",
+    "balanca-topo"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 22.66,
+      "ratios": {
+       "ze": 1,
+       "balanca-topo": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 24.02,
+      "ratios": {
+       "ze": 1,
+       "balanca-topo": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 25.56,
+      "ratios": {
+       "ze": 1,
+       "balanca-topo": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 27.11,
+      "ratios": {
+       "ze": 1,
+       "balanca-topo": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 28.47,
+      "ratios": {
+       "ze": 1,
+       "balanca-topo": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 28.655,
+      "position": [
+       -9.606,
+       86.341,
+       21.749
+      ],
+      "target": [
+       -3.434,
+       73.898,
+       -3.006
+      ],
+      "fov": 36
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 6,
+   "t0": 28.655,
+   "t1": 36.655,
+   "alvo": "torre",
+   "shotType": "EST",
+   "requeridos": [
+    "torre",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 28.89,
+      "ratios": {
+       "torre": 0.915,
+       "ze": 0
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 30.66,
+      "ratios": {
+       "torre": 0.915,
+       "ze": 0
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 32.66,
+      "ratios": {
+       "torre": 0.915,
+       "ze": 0
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 34.66,
+      "ratios": {
+       "torre": 0.221,
+       "ze": 0.216
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 36.41,
+      "ratios": {
+       "torre": 0,
+       "ze": 0.931
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 28.655,
+      "position": [
+       -2.2,
+       50.249,
+       120.916
+      ],
+      "target": [
+       -2.2,
+       37.309,
+       -2.2
+      ],
+      "fov": 44
+     },
+     {
+      "t": 34.255,
+      "position": [
+       -2.2,
+       50.249,
+       120.916
+      ],
+      "target": [
+       -2.2,
+       37.309,
+       -2.2
+      ],
+      "fov": 44
+     },
+     {
+      "t": 35.055,
+      "position": [
+       -7.71,
+       2.581,
+       18.962
+      ],
+      "target": [
+       -8.974,
+       1.727,
+       13.016
+      ],
+      "fov": 40
+     },
+     {
+      "t": 36.655,
+      "position": [
+       -7.71,
+       2.581,
+       18.962
+      ],
+      "target": [
+       -8.974,
+       1.727,
+       13.016
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 7,
+   "t0": 36.655,
+   "t1": 41.818,
+   "alvo": "terreno-palco",
+   "shotType": "SEC",
+   "requeridos": [
+    "terreno-palco",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 36.81,
+      "ratios": {
+       "terreno-palco": 0.992,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 37.95,
+      "ratios": {
+       "terreno-palco": 0.992,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 39.24,
+      "ratios": {
+       "terreno-palco": 0.992,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 40.53,
+      "ratios": {
+       "terreno-palco": 0.992,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 41.66,
+      "ratios": {
+       "terreno-palco": 0.992,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 41.818,
+      "position": [
+       0,
+       5.857,
+       45.146
+      ],
+      "target": [
+       0,
+       4.241,
+       14.303
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 8,
+   "t0": 41.818,
+   "t1": 47,
+   "alvo": "estaca",
+   "shotType": "DET",
+   "requeridos": [
+    "estaca",
+    "terreno-estaca",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 41.97,
+      "ratios": {
+       "estaca": 1,
+       "terreno-estaca": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 43.11,
+      "ratios": {
+       "estaca": 1,
+       "terreno-estaca": 0.996,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 44.41,
+      "ratios": {
+       "estaca": 1,
+       "terreno-estaca": 0.987,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 45.7,
+      "ratios": {
+       "estaca": 1,
+       "terreno-estaca": 0.97,
+       "ze": 0.991
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 46.84,
+      "ratios": {
+       "estaca": 1,
+       "terreno-estaca": 0.955,
+       "ze": 0.958
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 41.818,
+      "position": [
+       2.607,
+       9.603,
+       43.957
+      ],
+      "target": [
+       0,
+       4.866,
+       14.163
+      ],
+      "fov": 40
+     },
+     {
+      "t": 47,
+      "position": [
+       2.447,
+       8.705,
+       42.138
+      ],
+      "target": [
+       0,
+       4.257,
+       14.163
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 8,
+   "t0": 47,
+   "t1": 53.455,
+   "alvo": "fundacao",
+   "shotType": "REL",
+   "requeridos": [
+    "fundacao",
+    "bloco",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 47.19,
+      "ratios": {
+       "fundacao": 1,
+       "bloco": 1,
+       "ze": 0.916
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 48.61,
+      "ratios": {
+       "fundacao": 1,
+       "bloco": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 50.23,
+      "ratios": {
+       "fundacao": 1,
+       "bloco": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 51.84,
+      "ratios": {
+       "fundacao": 1,
+       "bloco": 1,
+       "ze": 0.949
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 53.26,
+      "ratios": {
+       "fundacao": 1,
+       "bloco": 1,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 53.455,
+      "position": [
+       7.105,
+       17.881,
+       44.204
+      ],
+      "target": [
+       -0.335,
+       4.187,
+       14.361
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 9,
+   "t0": 53.455,
+   "t1": 59.973,
+   "alvo": "viguinha",
+   "shotType": "DET",
+   "requeridos": [
+    "viguinha",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 53.65,
+      "ratios": {
+       "viguinha": 0.923,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 55.08,
+      "ratios": {
+       "viguinha": 0.94,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 56.71,
+      "ratios": {
+       "viguinha": 0.95,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 58.34,
+      "ratios": {
+       "viguinha": 0.951,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 59.78,
+      "ratios": {
+       "viguinha": 0.95,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 59.973,
+      "position": [
+       -3.8,
+       5.122,
+       31.871
+      ],
+      "target": [
+       -3.8,
+       3.207,
+       13.649
+      ],
+      "fov": 36
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 10,
+   "t0": 59.973,
+   "t1": 62.4,
+   "alvo": "viguinha-armada",
+   "shotType": "SEC",
+   "requeridos": [
+    "viguinha-armada",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 60.05,
+      "ratios": {
+       "viguinha-armada": 0.912,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 60.58,
+      "ratios": {
+       "viguinha-armada": 0.912,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 61.19,
+      "ratios": {
+       "viguinha-armada": 0.912,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 61.79,
+      "ratios": {
+       "viguinha-armada": 0.912,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 62.33,
+      "ratios": {
+       "viguinha-armada": 0.912,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 62.4,
+      "position": [
+       2.086,
+       3.836,
+       30.188
+      ],
+      "target": [
+       3.8,
+       1.531,
+       13.877
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 10,
+   "t0": 62.4,
+   "t1": 66,
+   "alvo": "pilar",
+   "shotType": "SEC",
+   "requeridos": [
+    "pilar",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 62.51,
+      "ratios": {
+       "pilar": 0.927,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 63.3,
+      "ratios": {
+       "pilar": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 64.2,
+      "ratios": {
+       "pilar": 0.929,
+       "ze": 0.932
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 65.1,
+      "ratios": {
+       "pilar": 0.968,
+       "ze": 0.387
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 65.89,
+      "ratios": {
+       "pilar": 0.937,
+       "ze": 0
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 62.4,
+      "position": [
+       1.202,
+       3.655,
+       27.741
+      ],
+      "target": [
+       0,
+       1.961,
+       14
+      ],
+      "fov": 40
+     },
+     {
+      "t": 64.2,
+      "position": [
+       0.265,
+       5.034,
+       27.216
+      ],
+      "target": [
+       -0.659,
+       3.172,
+       14
+      ],
+      "fov": 40
+     },
+     {
+      "t": 66,
+      "position": [
+       0.902,
+       5.218,
+       26.901
+      ],
+      "target": [
+       0,
+       3.4,
+       14
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 10,
+   "t0": 66,
+   "t1": 68.1,
+   "alvo": "viga",
+   "shotType": "REL",
+   "requeridos": [
+    "viga"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 66.06,
+      "ratios": {
+       "viga": 0.928
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 66.53,
+      "ratios": {
+       "viga": 0.928
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 67.05,
+      "ratios": {
+       "viga": 0.928
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 67.57,
+      "ratios": {
+       "viga": 0.928
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 68.04,
+      "ratios": {
+       "viga": 0.928
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 68.1,
+      "position": [
+       4.009,
+       7.816,
+       36.737
+      ],
+      "target": [
+       0,
+       1.195,
+       14
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 10,
+   "t0": 68.1,
+   "t1": 69.136,
+   "alvo": "torre",
+   "shotType": "EST",
+   "requeridos": [
+    "torre"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 68.13,
+      "ratios": {
+       "torre": 0.93
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 68.36,
+      "ratios": {
+       "torre": 0.93
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 68.62,
+      "ratios": {
+       "torre": 0.93
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 68.88,
+      "ratios": {
+       "torre": 0.93
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 69.1,
+      "ratios": {
+       "torre": 0.93
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 69.136,
+      "position": [
+       38.128,
+       50.845,
+       121.916
+      ],
+      "target": [
+       -2.2,
+       37.129,
+       -2.2
+      ],
+      "fov": 44
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 11,
+   "t0": 69.136,
+   "t1": 79.464,
+   "alvo": "laje",
+   "shotType": "SEC",
+   "requeridos": [
+    "laje",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 69.45,
+      "ratios": {
+       "laje": 0.953,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 71.72,
+      "ratios": {
+       "laje": 0.983,
+       "ze": 0.817
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 74.3,
+      "ratios": {
+       "laje": 0.991,
+       "ze": 0.844
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 76.88,
+      "ratios": {
+       "laje": 0.945,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 79.15,
+      "ratios": {
+       "laje": 0.915,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 69.136,
+      "position": [
+       -4.3,
+       90.296,
+       15.387
+      ],
+      "target": [
+       -4.3,
+       74.363,
+       0
+      ],
+      "fov": 36
+     },
+     {
+      "t": 74.8164,
+      "position": [
+       -4.132,
+       91.597,
+       16.682
+      ],
+      "target": [
+       -4.132,
+       74.323,
+       0
+      ],
+      "fov": 36
+     },
+     {
+      "t": 79.464,
+      "position": [
+       -0.1,
+       104.789,
+       27.269
+      ],
+      "target": [
+       -0.1,
+       74.504,
+       0
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 12,
+   "t0": 79.464,
+   "t1": 88.191,
+   "alvo": "parede-piscina",
+   "shotType": "SEC",
+   "requeridos": [
+    "parede-piscina",
+    "ze",
+    "agua"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": false,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 79.73,
+      "ratios": {
+       "parede-piscina": 0.931,
+       "ze": 0.809,
+       "agua": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 81.65,
+      "ratios": {
+       "parede-piscina": 0.916,
+       "ze": 0.791,
+       "agua": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 83.83,
+      "ratios": {
+       "parede-piscina": 0.9,
+       "ze": 0.773,
+       "agua": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 86.01,
+      "ratios": {
+       "parede-piscina": 0.883,
+       "ze": 0.79,
+       "agua": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 87.93,
+      "ratios": {
+       "parede-piscina": 0.803,
+       "ze": 0,
+       "agua": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 79.464,
+      "position": [
+       -0.119,
+       80.991,
+       23.495
+      ],
+      "target": [
+       -0.119,
+       73.357,
+       0
+      ],
+      "fov": 40
+     },
+     {
+      "t": 88.191,
+      "position": [
+       -0.267,
+       79.31,
+       22.35
+      ],
+      "target": [
+       -0.267,
+       72.901,
+       0
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 13,
+   "t0": 88.191,
+   "t1": 92.627,
+   "alvo": "parede-armada",
+   "shotType": "SEC",
+   "requeridos": [
+    "parede-armada"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": false,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 88.32,
+      "ratios": {
+       "parede-armada": 0.771
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 89.3,
+      "ratios": {
+       "parede-armada": 0.771
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 90.41,
+      "ratios": {
+       "parede-armada": 0.771
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 91.52,
+      "ratios": {
+       "parede-armada": 0.771
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 92.49,
+      "ratios": {
+       "parede-armada": 0.625
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 92.627,
+      "position": [
+       0,
+       79.285,
+       19.987
+      ],
+      "target": [
+       0,
+       72.791,
+       0
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 14,
+   "t0": 92.627,
+   "t1": 99.536,
+   "alvo": "fissura",
+   "shotType": "SEC",
+   "requeridos": [
+    "fissura",
+    "ze",
+    "piscina"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 92.83,
+      "ratios": {
+       "fissura": 1,
+       "ze": 1,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 94.35,
+      "ratios": {
+       "fissura": 1,
+       "ze": 1,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 96.08,
+      "ratios": {
+       "fissura": 1,
+       "ze": 1,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 97.81,
+      "ratios": {
+       "fissura": 1,
+       "ze": 1,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 99.33,
+      "ratios": {
+       "fissura": 1,
+       "ze": 1,
+       "piscina": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 99.536,
+      "position": [
+       0,
+       72.434,
+       56.553
+      ],
+      "target": [
+       0,
+       69.47,
+       0
+      ],
+      "fov": 42
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 15,
+   "t0": 99.536,
+   "t1": 102.6,
+   "alvo": "manta",
+   "shotType": "DET",
+   "requeridos": [
+    "manta",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 99.63,
+      "ratios": {
+       "manta": 0.943,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 100.3,
+      "ratios": {
+       "manta": 0.943,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 101.07,
+      "ratios": {
+       "manta": 0.943,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 101.83,
+      "ratios": {
+       "manta": 0.943,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 102.51,
+      "ratios": {
+       "manta": 0.943,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 102.6,
+      "position": [
+       3.34,
+       82.008,
+       27.775
+      ],
+      "target": [
+       0,
+       73.272,
+       4.007
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 15,
+   "t0": 102.6,
+   "t1": 105,
+   "alvo": "cano",
+   "shotType": "DET",
+   "requeridos": [
+    "cano",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 102.67,
+      "ratios": {
+       "cano": 0.966,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 103.2,
+      "ratios": {
+       "cano": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 103.8,
+      "ratios": {
+       "cano": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 104.4,
+      "ratios": {
+       "cano": 1,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 104.93,
+      "ratios": {
+       "cano": 1,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 105,
+      "position": [
+       23.325,
+       78.76,
+       11.39
+      ],
+      "target": [
+       0,
+       73.547,
+       3.811
+      ],
+      "fov": 38
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 15,
+   "t0": 105,
+   "t1": 109.645,
+   "alvo": "circulacao",
+   "shotType": "MEC",
+   "requeridos": [
+    "bomba",
+    "filtro"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 105.14,
+      "ratios": {
+       "bomba": 0.769,
+       "filtro": 0.697
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 106.16,
+      "ratios": {
+       "bomba": 1,
+       "filtro": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 107.32,
+      "ratios": {
+       "bomba": 0.819,
+       "filtro": 0.696
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 108.48,
+      "ratios": {
+       "bomba": 0.809,
+       "filtro": 0.704
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 109.51,
+      "ratios": {
+       "bomba": 0.801,
+       "filtro": 0.711
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 105,
+      "position": [
+       6.157,
+       88.885,
+       42.088
+      ],
+      "target": [
+       2.225,
+       76.663,
+       4.677
+      ],
+      "fov": 40
+     },
+     {
+      "t": 106.62575,
+      "position": [
+       3.865,
+       79.534,
+       20.517
+      ],
+      "target": [
+       2.2,
+       74.359,
+       4.677
+      ],
+      "fov": 40
+     },
+     {
+      "t": 109.645,
+      "position": [
+       3.922,
+       79.58,
+       20.385
+      ],
+      "target": [
+       2.2,
+       74.227,
+       4
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 16,
+   "t0": 109.645,
+   "t1": 113.891,
+   "alvo": "piscina",
+   "shotType": "REL",
+   "requeridos": [
+    "piscina",
+    "ze"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 109.77,
+      "ratios": {
+       "piscina": 0.959,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 110.71,
+      "ratios": {
+       "piscina": 0.956,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 111.77,
+      "ratios": {
+       "piscina": 0.952,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 112.83,
+      "ratios": {
+       "piscina": 0.947,
+       "ze": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 113.76,
+      "ratios": {
+       "piscina": 0.941,
+       "ze": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 109.645,
+      "position": [
+       -9.615,
+       86.02,
+       28.247
+      ],
+      "target": [
+       0,
+       74.593,
+       4.45
+      ],
+      "fov": 42
+     },
+     {
+      "t": 113.891,
+      "position": [
+       -9.384,
+       85.451,
+       27.676
+      ],
+      "target": [
+       0,
+       74.297,
+       4.45
+      ],
+      "fov": 42
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 17,
+   "t0": 113.891,
+   "t1": 127.2,
+   "alvo": "caminho-carga",
+   "shotType": "REV",
+   "requeridos": [
+    "caminho-carga"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 114.29,
+      "ratios": {
+       "caminho-carga": 0.189
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 117.22,
+      "ratios": {
+       "caminho-carga": 0.239
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 120.55,
+      "ratios": {
+       "caminho-carga": 0.226
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 123.87,
+      "ratios": {
+       "caminho-carga": 0.901
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 126.8,
+      "ratios": {
+       "caminho-carga": 0.953
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 113.891,
+      "position": [
+       24,
+       88,
+       46
+      ],
+      "target": [
+       0,
+       77,
+       4
+      ],
+      "fov": 42
+     },
+     {
+      "t": 115.48808000000001,
+      "position": [
+       24,
+       88,
+       46
+      ],
+      "target": [
+       0,
+       77,
+       4
+      ],
+      "fov": 42
+     },
+     {
+      "t": 117.8837,
+      "position": [
+       26,
+       70,
+       48
+      ],
+      "target": [
+       0,
+       67,
+       6
+      ],
+      "fov": 42
+     },
+     {
+      "t": 119.48078000000001,
+      "position": [
+       26,
+       32,
+       54
+      ],
+      "target": [
+       0,
+       30,
+       6
+      ],
+      "fov": 42
+     },
+     {
+      "t": 120.81168000000001,
+      "position": [
+       24,
+       12,
+       50
+      ],
+      "target": [
+       0,
+       8,
+       8
+      ],
+      "fov": 42
+     },
+     {
+      "t": 122.14258000000001,
+      "position": [
+       24,
+       12,
+       50
+      ],
+      "target": [
+       0,
+       8,
+       8
+      ],
+      "fov": 42
+     },
+     {
+      "t": 124.00584,
+      "position": [
+       27.962,
+       45.81,
+       118.774
+      ],
+      "target": [
+       -2.2,
+       37.092,
+       -2.2
+      ],
+      "fov": 46
+     },
+     {
+      "t": 127.2,
+      "position": [
+       27.962,
+       45.81,
+       118.774
+      ],
+      "target": [
+       -2.2,
+       37.092,
+       -2.2
+      ],
+      "fov": 46
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 18,
+   "t0": 127.2,
+   "t1": 130.545,
+   "alvo": "torre",
+   "shotType": "REV",
+   "requeridos": [
+    "torre",
+    "piscina"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 127.3,
+      "ratios": {
+       "torre": 0.93,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 128.04,
+      "ratios": {
+       "torre": 0.881,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 128.87,
+      "ratios": {
+       "torre": 0.529,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 129.71,
+      "ratios": {
+       "torre": 0.247,
+       "piscina": 1
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 130.44,
+      "ratios": {
+       "torre": 0.084,
+       "piscina": 1
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 127.2,
+      "position": [
+       27.975,
+       43.666,
+       118.824
+      ],
+      "target": [
+       -2.2,
+       37.129,
+       -2.2
+      ],
+      "fov": 46
+     },
+     {
+      "t": 127.869,
+      "position": [
+       27.975,
+       43.666,
+       118.824
+      ],
+      "target": [
+       -2.2,
+       37.129,
+       -2.2
+      ],
+      "fov": 46
+     },
+     {
+      "t": 130.545,
+      "position": [
+       16,
+       78,
+       40
+      ],
+      "target": [
+       0,
+       74,
+       3
+      ],
+      "fov": 40
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  },
+  {
+   "take": 19,
+   "t0": 130.545,
+   "t1": 138.109,
+   "alvo": "ze",
+   "shotType": "HUM",
+   "requeridos": [
+    "ze",
+    "sofa"
+   ],
+   "ausentes": [],
+   "P": {
+    "passesFraming": true,
+    "checks": [
+     {
+      "u": 0.03,
+      "t": 130.77,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.9
+      }
+     },
+     {
+      "u": 0.25,
+      "t": 132.44,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.9
+      }
+     },
+     {
+      "u": 0.5,
+      "t": 134.33,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.9
+      }
+     },
+     {
+      "u": 0.75,
+      "t": 136.22,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.9
+      }
+     },
+     {
+      "u": 0.97,
+      "t": 137.88,
+      "ratios": {
+       "ze": 1,
+       "sofa": 0.9
+      }
+     }
+    ],
+    "samples": [
+     {
+      "t": 138.109,
+      "position": [
+       -1.467,
+       69.771,
+       11.952
+      ],
+      "target": [
+       3.2,
+       68.241,
+       0.4
+      ],
+      "fov": 42
+     }
+    ]
+   },
+   "A": true,
+   "B": true,
+   "C": true,
+   "oclusaoRevisar": [
+    false,
+    false,
+    false
+   ]
+  }
+ ],
+ "reprovados": [
+  {
+   "take": 4,
+   "t0": 15.927,
+   "alvo": "balanca",
+   "checks": [
+    {
+     "balanca": 0.841
+    },
+    {
+     "balanca": 0.836
+    },
+    {
+     "balanca": 0.829
+    },
+    {
+     "balanca": 0.641
+    },
+    {
+     "balanca": 0.818
+    }
+   ]
+  },
+  {
+   "take": 12,
+   "t0": 79.464,
+   "alvo": "parede-piscina",
+   "checks": [
+    {
+     "parede-piscina": 0.931,
+     "ze": 0.809,
+     "agua": 1
+    },
+    {
+     "parede-piscina": 0.916,
+     "ze": 0.791,
+     "agua": 1
+    },
+    {
+     "parede-piscina": 0.9,
+     "ze": 0.773,
+     "agua": 1
+    },
+    {
+     "parede-piscina": 0.883,
+     "ze": 0.79,
+     "agua": 1
+    },
+    {
+     "parede-piscina": 0.803,
+     "ze": 0,
+     "agua": 1
+    }
+   ]
+  },
+  {
+   "take": 13,
+   "t0": 88.191,
+   "alvo": "parede-armada",
+   "checks": [
+    {
+     "parede-armada": 0.771
+    },
+    {
+     "parede-armada": 0.771
+    },
+    {
+     "parede-armada": 0.771
+    },
+    {
+     "parede-armada": 0.771
+    },
+    {
+     "parede-armada": 0.625
+    }
+   ]
+  }
+ ],
+ "erros": []
+}

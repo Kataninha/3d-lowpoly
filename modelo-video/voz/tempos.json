@@ -1,0 +1,13 @@
+﻿{
+  "duracao": 8,
+  "frases": [{"n": 0, "texto": "Veja a peça por dentro", "inicio": 0.5, "fim": 4.8}, {"n": 1, "texto": "Agora funciona", "inicio": 5.1, "fim": 7.0}],
+  "palavras": [
+    {"frase": 0, "palavra": "Veja", "inicio": 0.5, "fim": 1.1},
+    {"frase": 0, "palavra": "a", "inicio": 1.1, "fim": 1.5},
+    {"frase": 0, "palavra": "peça", "inicio": 1.5, "fim": 2.3, "destaque": true},
+    {"frase": 0, "palavra": "por", "inicio": 2.3, "fim": 2.8},
+    {"frase": 0, "palavra": "dentro", "inicio": 2.8, "fim": 4.8},
+    {"frase": 1, "palavra": "Agora", "inicio": 5.1, "fim": 5.8},
+    {"frase": 1, "palavra": "funciona", "inicio": 5.8, "fim": 7.0}
+  ]
+}

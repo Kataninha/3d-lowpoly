@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"./kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"./kit/vendor/RoundedBoxGeometry.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {criarZeDesmonte} from './kit/personagens/ze-desmonte/ze-desmonte-v2.js';
+import {criarMontagem,converterParametros} from './montagem-cena.template.js';
+const errors=[];
+try {
+  const score=await (await fetch('./partitura.json')).json();
+  const cameraData=await (await fetch('./camera.template.json')).json();
+  const scene=new THREE.Scene(), ze=criarZeDesmonte();scene.add(ze.raiz);
+  const objeto=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,.08),new THREE.MeshBasicMaterial());
+  objeto.position.set(-.85,1.95,.45);scene.add(objeto);
+  const alvos={objeto,detalhe:objeto,ze:ze.raiz}, camera=new THREE.PerspectiveCamera(45,1,.1,100);
+  const montar=partitura=>criarMontagem({ze,camera,cameraData,partitura,alvos,animadores:{},resetarPecas(){}});
+  // Execute the unmodified example score created by novo_video.py.
+  montar(score)(.5);
+  const exemplos=JSON.parse('{"takes":['+
+    '{"take":1,"t0":0,"t1":1,"alvo":"objeto","ze":"M09 caminhada","parametros":{"de":[0,0,0],"para":[0.5,0,0]}},'+
+    '{"take":2,"t0":1,"t1":2,"alvo":"objeto","ze":"M02 girar","parametros":{"mao":"D","alvo":[-0.85,1.95,0.45]}},'+
+    '{"take":3,"t0":2,"t1":3,"alvo":"objeto","ze":"M03 pegar","parametros":{"mao":"D","alvo":[-0.85,1.95,0.45]}},'+
+    '{"take":4,"t0":3,"t1":4,"alvo":"objeto","ze":"M01 segurar","parametros":{"mao":"D","alvoLocal":[-0.85,1.95,0.45]}}]}');
+  const atualizar=montar(exemplos);
+  atualizar(.5);if(Math.abs(ze.raiz.position.x-.25)>1e-6)errors.push('M09 did not walk');
+  for(const t of [1.8,2.9999,3.9999]) {
+    atualizar(t); ze.raiz.updateWorldMatrix(true,true);
+    const d=ze.maos.D.getWorldPosition(new THREE.Vector3()).distanceTo(objeto.position);
+    if(d>.03)errors.push('target missed at '+t+': '+d);
+  }
+  if(!converterParametros({nested:{centro:[1,2,3]}}).nested.centro.isVector3)errors.push('nested vector');
+  for(const bad of [[1,2],[1,2,'x'],[1,2,3,4]]) {
+    try {converterParametros({de:bad});errors.push('invalid vector accepted');}catch(e){if(!(e instanceof TypeError))errors.push('wrong error');}
+  }
+} catch(e){errors.push(e.stack || String(e));}
+document.body.dataset.test=JSON.stringify({errors});
+</script>

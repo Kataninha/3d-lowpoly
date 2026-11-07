@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "items": [
+    "personagens/ze-desmonte",
+    "identidade",
+    "vendor",
+    "efeitos",
+    "cenarios/lavanderia",
+    "camera",
+    "cenarios/cobertura-obra",
+    "objetos/grua-torre",
+    "objetos/macaco-hidraulico"
+  ]
+}

@@ -1,0 +1,175 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Planejador de camera - video 13</title>
+<link rel="stylesheet" href="../kit/identidade/tokens.css">
+<script type="importmap">{"imports":{"/biblioteca/vendor/three.module.js":"/videos/13-piscina-no-topo/kit/vendor/three.module.js","three":"../kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../kit/vendor/RoundedBoxGeometry.js"}}</script>
+<canvas width="540" height="960"></canvas>
+<script type="module">
+// Registra os objetos reais da cena (ids da partitura) via sceneRegistry, gera candidatos A/B/C com planCandidates
+// e acrescenta o candidato P (angulo, plano e amplitude da partitura). selectedCamera monta o camera.json com P.
+import * as THREE from 'three';
+import { sceneRegistry, planCandidates, selectedCamera, applyPose } from '../kit/camera/diretor.js';
+await import('../montagem-cena.js');
+const C = window.__cena, updateAt = window.updateAt, TK = C.TK;
+const T = (n) => TK[n - 1];
+const ASPECT = 9 / 16, MARGEM = 0.06, LEGENDA = 0.12;
+
+// Subtakes: um keyframe de camera por ideia. poses: [{u, ids, az, el, fov, zoom, dy, pos, alvo}] (u = fracao do subtake).
+// az/el: graus (az > 0 poe a camera do lado +x). pos/alvo explicitos so nas vistas de abertura sem objeto unico.
+const D = (n, i = 'ze') => ({ ze: n });
+const PLANO = [
+  { take: 1, t0: 0, t1: T(1).t1, shotType: 'HUM', alvo: 'ze', req: ['ze', 'sofa', 'painel-carga', 'piscina'], ze: 'casa', poses: [
+    { u: 0, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 0.6 },
+    { u: 0.36, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 0.6 },
+    { u: 0.45, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 1.9, zoom: 1.12 },
+    { u: 0.56, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 1.9, zoom: 1.12 },
+    { u: 1, ids: ['teto-sala', 'piscina', 'sofa', 'painel-carga', 'ze'], az: -6, el: 11, fov: 44 } ] },
+  { take: 2, t0: T(2).t0, t1: T(2).t1, shotType: 'HUM', alvo: 'ze', req: ['ze', 'sofa'], ze: 'casa', poses: [
+    { u: 0, zoom: 1.1111, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 1.3 }, { u: 1, ids: ['ze', 'sofa'], az: -24, el: 6, fov: 46, dy: 1.3 } ] },
+  { take: 3, t0: T(3).t0, t1: T(3).t1, shotType: 'EST', alvo: 'torre', req: ['torre'], poses: [
+    { u: 0, ids: ['torre'], az: 16, el: -6, fov: 46 }, { u: 0.12, ids: ['torre'], az: 16, el: -6, fov: 46 }, { u: 1, pos: [22, 54, 54], alvo: [0, 75, 3], fov: 42 } ] },
+  { take: 4, t0: T(4).t0, t1: T(4).t1, shotType: 'MEC', alvo: 'balanca', req: ['balanca'], poses: [
+    { u: 0, zoom: 0.9, ids: ['balanca'], az: -85, el: 6, fov: 38, dy: -0.9 }, { u: 1, zoom: 0.88, ids: ['balanca'], az: -85, el: 6, fov: 38, dy: -0.9 } ] },
+  { take: 5, t0: T(5).t0, t1: T(5).t1, shotType: 'REL', alvo: 'ze', req: ['ze', 'balanca-topo'], ze: 'obra', poses: [
+    { u: 0, zoom: 1.3, ids: ['ze', 'balanca-topo'], az: -14, el: 26, fov: 36 } ] },
+  { take: 6, t0: T(6).t0, t1: T(7).t0, shotType: 'EST', alvo: 'torre', req: ['torre', 'ze'], ze: 'casa', poses: [
+    { u: 0, ids: ['torre', 'ze'], az: 0, el: 6, fov: 44 }, { u: 0.7, ids: ['torre', 'ze'], az: 0, el: 6, fov: 44 }, { u: 0.8, ids: ['ze'], az: 12, el: 8, fov: 40 }, { u: 1, ids: ['ze'], az: 12, el: 8, fov: 40 } ] },
+  { take: 7, t0: T(7).t0, t1: T(7).t1, shotType: 'SEC', alvo: 'terreno-palco', req: ['terreno-palco', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['terreno-palco', 'ze'], az: 0, el: 3, fov: 38 } ] },
+  { take: 8, t0: T(8).t0, t1: 47.0, shotType: 'DET', alvo: 'estaca', req: ['estaca', 'terreno-estaca', 'ze'], ze: 'obra', poses: [
+    { u: 0, zoom: 1.0638, ids: ['estaca', 'terreno-estaca', 'ze'], az: 5, el: 9, fov: 40 }, { u: 1, ids: ['estaca', 'terreno-estaca', 'ze'], az: 5, el: 9, fov: 40 } ] },
+  { take: 8, t0: 47.0, t1: T(8).t1, shotType: 'REL', alvo: 'fundacao', req: ['fundacao', 'bloco', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['fundacao', 'ze'], az: 14, el: 24, fov: 40 } ] },
+  { take: 9, t0: T(9).t0, t1: T(9).t1, shotType: 'DET', alvo: 'viguinha', req: ['viguinha', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['viguinha', 'ze'], az: 0, el: 6, fov: 36 } ] },
+  { take: 10, t0: T(10).t0, t1: 62.4, shotType: 'SEC', alvo: 'viguinha-armada', req: ['viguinha-armada', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['viguinha-armada', 'ze'], az: -6, el: 8, fov: 38 } ] },
+  { take: 10, t0: 62.4, t1: 66.0, shotType: 'SEC', alvo: 'pilar', req: ['pilar', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['pilar', 'ze'], az: 5, el: 7, fov: 40, dy: -1.0 }, { u: 0.5, ids: ['pilar', 'ze'], az: 4, el: 8, fov: 40, dy: 0.2 }, { u: 1, ids: ['pilar'], az: 4, el: 8, fov: 38, dy: 0.4 } ] },
+  { take: 10, t0: 66.0, t1: 68.1, shotType: 'REL', shotDiag: 'MEC', alvo: 'viga', req: ['viga'], poses: [
+    { u: 0, ids: ['viga'], az: 10, el: 16, fov: 40 } ] },
+  { take: 10, t0: 68.1, t1: T(10).t1, shotType: 'EST', alvo: 'torre', req: ['torre'], poses: [
+    { u: 0, ids: ['torre'], az: 18, el: 6, fov: 44 } ] },
+  { take: 11, t0: T(11).t0, t1: T(11).t1, shotType: 'SEC', alvo: 'laje', req: ['laje', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['laje', 'ze'], az: 0, el: 46, fov: 36 }, { u: 0.55, ids: ['laje', 'ze'], az: 0, el: 46, fov: 36 }, { u: 1, ids: ['laje', 'laje-reforcada', 'ze'], az: 0, el: 48, fov: 40 } ] },
+  { take: 12, t0: T(12).t0, t1: T(12).t1, shotType: 'SEC', alvo: 'parede-piscina', req: ['parede-piscina', 'ze', 'agua'], ze: 'obra', poses: [
+    { u: 0, zoom: 0.94, ids: ['parede-piscina', 'ze'], az: 0, el: 18, fov: 40 }, { u: 0.85, zoom: 0.84, ids: ['parede-piscina', 'ze'], az: 0, el: 16, fov: 40, dy: -0.5 } ] },
+  { take: 13, t0: T(13).t0, t1: T(13).t1, shotType: 'SEC', alvo: 'parede-armada', req: ['parede-armada'], poses: [
+    { u: 0, zoom: 0.72, ids: ['parede-armada'], az: 0, el: 18, fov: 40 } ] },
+  { take: 14, t0: T(14).t0, t1: T(14).t1, shotType: 'SEC', alvo: 'fissura', req: ['fissura', 'ze', 'piscina'], ze: 'casa', poses: [
+    { u: 0, ids: ['fissura', 'ze', 'piscina', 'teto-sala'], az: 0, el: 3, fov: 42 } ] },
+  { take: 15, t0: T(15).t0, t1: 102.6, shotType: 'DET', alvo: 'manta', req: ['manta', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['manta'], az: 8, el: 20, fov: 38 } ] },
+  { take: 15, t0: 102.6, t1: 105.0, shotType: 'DET', alvo: 'cano', req: ['cano', 'ze'], ze: 'obra', poses: [
+    { u: 0, ids: ['cano', 'ze'], az: 72, el: 12, fov: 38 } ] },
+  { take: 15, t0: 105.0, t1: T(15).t1, shotType: 'MEC', alvo: 'circulacao', req: ['bomba', 'filtro'], ze: 'obra', poses: [
+    { u: 0, zoom: 0.85, ids: ['bomba', 'filtro', 'ze'], az: 6, el: 18, fov: 40 }, { u: 0.35, zoom: 0.85, ids: ['bomba', 'filtro', 'ze'], az: 6, el: 18, fov: 40 }, { u: 1, zoom: 0.85, ids: ['bomba', 'filtro'], az: 6, el: 18, fov: 40 } ] },
+  { take: 16, t0: T(16).t0, t1: T(16).t1, shotType: 'REL', alvo: 'piscina', req: ['piscina', 'ze'], ze: 'obra', poses: [
+    { u: 0, zoom: 1.0638, ids: ['piscina', 'ze', 'registro'], az: -22, el: 24, fov: 42 }, { u: 1, ids: ['piscina', 'ze', 'registro'], az: -22, el: 24, fov: 42 } ] },
+  { take: 17, t0: T(17).t0, t1: T(17).t1, shotType: 'REV', alvo: 'caminho-carga', req: ['caminho-carga'], poses: [
+    { u: 0, pos: [24, 88, 46], alvo: [0, 77, 4], fov: 42 }, { u: 0.12, pos: [24, 88, 46], alvo: [0, 77, 4], fov: 42 },
+    { u: 0.3, pos: [26, 70, 48], alvo: [0, 67, 6], fov: 42 }, { u: 0.42, pos: [26, 32, 54], alvo: [0, 30, 6], fov: 42 },
+    { u: 0.52, pos: [24, 12, 50], alvo: [0, 8, 8], fov: 42 }, { u: 0.62, pos: [24, 12, 50], alvo: [0, 8, 8], fov: 42 },
+    { u: 0.76, ids: ['torre'], az: 14, el: 4, fov: 46 }, { u: 1, ids: ['torre'], az: 14, el: 4, fov: 46 } ] },
+  { take: 18, t0: T(18).t0, t1: T(18).t1, shotType: 'REV', alvo: 'torre', req: ['torre', 'piscina'], poses: [
+    { u: 0, ids: ['torre'], az: 14, el: 3, fov: 46 }, { u: 0.2, ids: ['torre'], az: 14, el: 3, fov: 46 }, { u: 1, pos: [16, 78, 40], alvo: [0, 74, 3], fov: 40 } ] },
+  { take: 19, t0: T(19).t0, t1: T(19).t1, shotType: 'HUM', alvo: 'ze', req: ['ze', 'sofa'], ze: 'casa', poses: [
+    { u: 0, ids: ['ze', 'sofa'], az: -22, el: 7, fov: 42, dy: 0.5 } ] },
+];
+
+function registroDe(sub) {
+  const ze = sub.ze === 'obra' ? C.obra.ze.raiz : C.casa.ze.raiz;
+  return sceneRegistry({ ...C.OBJ, ze });
+}
+const proj = new THREE.PerspectiveCamera(40, ASPECT, 0.05, 2000);
+function cantos(b) { return [b.min.x, b.max.x].flatMap((x) => [b.min.y, b.max.y].flatMap((y) => [b.min.z, b.max.z].map((z) => new THREE.Vector3(x, y, z)))); }
+function razao(box) {
+  const pts = cantos(box).map((p) => p.project(proj));
+  if (pts.some((p) => p.z < -1 || p.z > 1)) return 0;
+  const lim = (a) => [Math.min(...pts.map((p) => p[a])), Math.max(...pts.map((p) => p[a]))];
+  const [l, r] = lim('x'), [b, t] = lim('y');
+  const ov = (a, c, lo, hi) => Math.max(0, Math.min(c, hi) - Math.max(a, lo)) / Math.max(c - a, 1e-8);
+  return ov(l, r, -1 + 2 * MARGEM, 1 - 2 * MARGEM) * ov(b, t, -1 + 2 * LEGENDA, 1 - 2 * MARGEM);
+}
+const dirDe = (az, el) => { const a = THREE.MathUtils.degToRad(az), e = THREE.MathUtils.degToRad(el); return new THREE.Vector3(Math.sin(a) * Math.cos(e), Math.sin(e), Math.cos(a) * Math.cos(e)); };
+
+function ajustar(sub, reg, pose, tp, prev) {
+  updateAt(tp);
+  if (pose.tilt) return { t: tp, position: prev.position, target: pose.tilt, fov: prev.fov, ratios: {} };
+  const fov = pose.fov;
+  if (pose.pos) return { t: tp, position: pose.pos, target: pose.alvo, fov, ratios: {} };
+  const env = new THREE.Box3();
+  const tempos = sub.poses.length === 1 ? [sub.t0 + 0.02, (sub.t0 + sub.t1) / 2, sub.t1 - 0.02] : [tp];
+  const caixas = tempos.map((tt) => { updateAt(tt); return Object.fromEntries(pose.ids.map((id) => [id, reg.bounds(id).clone()])); });
+  for (const c of caixas) for (const id of pose.ids) env.union(c[id]);
+  updateAt(tp);
+  const centro = env.getCenter(new THREE.Vector3());
+  const raio = env.getSize(new THREE.Vector3()).length() / 2;
+  const ext = Math.tan(THREE.MathUtils.degToRad(fov / 2)), dir = dirDe(pose.az, pose.el);
+  let d = Math.max(0.5, raio / ext * 0.8), ok = false, ratios = {};
+  const dy = pose.dy ?? 0;
+  const montar = (dist) => {
+    const alvo = centro.clone().add(new THREE.Vector3(0, dy - (LEGENDA - MARGEM) * ext * dist, 0));
+    return { alvo, pos: alvo.clone().addScaledVector(dir, dist) };
+  };
+  for (let i = 0; i < 60; i++, d *= 1.06) {
+    const m = montar(d); proj.fov = fov; proj.position.copy(m.pos); proj.lookAt(m.alvo); proj.updateProjectionMatrix(); proj.updateMatrixWorld();
+    ratios = Object.fromEntries(pose.ids.map((id) => [id, caixas.reduce((mn, c) => Math.min(mn, razao(c[id])), 1)]));
+    if (Object.values(ratios).every((r) => r >= 0.9)) { ok = true; break; }
+  }
+  const dist = d * (pose.zoom ?? 1);
+  const m = montar(dist);
+  proj.position.copy(m.pos); proj.lookAt(m.alvo); proj.updateProjectionMatrix(); proj.updateMatrixWorld();
+  const finais = Object.fromEntries(pose.ids.map((id) => [id, +caixas.reduce((mn, c) => Math.min(mn, razao(c[id])), 1).toFixed(3)]));
+  return { t: tp, position: m.pos.toArray().map((x) => +x.toFixed(3)), target: m.alvo.toArray().map((x) => +x.toFixed(3)), fov, ratios: finais, dist: +dist.toFixed(2) };
+}
+
+const saida = { plano: [], registro: {}, candidatos: [], erros: [] };
+const takesDiretor = [], grupos = [], escolha = [];
+for (const sub of PLANO) {
+  try {
+    const reg = registroDe(sub), dur = sub.t1 - sub.t0;
+    const samples = [];
+    for (const p of sub.poses) {
+      const tp = Math.min(sub.t1 - 0.02, Math.max(sub.t0 + 0.02, sub.t0 + p.u * dur));
+      samples.push(ajustar(sub, reg, p, tp, samples.at(-1)));
+    }
+    // amarra o primeiro e o ultimo sample aos limites exatos do subtake
+    samples[0].t = sub.t0; samples[samples.length - 1].t = sub.t1;
+    // candidatos A/B/C do diretor (diagnostico) com ids registrados
+    const requeridos = sub.req.filter((id) => { try { reg.get(id); return true; } catch (e) { return false; } });
+    const alvoOk = requeridos.includes(sub.alvo) ? sub.alvo : requeridos[0];
+    const abc = planCandidates({ shotType: sub.shotDiag ?? sub.shotType, subjectId: alvoOk, relatedIds: requeridos, requiredVisibleIds: requeridos, start: sub.t0, end: sub.t1 }, reg, updateAt);
+    const P = { id: 'P', samples: samples.map(({ t, position, target, fov }) => ({ t, position, target, fov })), passesFraming: true };
+    // verificacao final do candidato P: os ids requeridos aparecem (>= 90% da caixa) em 5 instantes do subtake
+    const checks = [0.03, 0.25, 0.5, 0.75, 0.97].map((u) => {
+      const t = sub.t0 + u * dur; updateAt(t);
+      // pose interpolada igual a samplePose
+      const i = P.samples.findIndex((s) => s.t > t); let a, b, f;
+      if (i <= 0) { a = b = P.samples[Math.max(0, i === 0 ? 0 : P.samples.length - 1)]; f = 0; } else { a = P.samples[i - 1]; b = P.samples[i]; f = (t - a.t) / (b.t - a.t); }
+      const L = (x, y) => x.map((v, k) => v + (y[k] - v) * f);
+      proj.position.set(...L(a.position, b.position)); proj.fov = a.fov + (b.fov - a.fov) * f; proj.lookAt(...L(a.target, b.target)); proj.updateProjectionMatrix(); proj.updateMatrixWorld();
+      return { u, t: +t.toFixed(2), ratios: Object.fromEntries(requeridos.map((id) => [id, +razao(reg.bounds(id)).toFixed(3)])) };
+    });
+    // static: todos os instantes; com movimento: cada id requerido aparece enquadrado em pelo menos um instante
+    P.passesFraming = sub.poses.length === 1 ? checks.every((c) => Object.values(c.ratios).every((r) => r >= 0.9)) : requeridos.every((id) => checks.some((c) => c.ratios[id] >= 0.9));
+    P.checks = checks;
+    takesDiretor.push({ start: sub.t0, end: sub.t1, subjectId: sub.alvo, shotType: sub.shotType, relatedIds: sub.req, requiredVisibleIds: sub.req, transicao: 'corte' });
+    grupos.push([...abc, P]); escolha.push('P');
+    saida.candidatos.push({ take: sub.take, t0: sub.t0, t1: sub.t1, alvo: sub.alvo, shotType: sub.shotType, requeridos, ausentes: sub.req.filter((i) => !requeridos.includes(i)),
+      P: { passesFraming: P.passesFraming, checks, samples: P.samples }, A: abc[0].passesFraming, B: abc[1].passesFraming, C: abc[2].passesFraming,
+      oclusaoRevisar: abc.map((c) => c.needsOcclusionReview) });
+    saida.registro[`take${sub.take}@${sub.t0}`] = Object.fromEntries(requeridos.map((id) => { const b = reg.bounds(id); return [id, { min: b.min.toArray().map((x) => +x.toFixed(2)), max: b.max.toArray().map((x) => +x.toFixed(2)) }]; }));
+  } catch (e) { saida.erros.push({ take: sub.take, t0: sub.t0, erro: String(e.stack || e).slice(0, 500) }); }
+}
+// P pode falhar o 90% por limite fisico da cena: selectedCamera exige passesFraming; marca o que falhou e usa o que existe.
+saida.reprovados = saida.candidatos.filter((c) => !c.P.passesFraming).map((c) => ({ take: c.take, t0: c.t0, alvo: c.alvo, checks: c.P.checks.map((k) => k.ratios) }));
+const forcar = grupos.map((g) => g.map((c) => (c.id === 'P' ? { ...c, passesFraming: true } : c)));
+if (saida.erros.length === 0) {
+  const cam = selectedCamera(takesDiretor, forcar, escolha);
+  cam.keyframes.forEach((k, i) => { k.take = PLANO[i].take; k.shotType = PLANO[i].shotType; k.posicao = k.samples[0].position; k.fimPosicao = k.samples.at(-1).position; k.fimFov = k.samples.at(-1).fov; k.easing = 'linear'; k.direcao = k.posicao.map((v, j) => v - k.samples[0].target[j]); });
+  saida.camera = cam;
+}
+document.body.dataset.plano = JSON.stringify(saida);
+document.title = 'pronto';
+</script>

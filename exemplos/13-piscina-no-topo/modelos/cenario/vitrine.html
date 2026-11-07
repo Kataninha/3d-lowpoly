@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<title>Vitrine do cenario 13 - P2</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#9fc7e8}canvas{display:block}</style>
+<script type="importmap">
+{"imports":{"three":"../../../../biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../../../biblioteca/vendor/RoundedBoxGeometry.js"}}
+</script>
+<canvas width="720" height="1280"></canvas>
+<script>window.addEventListener('error', (e) => { document.body.dataset.test = JSON.stringify({ erro: String(e.message) + ' @' + e.filename + ':' + e.lineno }); });</script>
+<script type="module">
+import * as THREE from 'three';
+import { criarZeDesmonte, MEDIDAS } from '../../kit/personagens/ze-desmonte/ze-desmonte-v3.js';
+import { criarCenario, criarSala } from './cenario.js';
+import { TORRE } from './torre.js';
+import { criarCorte } from './corte.js';
+
+const canvas = document.querySelector('canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(720, 1280, false);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.localClippingEnabled = true;
+const camera = new THREE.PerspectiveCamera(38, 720 / 1280, 0.1, 900);
+
+const PRONTA = { hora: 1, torre: { led: { ate: 12, k: 1, habitado: true }, piscina: { nivel: 1, led: 1 } }, obra: { terrenoPronto: 1, luzesCidade: 0.7, canteiro: false } };
+const OBRA = { hora: 0.1, torre: { altura: 5.5, padrao: 'cru', vestir: [{ de: 0, ate: 1, t0: 0, dur: 2 }], led: { ate: 2, k: 1 } }, obra: { gancho: { carrinho: 24, altura: 10, giro: 0.5 }, elevadorY: 14, terrenoPronto: 0 } };
+const V = {
+  'torre-geral':   { cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, p: PRONTA },
+  'torre-close':   { cen: 1, eye: [12, 90, 30], at: [0, 74.2, 4], fov: 44, p: PRONTA },
+  'torre-corte':   { cen: 1, eye: [48, 46, 80], at: [0, 40, -2], fov: 46, corte: 1, p: PRONTA },
+  'torre-cru':     { cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, p: { hora: 0.3, torre: { padrao: 'cru', led: { ate: 0, k: 0 } }, obra: { terrenoPronto: 0 } } },
+  'torre-vestindo':{ cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, t: 12, p: { hora: 0.6, torre: { padrao: 'cru', vestir: [{ de: 0, ate: 6, t0: 0, dur: 7 }, { de: 7, ate: 8, t0: 11, dur: 4 }], led: { ate: 7, k: 1 } }, obra: { terrenoPronto: 0 } } },
+  'sala-hum':      { sala: 1, eye: [4.4, 4.2, 18], at: [3.8, 2.8, -2], fov: 62, p: { painel: 0, luminaria: 1 } },
+  'sala-geral':    { sala: 1, eye: [30, 12, 56], at: [0, 2.9, 0], fov: 42, p: { painel: 0, luminaria: 1 } },
+  'sala-close':    { sala: 1, eye: [10.5, 4.0, 11], at: [3.4, 2.1, 0.3], fov: 42, p: { painel: 0, luminaria: 1 } },
+  'sala-corte':    { sala: 1, eye: [36, 4.8, 0], at: [0, 4.6, 0], fov: 50, corte: 'x', p: { painel: 1, trinca: 1, vergar: 0.85, lustre: { t0: 0, amp: 0.2 } }, t: 0.25 },
+  'sala-estalo':   { sala: 1, eye: [13, 3.2, 20], at: [0, 4.4, -2], fov: 46, p: { painel: 1, trinca: 0.8, vergar: 0.35, lustre: { t0: 0, amp: 0.2 } }, t: 0.3 },
+  'obra-geral':    { cen: 1, eye: [68, 36, 100], at: [6, 24, 0], fov: 44, p: OBRA, t: 3 },
+  'obra-close':    { cen: 1, eye: [-34, 20, 34], at: [-6, 14, -2], fov: 44, p: OBRA, t: 3 },
+  'obra-corte':    { cen: 1, eye: [44, 30, 66], at: [0, 20, -2], fov: 46, corte: 1, p: { ...OBRA, torre: { altura: 5.5, padrao: 'cru', led: { ate: 0, k: 0 } } } },
+  'raiox-geral':   { cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, t: 2, p: { ...PRONTA, raioX: { t0: 0, dur: 6 } } },
+  'raiox-close':   { cen: 1, eye: [28, 94, 42], at: [0, 70, 2], fov: 50, t: 2, p: { ...PRONTA, raioX: { t0: 0, dur: 6 } } },
+  'raiox-corte':   { cen: 1, eye: [48, 56, 80], at: [0, 44, -2], fov: 46, corte: 1, t: 2, p: { ...PRONTA, raioX: { t0: 0, dur: 6 } } },
+  'raiox-varredura': { cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, t: 0.2, p: { ...PRONTA, raioX: { t0: 0, dur: 6 } } },
+  'teste-seek':    { cen: 1, eye: [62, 44, 100], at: [0, 37, 0], fov: 46, t: 4, p: { ...PRONTA, torre: { padrao: 'cru', vestir: [{ de: 0, ate: 11, t0: 1, dur: 8 }], led: { ate: 12, k: 1 }, piscina: { nivel: 0.6, led: 1 } }, raioX: { t0: 3, dur: 4 }, sala: { painel: 0.5, trinca: 0.5, vergar: 0.4, lustre: { t0: 2, amp: 0.2 } }, obra: { canteiro: true, gancho: { carrinho: 20, altura: 8, giro: 0.4 }, elevadorY: 20, luzesCidade: 0.5, terrenoPronto: 0.3 } } },
+  'sala-na-torre': { cen: 1, eye: [26, 61, 52], at: [0, 69, 0], fov: 42, t: 0.3, p: { ...PRONTA, salaAberta: true, sala: { painel: 0 } } },
+};
+const nome = new URLSearchParams(location.search).get('v') || 'torre-geral';
+const cfg = V[nome], t = cfg.t ?? 1.5;
+const scene = new THREE.Scene();
+const teste = { vista: nome };
+const B = (o) => new THREE.Box3().setFromObject(o, true), r = (x) => +x.toFixed(3);
+// caixa sem a sombra de contato (plano decorativo)
+const solida = (o) => { const b = new THREE.Box3(); o.traverse((c) => { if (c.isMesh && c.name !== 'sombra-contato') b.expandByObject(c, true); }); return b; };
+
+// Ze v3 mede ~4,84 u de topete a bota; escala para 1,75 m = 3,5 u
+function escalaZe() { const z = criarZeDesmonte({ figurino: 'casa' }); const b = B(z.raiz); return 3.5 / (b.max.y - b.min.y); }
+function sentarZe(sala) {
+  const ze = criarZeDesmonte({ figurino: 'casa' });
+  ze.raiz.scale.setScalar(escalaZe());
+  const j = ze.juntas; j.pernaE.rotation.x = j.pernaD.rotation.x = -1.25; j.joelhoE.rotation.x = j.joelhoD.rotation.x = 1.25;
+  j.ombroE.rotation.set(0, 0, 0.15); j.ombroD.rotation.set(0, 0, -0.15); j.cotoveloE.rotation.x = j.cotoveloD.rotation.x = -0.4;
+  sala.mobilia.add(ze.raiz);
+  ze.raiz.position.set(3.0, -0.2 * 3.5 / 3.5 - 0.27, 0.4); ze.raiz.rotation.y = -Math.PI / 2;
+  ze.atualizar(0);
+  return ze;
+}
+
+if (cfg.sala) {
+  scene.background = new THREE.Color(0x24313f);
+  scene.add(new THREE.HemisphereLight(0xfff6ec, 0x8a93a8, 1.5));
+  const sol = new THREE.DirectionalLight(0xffffff, 2.2); sol.position.set(12, 22, 26); sol.castShadow = true; sol.shadow.mapSize.set(2048, 2048);
+  Object.assign(sol.shadow.camera, { left: -16, right: 16, top: 16, bottom: -16, far: 80 }); sol.shadow.bias = -0.0005; scene.add(sol);
+  const fill = new THREE.DirectionalLight(0xcfe9ff, 0.7); fill.position.set(-10, 6, 18); scene.add(fill);
+  const sala = criarSala(); scene.add(sala.group);
+  const ze = sentarZe(sala);
+  sala.updateAt(t, cfg.p);
+  if (cfg.corte) { sala.group.getObjectByName('paisagem').visible = false; const caps = new THREE.Group(); scene.add(caps); criarCorte(caps).aplicar(sala.group, new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0)); }
+  const zeEmPe = criarZeDesmonte({ figurino: 'casa' }); zeEmPe.raiz.scale.setScalar(escalaZe());
+  const bz = B(ze.raiz), sf = solida(sala.sofa);
+  Object.assign(teste, {
+    zeEmPeAltura: r(B(zeEmPe.raiz).max.y - B(zeEmPe.raiz).min.y), zeSentadoAltura: r(bz.max.y - bz.min.y), zeSentadoSoloY: r(bz.min.y),
+    sofaMinY: r(sf.min.y), sofaTopoEncostoY: r(sf.max.y), sofaAssentoY: sala.assentoY, sofaComprimento: r(sf.getSize(new THREE.Vector3()).z),
+    roboMinY: r(solida(sala.robo).min.y), roboDiametro: r(solida(sala.robo).getSize(new THREE.Vector3()).x),
+    luminariaMinY: r(solida(sala.luminaria).min.y), cabideMinY: r(solida(sala.cabide).min.y), plantaMinY: r(solida(sala.planta).min.y),
+    tvBaseY: r(solida(sala.tv).min.y + 0.8), tvTopoY: r(solida(sala.tv).max.y), painelCentroY: r((B(sala.painel).min.y + B(sala.painel).max.y) / 2), painelAtrasDaParedeZ: r(B(sala.painel).min.z),
+    razaoZeSentado_sofaEncosto: r((bz.max.y - bz.min.y) / sf.max.y),
+    zeSobreSofa: bz.min.x > sf.min.x - 0.5 && bz.max.x < sf.max.x + 2.0,
+  });
+} else {
+  const cen = criarCenario(scene);
+  const plano = cfg.corte ? new THREE.Plane(new THREE.Vector3(0, 0, -1), 0) : null;
+  cen.updateAt(t, { ...cfg.p, corte: plano ? { plano } : undefined });
+  cen.ambiente.sol.target.position.set(0, 30, 0); cen.ambiente.sol.target.updateMatrixWorld();
+  const ze = criarZeDesmonte({ figurino: 'casa' }); ze.raiz.scale.setScalar(escalaZe());
+  const zeAlt = B(ze.raiz).max.y - B(ze.raiz).min.y, andar = (i) => B(cen.torre.andares[i]);
+  Object.assign(teste, {
+    zeAltura: r(zeAlt), torreAltura: r(B(cen.torre.cobertura).max.y), alturaAndar: TORRE.H, razaoZe_Andar: r(zeAlt / TORRE.H), razaoTorre_Ze: r(B(cen.torre.cobertura).max.y / zeAlt),
+    piscinaBaseY: r(B(cen.torre.piscina).min.y), lajeCobTopoY: r(TORRE.yCobertura + TORRE.laje), tetoSalaTopoY: r(B(cen.sala.teto.userData.laje).max.y),
+    andar0MinY: r(andar(0).min.y), andar11MinY: r(andar(11).min.y), salaPisoMundoY: r(cen.sala.group.position.y),
+    ids: Object.fromEntries(Object.entries(cen.ids).map(([k, v]) => [k, !!v && v.isObject3D])),
+    gruaTopoY: r(B(cen.obra.grua.group).max.y), gruaMinY: r(B(cen.obra.grua.group).min.y), terrenoTopoY: r(B(cen.obra.terreno.children[0]).max.y),
+    cidadeFilhos: cen.obra.cidade.children.length,
+  });
+  const anc = (o, a) => { for (let c = o; c; c = c.parent) if (c === a) return true; return false; };
+  teste.hierarquia = {
+    piscinaNaCobertura: anc(cen.torre.piscina, cen.torre.cobertura), coberturaNaTorre: anc(cen.torre.cobertura, cen.torre.group),
+    lustreNoTeto: anc(cen.sala.teto.userData.pivo, cen.sala.teto), trincaNoTeto: anc(cen.sala.teto.children.find((c) => c.name === 'trinca'), cen.sala.teto),
+    sofaNaSala: anc(cen.sala.sofa, cen.sala.group), salaNaTorre: anc(cen.sala.group, cen.torre.group), gruaNaObra: anc(cen.obra.grua.group, cen.obra.group),
+    espreguicadeirasNaCobertura: cen.torre.cobertura.children.filter((c) => c.name.startsWith('espreguicadeira')).length,
+  };
+  if (nome === 'teste-seek') {
+    const estado = () => { let h = 0, i = 0; scene.traverse((o) => { i++; if (o.isMesh) { o.updateWorldMatrix(true, false); for (const e of o.matrixWorld.elements) h += e * ((i % 97) + 1); h += o.visible ? i : 0; const m = [].concat(o.material)[0]; h += (m.opacity || 0) * i; } }); return +h.toFixed(4); };
+    const em = (tt) => { cen.updateAt(tt, cfg.p); return estado(); };
+    const ts = [0.5, 2.2, 3.4, 5, 7.5, 9.5, 12];
+    const ida = ts.map(em), volta = [...ts].reverse().map(em).reverse(), embaralhado = [5, 0.5, 12, 3.4, 9.5, 2.2, 7.5].map(em);
+    const ordem = [5, 0.5, 12, 3.4, 9.5, 2.2, 7.5];
+    teste.seek = { ts, ida, iguaisIdaVolta: ida.every((x, k) => x === volta[k]), iguaisEmbaralhado: ts.every((tt, k) => embaralhado[ordem.indexOf(tt)] === ida[k]), semNaN: ida.every(Number.isFinite), estadosDistintos: new Set(ida).size };
+    cen.updateAt(t, cfg.p);
+  }
+  if (nome === 'sala-na-torre') { const luz = new THREE.PointLight(0xfff1d2, 40, 40); luz.position.set(0, 69, 5); scene.add(luz); }
+}
+camera.fov = cfg.fov; camera.updateProjectionMatrix();
+camera.position.set(...cfg.eye); camera.lookAt(...cfg.at);
+renderer.render(scene, camera);
+const dbg = new URLSearchParams(location.search).get('dbg');
+if (dbg) {
+  const [x0, y0, x1, y1] = dbg.split(',').map(Number), lista = [], v = new THREE.Vector3();
+  scene.traverseVisible((o) => { if (!o.isMesh) return; B(o).getCenter(v).project(camera); const px = (v.x + 1) / 2 * 720, py = (1 - v.y) / 2 * 1280;
+    if (px > x0 && px < x1 && py > y0 && py < y1) { const c = []; for (let q = o; q && c.length < 5; q = q.parent) c.push(q.name || q.type); lista.push(c.join('<')); } });
+  teste.dbg = [...new Set(lista)].slice(0, 25);
+}
+document.body.dataset.test = JSON.stringify(teste);
+document.title = 'pronto ' + nome;
+</script>
+</html>

@@ -1,0 +1,9 @@
+{
+  "fontes": ["camera.json"],
+  "interpolarFov": true,
+  "keyframes": [
+    {"tempo": 0, "duracao": 3, "alvo": "objeto", "direcao": [1, 0.7, 2], "fov": 45, "posicao": [1, 1, 3], "fimPosicao": [1, 1, 3], "easing": "sine.inOut"},
+    {"tempo": 3, "duracao": 3, "corte": true, "alvo": "detalhe", "direcao": [-1, 0.7, 2], "fov": 40, "posicao": [-1, 1, 2], "fimPosicao": [-1, 1, 2], "easing": "sine.inOut"},
+    {"tempo": 6, "duracao": 3, "corte": true, "alvo": "ze", "direcao": [1, 0.7, 2], "fov": 45, "posicao": [1, 1, 3], "fimPosicao": [1, 1, 3], "easing": "sine.inOut"}
+  ]
+}

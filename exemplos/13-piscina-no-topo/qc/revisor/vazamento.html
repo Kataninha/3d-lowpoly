@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR"><meta charset="utf-8"><title>Revisor: contagem de recursos GPU por quadro</title>
+<link rel="stylesheet" href="../../kit/identidade/tokens.css">
+<script type="importmap">{"imports":{"/biblioteca/vendor/three.module.js":"/videos/13-piscina-no-topo/kit/vendor/three.module.js","three":"../../kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../kit/vendor/RoundedBoxGeometry.js"}}</script>
+<canvas width="270" height="480"></canvas>
+<script type="module">
+  // Renderiza varios quadros por take e le renderer.info.memory (geometrias/texturas) e programas: se crescem por quadro, ha vazamento.
+  const saida = { passos: [], erro: null };
+  try {
+    await import('../../montagem-cena.js');
+    const c = window.__cena, info = c.renderer.info;
+    const snap = (t) => ({ t, geo: info.memory.geometries, tex: info.memory.textures, prog: info.programs.length, objs: (() => { let n = 0; c.scene.traverse(() => n++); return n; })() });
+    const grupos = [[0.6, 1.2, 2.0, 3.0], [10, 11, 11.5], [20, 21, 22], [26, 27, 28], [37, 38, 40, 41], [43, 44, 45], [56, 57, 58], [62, 63, 64], [72, 74, 76, 78], [84, 85, 86, 87], [94, 96, 98, 100], [101, 103, 104, 106], [111, 112, 113], [116, 120, 124], [128, 129], [132, 134, 136]];
+    window.drawScene(0);
+    saida.passos.push(snap(0));
+    for (const g of grupos) { for (const t of g) { window.drawScene(t); saida.passos.push(snap(t)); } }
+    // segunda volta nos mesmos tempos: nada deve crescer
+    for (const g of grupos) for (const t of g) { window.drawScene(t); }
+    saida.passos.push({ ...snap(-1), volta: true });
+  } catch (e) { saida.erro = String(e && e.stack || e).slice(0, 2500); }
+  document.body.dataset.frames = JSON.stringify(saida);
+</script></html>

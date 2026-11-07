@@ -1,0 +1,41 @@
+<!doctype html><meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"/biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"/biblioteca/vendor/RoundedBoxGeometry.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import * as moves from '/biblioteca/personagens/ze-desmonte/moves.js';
+import {criarZeDesmonte} from '/biblioteca/personagens/ze-desmonte/ze-desmonte-v3.js';
+// Mede, quadro a quadro, altura da sola e patinação do pé de apoio em M09.
+const casos=[
+  {nome:'escala1-curta',escala:1,de:[0,0,0],para:[1.2,0,0],dur:1.5},
+  {nome:'escala1-longa',escala:1,de:[0,0,0],para:[5.1,0,0],dur:3},
+  {nome:'escala0.94-diagonal',escala:.94,de:[0,0,0],para:[2,0,2],dur:3},
+  {nome:'escala0.75-curta',escala:.75,de:[0,0,0],para:[1.04,0,0],dur:1.5},
+];
+const out=[], FPS=30;
+for (const c of casos) {
+  const ze=criarZeDesmonte(); ze.raiz.scale.setScalar(c.escala);
+  const de=new THREE.Vector3(...c.de), para=new THREE.Vector3(...c.para);
+  const dir=para.clone().sub(de).normalize();
+  const base={posicao:new THREE.Vector3(0,0,0)};
+  const n=Math.round(c.dur*FPS); let maxAltura=0, maxPatina=0, razao=0, maxRaiz=0, prev=null, contato=0;
+  const tor=l=>{const j=ze.juntas['joelho'+l]; return j.children.reduce((a,b)=>b.position.y<a.position.y?b:a);};
+  const sola=l=>{const o=tor(l); return {y:new THREE.Box3().setFromObject(o).min.y,p:o.getWorldPosition(new THREE.Vector3())};};
+  let pesoFim=null, y0=null;
+  for (let i=0;i<=n;i++) {
+    const t=i/FPS;
+    moves.M09_caminhadaCurta(ze,t,{t0:0,t1:c.dur,de,para,base:{posicao:de}});
+    ze.raiz.updateWorldMatrix(true,true);
+    const E=sola('E'), D=sola('D'), baixo=E.y<=D.y?E:D, lado=E.y<=D.y?'E':'D';
+    const ym=Math.min(E.y,D.y); if(y0===null)y0=ym; maxAltura=Math.max(maxAltura,Math.abs(ym-y0));
+    if (prev && prev.lado===lado) {
+      const d=baixo.p.clone().sub(prev.p).dot(dir);       // deslocamento do pé de apoio ao longo da marcha
+      const raiz=ze.raiz.position.clone().sub(prev.raiz).dot(dir);
+      maxRaiz=Math.max(maxRaiz,raiz); if (raiz>1e-4) {maxPatina=Math.max(maxPatina,Math.abs(d)); contato++;}
+    }
+    prev={lado,p:baixo.p,raiz:ze.raiz.position.clone()};
+    if (i===n) pesoFim={pernaE:ze.juntas.pernaE.rotation.x,pernaD:ze.juntas.pernaD.rotation.x,joelhoE:ze.juntas.joelhoE.rotation.x,joelhoD:ze.juntas.joelhoD.rotation.x,pos:ze.raiz.position.distanceTo(para)};
+  }
+  out.push({nome:c.nome,maxAltura,maxPatina,razaoPatina:maxPatina/Math.max(maxRaiz,1e-9),contato,fim:pesoFim});
+}
+document.body.dataset.test=JSON.stringify({resultados:out});
+</script>

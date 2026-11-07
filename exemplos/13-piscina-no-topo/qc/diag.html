@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>diag</title>
+<link rel="stylesheet" href="../kit/identidade/tokens.css">
+<script type="importmap">{"imports":{"/biblioteca/vendor/three.module.js":"/videos/13-piscina-no-topo/kit/vendor/three.module.js","three":"../kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../kit/vendor/RoundedBoxGeometry.js"}}</script>
+<canvas width="540" height="960"></canvas>
+<script type="module">
+const r = [];
+for (const m of ['../kit/camera/diretor.js','../kit/personagens/ze-desmonte/ze-desmonte-v3.js','../kit/personagens/ze-desmonte/moves.js','../kit/efeitos/destaque-peca.js','../modelos/cenario/cenario.js','../modelos/mecanicas/index.js','../modelos/mecanicas/base.js','../montagem-cena.js']) {
+  try { await import(m); r.push(m + ' ok'); } catch (e) { r.push(m + ' ERRO ' + String(e && e.stack || e).slice(0, 700)); }
+}
+document.body.dataset.diag = JSON.stringify(r);
+</script>

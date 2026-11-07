@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "items": [
+    "personagens/ze-desmonte",
+    "personagens/estilos-cabeca",
+    "identidade",
+    "vendor",
+    "efeitos",
+    "cenarios/lavanderia",
+    "camera"
+  ]
+}

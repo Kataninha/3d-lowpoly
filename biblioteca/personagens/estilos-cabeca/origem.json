@@ -1,0 +1,10 @@
+{
+  "nome": "Estilos de cabeça (NPCs)",
+  "modelo": "estilos.js",
+  "criador": "criarPersonagem",
+  "base": "../ze-desmonte/ze-desmonte-v4.js",
+  "uso": "NPCs / figurantes. Usuário não aprovou nenhum como protagonista (2026-11-06).",
+  "estilos": ["tigela", "coroa", "espetado", "black", "topete", "coque", "moicano", "rabo", "lateral", "cacheado"],
+  "previews": ["estilos-tq.png", "estilos-frente.png", "estilos-costas.png"],
+  "data": "2026-11-06"
+}

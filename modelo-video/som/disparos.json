@@ -1,0 +1,23 @@
+{
+  "duracao": 8.0,
+  "eventos": [
+    {
+      "tempo": 0.5,
+      "som": "whoosh",
+      "duracao": 0.3,
+      "ganho": 0.45
+    },
+    {
+      "tempo": 1.5,
+      "som": "pop",
+      "duracao": 0.12,
+      "ganho": 0.45
+    },
+    {
+      "tempo": 5.1,
+      "som": "tic",
+      "duracao": 0.12,
+      "ganho": 0.45
+    }
+  ]
+}

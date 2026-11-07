@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#eae4d8;overflow:hidden;font:600 20px sans-serif}canvas{display:block}
+#r{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(2,1fr)}#r div{display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;color:#333}</style>
+<div id="r"></div>
+<script type="importmap">{"imports":{"three":"../../vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../vendor/RoundedBoxGeometry.js"}}</script>
+<script type="module">
+import * as THREE from 'three'; import { luzPadrao } from '../ze-desmonte/ze-desmonte-v4.js'; import { criarPersonagem, ESTILOS } from './estilos.js';
+const q=new URLSearchParams(location.search), W=1500, H=700, giro=+(q.get('giro')??0.45), cw=W/5, ch=H/2;
+const r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});r.setSize(W,H);r.setClearColor(0xeae4d8);r.setScissorTest(true);document.body.prepend(r.domElement);
+const scene=new THREE.Scene();luzPadrao(scene);
+const camera=new THREE.PerspectiveCamera(26,cw/ch,.1,100);camera.position.set(0,3.95,4.6);camera.lookAt(0,3.75,0);
+const fails=[];
+const um=q.get('estilo');if(um){r.setSize(600,600);camera.aspect=1;camera.updateProjectionMatrix();const p=criarPersonagem(um);p.emocao(q.get('emocao')||'neutro');p.raiz.rotation.y=giro;scene.add(p.raiz);p.atualizar(1.3);r.setViewport(0,0,600,600);r.setScissor(0,0,600,600);r.render(scene,camera);}
+(um?[]:Object.keys(ESTILOS)).forEach((nome,i)=>{
+  try{
+    const p=criarPersonagem(nome);p.emocao(i%3?'neutro':'feliz');p.raiz.rotation.y=giro;scene.add(p.raiz);p.atualizar(1.3);
+    const x=(i%5)*cw, y=H-(Math.floor(i/5)+1)*ch;r.setViewport(x,y,cw,ch);r.setScissor(x,y,cw,ch);r.render(scene,camera);scene.remove(p.raiz);
+  }catch(e){fails.push(nome+': '+e.message)}
+  document.getElementById('r').insertAdjacentHTML('beforeend',`<div>${i+1}. ${nome}</div>`);
+});
+document.body.dataset.test=JSON.stringify(fails);
+</script>

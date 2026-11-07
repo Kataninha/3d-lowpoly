@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:#eee}canvas{display:block}#result{white-space:pre}</style>
+<script type="importmap">{"imports":{"three":"../../../vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"../../../vendor/RoundedBoxGeometry.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {criarZeDesmonte,luzPadrao} from '../ze-desmonte.js';
+import * as m from '../moves.js';
+const W=900,H=2400, rows=['M01_segurar','M02_girarBotao','M03_pegarCabo','M04_susto','M05_comemorar','M08_idle','M09_caminhadaCurta','alcancar'];
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setSize(W,H);renderer.setClearColor(0xeae4d8);renderer.setScissorTest(true);document.body.append(renderer.domElement);
+let errors=[],results=[]; const alvo=new THREE.Vector3(-.85,1.95,.45);
+for(let row=0;row<rows.length;row++) for(let col=0;col<3;col++){
+  const scene=new THREE.Scene(); luzPadrao(scene);
+  const ze=criarZeDesmonte(); scene.add(ze.raiz);
+  const camera=new THREE.PerspectiveCamera(30,1,.1,100);camera.position.set(0,2.3,9.2);camera.lookAt(0,1.8,0);
+  const target=new THREE.Mesh(new THREE.BoxGeometry(.08,.08,.08),new THREE.MeshStandardMaterial({color:0x1568ba}));
+  target.position.copy(alvo).add(new THREE.Vector3(0,0,.04));scene.add(target);
+  const time=[0,.3,1][col],name=rows[row];
+  try {
+    const opt={mao:'D',alvo,alvoLocal:alvo,t0:0,t1:1,de:new THREE.Vector3(0,0,0),para:new THREE.Vector3(.5,0,0)};
+    if(name==='alcancar') m.alcancar(ze,'D',alvo,time,{t0:0,t1:.3});
+    else m[name](ze,time,opt);
+    ze.raiz.updateWorldMatrix(true,true);
+    let grip=ze.maos.D.getWorldPosition(new THREE.Vector3());
+    results.push({name,time,grip:grip.toArray(),erro:grip.distanceTo(alvo)});
+    if(name==='M03_pegarCabo' && col===2) {
+      window.contato=m.medirContato(ze,'D',target,{take:1,tempo:time,nomeAlvo:'botao'});
+    }
+  }catch(e){errors.push(name+' '+time+': '+e.message)}
+  renderer.setViewport(col*300,H-(row+1)*300,300,300);renderer.setScissor(col*300,H-(row+1)*300,300,300);renderer.render(scene,camera);
+}
+document.body.dataset.test=JSON.stringify({errors,results,contato:window.contato});
+</script>

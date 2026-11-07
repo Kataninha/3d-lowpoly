@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Por que a piscina no topo do prédio não despenca?</title>
+<link rel="stylesheet" href="kit/identidade/tokens.css">
+<script src="kit/vendor/gsap.min.js"></script>
+<script type="importmap">{"imports":{"three":"./kit/vendor/three.module.js","/biblioteca/vendor/three.module.js":"./kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"./kit/vendor/RoundedBoxGeometry.js"}}</script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #dfe9ee; font-family: var(--apv-fonte); }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="138.215" data-width="1080" data-height="1920">
+  <canvas width="1080" height="1920" data-camera="./camera.json" data-layout-allow-overflow></canvas>
+  <audio id="mixagem" src="som/mix-r5/mix-final.wav" data-start="0" data-duration="138.215" data-track-index="1"></audio>
+</div>
+<script>
+  const timeline = gsap.timeline({ paused: true });
+  timeline.to({}, { duration: 138.215 }, 0);
+  window.__timelines = window.__timelines || {};
+  window.__timelines.main = timeline;
+  window.__hf = window.__hf || {};
+  window.__hf.buildReady = window.__hf.buildReady || {};
+  // Cena 3D primeiro (expõe window.updateAt/drawScene e escuta hf-seek); overlays depois, para ler a câmera já posicionada.
+  window.__hf.buildReady.cena = import('./montagem-cena.js').then(() => import('./overlays.js')).then((m) => m.iniciarOverlays());
+</script>
+</body>
+</html>

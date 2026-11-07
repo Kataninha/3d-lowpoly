@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<title>Mecanicas P2 - video 13</title>
+<style>html,body{margin:0;background:#dfe9ee;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"../../kit/vendor/three.module.js"}}</script>
+<canvas></canvas>
+<script type="module">
+  // Prova isolada: ?m=<mecanica>&t=<segundos>&w=900&h=700[&pre=2.0,0.3]. Mesmo m e t, mesmo PNG (pre = seeks de aquecimento fora de ordem).
+  import * as THREE from 'three';
+  import { CENAS } from './index.js';
+  const q = new URLSearchParams(location.search);
+  const m = q.get('m'), t = parseFloat(q.get('t') || '0');
+  const W = +(q.get('w') || 900), H = +(q.get('h') || 700);
+  const canvas = document.querySelector('canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setSize(W, H, false); canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFShadowMap;
+  renderer.localClippingEnabled = true;
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0xdfe9ee);
+  scene.add(new THREE.HemisphereLight(0xfffaf0, 0xb8c4cc, 1.7));
+  const sun = new THREE.DirectionalLight(0xfff1d6, 2.6); sun.position.set(-5, 14, 10); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -14, right: 14, top: 14, bottom: -14, far: 50 }); sun.shadow.normalBias = 0.03;
+  scene.add(sun);
+  if (m === '_lista') { document.title = 'lista ' + JSON.stringify(Object.fromEntries(Object.entries(CENAS).map(([k, v]) => [k, { tempos: v.tempos, size: v.size || [900, 700], sfx: v.sfx ? v.sfx() : [] }]))); throw new Error('lista'); }
+  const c = CENAS[m];
+  const obj = c.criar(); scene.add(obj.group);
+  if (c.piso !== false) { const p = new THREE.Mesh(new THREE.BoxGeometry(40, 0.04, 30), new THREE.MeshStandardMaterial({ color: 0xa8c29a, flatShading: true })); p.position.y = (c.pisoTopo ?? 0) - 0.02; p.receiveShadow = true; scene.add(p); }
+  for (const s of (q.get('pre') || '').split(',').filter(Boolean)) c.animar(obj, parseFloat(s));
+  const info = c.animar(obj, t);
+  const cam = typeof c.cam === 'function' ? c.cam(t) : c.cam;
+  const camera = new THREE.PerspectiveCamera(cam.fov, W / H, 0.1, 120);
+  camera.position.set(...cam.eye); camera.lookAt(...cam.target);
+  renderer.render(scene, camera);
+  window.__v = { scene, camera, renderer, obj };
+  document.title = 'pronto ' + JSON.stringify(info);
+</script>
+</html>

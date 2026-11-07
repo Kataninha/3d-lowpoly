@@ -1,0 +1,167 @@
+<!doctype html><meta charset="utf-8">
+<style>:root{--cor-destaque:#ffd400}</style>
+<script type="importmap">{"imports":{"three":"/biblioteca/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"/biblioteca/vendor/RoundedBoxGeometry.js","/modelo-video/kit/personagens/ze-desmonte/moves.js":"/biblioteca/personagens/ze-desmonte/moves.js","/modelo-video/kit/camera/diretor.js":"/biblioteca/camera/diretor.js","/modelo-video/kit/efeitos/destaque-peca.js":"/biblioteca/efeitos/destaque-peca.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import * as moves from '/biblioteca/personagens/ze-desmonte/moves.js';
+import {criarZeDesmonte} from '/biblioteca/personagens/ze-desmonte/ze-desmonte-v2.js';
+import {calcularCamera, criarMontagem} from '/modelo-video/montagem-cena.template.js';
+const errors=[];
+async function check(name, f) {try {await f()} catch(e) {errors.push(name+': '+e.message)}}
+function assert(x,msg) {if(!x)throw Error(msg)}
+await check('rotulos na peca',async ()=>{
+ const {projetarPeca,posicionarRotulos}=await import('/biblioteca/efeitos/rotulos-peca.js');
+ const cam=new THREE.PerspectiveCamera(45,9/16,.1,100); cam.position.set(0,0,10); cam.lookAt(0,0,0);
+ const peca=new THREE.Mesh(new THREE.BoxGeometry(2,.5,.5)); peca.rotation.z=.05;
+ const p=projetarPeca(peca,cam); assert(Math.abs(p.x-540)<1 && Math.abs(p.y-960)<1 && p.visivel,'projeção');
+ peca.rotation.z=1; assert(Math.abs(projetarPeca(peca,cam).angulo)<=12,'inclinação sem limite');
+ const raiz=document.createElement('div'); raiz.innerHTML='<div class="apv-nome" data-ancora="a">PINO</div><div class="apv-nome" data-ancora="b">FORA</div>';
+ document.body.append(raiz); posicionarRotulos(n=>n==='a'?{x:100,y:500,angulo:5,visivel:true}:null,raiz);
+ const [a,b]=raiz.children; assert(a.style.transform.includes('rotate(5deg)') && b.style.display==='none','posição do nome'); raiz.remove();
+});
+await check('zé segue a partitura',()=>{
+ const ze=criarZeDesmonte(), camera=new THREE.PerspectiveCamera(45,1), alvo=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+ const takes=[{take:1,t0:0,t1:1,alvo:'a',ze:'ausente',ze_tam:'fora'},{take:2,t0:1,t1:2,alvo:'a',ze:'ausente',ze_tam:'pequeno'}];
+ const atualizar=criarMontagem({ze,camera,cameraData:{keyframes:[{tempo:0,duracao:2,alvo:'a',direcao:[0,0,1],fov:45}]},partitura:takes,alvos:{a:alvo},animadores:{},resetarPecas(){}});
+ atualizar(.5); assert(ze.raiz.visible===false,'Zé fora apareceu'); atualizar(1.5); assert(ze.raiz.visible,'Zé não voltou'); atualizar(.5); assert(!ze.raiz.visible,'seek para trás');
+});
+await check('destaque automático pela partitura',()=>{
+ const ze=criarZeDesmonte(), camera=new THREE.PerspectiveCamera(45,1);
+ const peca=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0x3366aa}));
+ const tempos={frases:[{n:0,inicio:0,fim:2}],palavras:[{frase:0,palavra:'Motor',inicio:1,fim:1.2}]};
+ const make=(destaque,alvos={p:peca})=>criarMontagem({ze,camera,cameraData:{keyframes:[{tempo:0,duracao:3,alvo:'p',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:3,ze:'ausente',alvo:'p',destaque}],alvos,animadores:{},resetarPecas(){},tempos});
+ const atualizar=make([['p','motor',0]]);
+ atualizar(1.175); assert(peca.material.emissive.getHex()===0xffd400 || peca.material.emissiveIntensity>0,'peça não acendeu');
+ atualizar(2.5); assert(peca.material.color.getHex()===0x3366aa && peca.material.emissiveIntensity===1 && peca.material.emissive.getHex()===0,'resíduo do destaque');
+ let erro=''; try{make([['x','motor',0]])}catch(e){erro=e.message} assert(/Alvo de destaque ausente/.test(erro),'alvo ausente sem erro');
+ erro=''; try{make([['p','ponte',0]])}catch(e){erro=e.message} assert(/Palavra ausente/.test(erro),'palavra ausente sem erro');
+});
+await check('camera easing',()=>{
+ const obj=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)); const cam=new THREE.PerspectiveCamera(45,1);
+ const key={tempo:0,duracao:2,alvo:'a',direcao:[0,0,1],fov:45,push:.1};
+ const calc=easing=>calcularCamera(cam,[{...key,easing}],{a:obj},.5).posicao.z;
+ assert(Math.abs(calc('linear')-calc('sine.inOut'))>1e-4,'easing ignorado');
+ const keys=easing=>[key,{...key,tempo:2,direcao:[1,0,1],easing}];
+ const blend=easing=>calcularCamera(cam,keys(easing),{a:obj},2.1125).posicao.x;
+ assert(Math.abs(blend('linear')-blend('power2.out'))>1e-4,'easing do blend ignorado');
+ const legacy=calcularCamera(cam,[key],{a:obj},.5).posicao.z;
+ const d=1/(2*Math.tan(THREE.MathUtils.degToRad(45/2))*.62);
+ const smooth=u=>u*u*(3-2*u);
+ assert(Math.abs(legacy-d*(1-.1*smooth(.25)))<1e-9,'push legado diferente de smoothstep');
+ const b=calcularCamera(cam,keys(undefined),{a:obj},2.1125).posicao.x;
+ const destino=calcularCamera(cam,[{...key,tempo:2,direcao:[1,0,1]}],{a:obj},2.1125).posicao.x;
+ assert(Math.abs(b-destino*smooth(.25))<1e-9,'blend legado diferente de smoothstep');
+ for(const invalido of ['',null,false,0,'invalido']) {
+  let erro=false; try {calc(invalido)} catch(e) {erro=true} assert(erro,'easing inválido aceito: '+invalido);
+ }
+});
+await check('olhar',()=>{
+ const ze=criarZeDesmonte(), alvo=new THREE.Vector3(100,2,0);
+ assert(typeof moves.olharPara==='function','olharPara ausente');
+ moves.olharPara(ze,alvo,.9,{t0:1,t1:1.3}); const antes=ze.juntas.cabeca.rotation.y;
+ moves.olharPara(ze,alvo,1.3,{t0:1,t1:1.3}); const fim=ze.juntas.cabeca.rotation.y;
+ moves.olharPara(ze,alvo,.9,{t0:1,t1:1.3});
+ assert(Math.abs(antes)>0 && Math.abs(fim)<=Math.PI/3+1e-6 && Math.abs(ze.juntas.cabeca.rotation.y-antes)<1e-8,'olhar, limite ou seek');
+});
+await check('movimento natural e seek',()=>{
+ const ze=criarZeDesmonte(), alvo=new THREE.Vector3(-.85,1.95,.45);
+ for(const move of ['M01_segurar','M02_girarBotao','M03_pegarCabo']) {
+  const sample=(t,estilo)=>{moves[move](ze,t,{alvo,alvoLocal:alvo,t0:1,t1:1.3,estilo});return ze.juntas.ombroD.quaternion.toArray()};
+  const natural=sample(1.06,'natural'), seco=sample(1.06,'seco');
+  assert(natural.some((v,i)=>Math.abs(v-seco[i])>1e-4),move+' antecipação ausente');
+  sample(1.29,'natural'); const again=sample(1.06,'natural');
+  assert(natural.every((v,i)=>Math.abs(v-again[i])<1e-8),move+' seek divergente');
+  const start=new THREE.Quaternion().fromArray(sample(1,'natural'));
+  const end=new THREE.Quaternion().fromArray(sample(1.3,'natural'));
+  const overshoot=new THREE.Quaternion().fromArray(sample(1.3-2/30,'natural'));
+  const angulo=start.angleTo(end);
+  assert(start.angleTo(overshoot)>angulo+1e-4,move+' overshoot ausente');
+  for(let t=1.12;t<=1.301;t+=.003) {
+   const q=new THREE.Quaternion().fromArray(sample(t,'natural'));
+   assert(start.angleTo(q)<=angulo*1.05001+1e-7,move+' overshoot acima de 5%');
+  }
+  const hand=moves[move](ze,1.3,{alvo,alvoLocal:alvo,t0:1,t1:1.3});
+  assert(hand.distanceTo(alvo)<.03,move+' contato incorreto');
+ }
+});
+await check('destaque e rótulo',async()=>{
+ const fx=await import('/biblioteca/efeitos/destaque-peca.js');
+ const mesh=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:0x234567}));
+ const color=mesh.material.color.getHex(), original=new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3());
+ fx.destacarPeca(mesh,.25,{t0:0}); assert(mesh.children.length===0 && mesh.material.emissive.getHex()===0xffd400,'peça não acendeu');
+ const amplitude=mesh.material.emissiveIntensity;
+ fx.destacarPeca(mesh,.5,{t0:0}); assert(mesh.material.emissiveIntensity<amplitude,'pulsos ausentes');
+ fx.destacarPeca(mesh,2,{t0:0}); assert(mesh.material.color.getHex()===color && mesh.material.emissive.getHex()===0 && mesh.material.emissiveIntensity===1 && mesh.children.length===0 && new THREE.Box3().setFromObject(mesh).getSize(new THREE.Vector3()).equals(original),'resíduo');
+ fx.rotuloEmPerspectiva(mesh,'PEÇA',.5,{t0:0,dur:1}); assert(mesh.children.some(c=>c.visible),'rótulo ausente');
+ fx.rotuloEmPerspectiva(mesh,'PEÇA',2,{t0:0,dur:1}); assert(mesh.children.length===0,'rótulo residual');
+});
+await check('rótulo inclinado',async()=>{
+ const fx=await import('/biblioteca/efeitos/destaque-peca.js');
+ const mesh=new THREE.Mesh(new THREE.BoxGeometry(4.2,.25,4.2),new THREE.MeshStandardMaterial());
+ const camera=new THREE.PerspectiveCamera(40,540/960,.1,50); camera.position.set(5,5,6);
+ fx.destacarPeca(mesh,.3,{dur:1.2});
+ const high=mesh.material.emissiveIntensity; fx.destacarPeca(mesh,.6,{dur:1.2});
+ assert(mesh.material.emissiveIntensity<high,'pulso sem contraste');
+ const label=fx.rotuloEmPerspectiva(mesh,'VIGA DE AMARRAÇÃO',.6,{dur:1.2,camera});
+ const canvas=label.material.map.image, ctx=canvas.getContext('2d');
+ assert(canvas.width>ctx.measureText('VIGA DE AMARRAÇÃO').width+16,'texto sem margem');
+ const {width,height}=label.geometry.parameters;
+ for(const x of [-width/2,width/2]) for(const y of [-height/2,height/2]) {
+  const corner=new THREE.Vector3(x,y,0).applyQuaternion(label.quaternion).add(label.position);
+  assert(corner.y>=.125,'rótulo atravessa a face');
+ }
+});
+await check('janelas e camera sem auxiliares',async()=>{
+ const fx=await import('/biblioteca/efeitos/destaque-peca.js');
+ const mesh=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial());
+ const cam=new THREE.PerspectiveCamera(45,1), key={tempo:0,duracao:10,alvo:'p',direcao:[0,0,1],fov:45};
+ const before=calcularCamera(cam,[key],{p:mesh},1.5);
+ const a={t0:1},b={t0:3};
+ const run=(t,reverse)=>{for(const e of (reverse?[b,a]:[a,b])) fx.destacarPeca(mesh,t,e)};
+ const lit=()=>mesh.material.emissiveIntensity;
+ run(1.5,false); const opacity=lit();
+ run(1.5,true); assert(opacity>0 && Math.abs(lit()-opacity)<1e-9,'janelas dependem da ordem');
+ run(3.5,false); assert(lit()>0,'segunda janela ausente');
+ run(1.5,true); assert(lit()>0,'seek reverso perdeu destaque');
+ fx.rotuloEmPerspectiva(mesh,'A',1.5,{t0:1});
+ fx.rotuloEmPerspectiva(mesh,'B',3.5,{t0:3});
+ assert(mesh.children.filter(c=>c.geometry.type==='PlaneGeometry').length===1,'rótulo anterior residual');
+ fx.rotuloEmPerspectiva(mesh,'B',1.5,{t0:3});
+ assert(mesh.children.filter(c=>c.geometry.type==='PlaneGeometry').length===1,'seek inverso de rótulo');
+ const after=calcularCamera(cam,[key],{p:mesh},1.5);
+ assert(before.posicao.distanceTo(after.posicao)<1e-9 && before.alvo.distanceTo(after.alvo)<1e-9 && before.fov===after.fov,'auxiliar alterou câmera');
+ run(8,false); fx.rotuloEmPerspectiva(mesh,'B',8,{t0:3}); assert(mesh.children.length===0,'resíduo ao final');
+});
+await check('olhar na montagem',()=>{
+ const ze=criarZeDesmonte(), obj=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)); obj.position.set(5,1,0);
+ const cam=new THREE.PerspectiveCamera(45,1);
+ const atualizar=criarMontagem({ze,camera:cam,cameraData:{keyframes:[{tempo:0,duracao:4,alvo:'p',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:1,ze:'ausente'},{t0:1,t1:2,ze:'M04',alvo:'p',olhar:{antecede:.25}}],alvos:{p:obj},animadores:{},resetarPecas:()=>{}});
+ atualizar(.75); const inicio=ze.juntas.cabeca.rotation.y;
+ atualizar(.9); const antes=ze.juntas.cabeca.rotation.y;
+ atualizar(1); const gesto=ze.juntas.cabeca.rotation.y;
+ atualizar(.9); assert(Math.abs(inicio)<1e-9 && Math.abs(antes)>0 && Math.abs(gesto)>Math.abs(antes) && Math.abs(ze.juntas.cabeca.rotation.y-antes)<1e-9,'olhar antecipado ou seek falhou');
+});
+await check('olhares consecutivos',()=>{
+ const ze=criarZeDesmonte(), a=new THREE.Mesh(new THREE.BoxGeometry(1,1,1)), b=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+ a.position.set(-5,1,0); b.position.set(5,1,0);
+ const cam=new THREE.PerspectiveCamera(45,1);
+ const atualizar=criarMontagem({ze,camera:cam,cameraData:{keyframes:[{tempo:0,duracao:4,alvo:'a',direcao:[0,0,1],fov:45}]},partitura:[{t0:0,t1:1,ze:'ausente',alvo:'a',olhar:{antecede:.25}},{t0:1,t1:2,ze:'ausente',alvo:'b',olhar:{antecede:.25}}],alvos:{a,b},animadores:{},resetarPecas:()=>{}});
+ atualizar(.9); const real=ze.juntas.cabeca.rotation.y;
+ const esperado=criarZeDesmonte(); moves.M08_idle(esperado,.9,{base:{posicao:esperado.raiz.position.clone(),rotacao:esperado.raiz.rotation.clone()}}); moves.olharPara(esperado,b,.9,{t0:1,t1:1.3,antecede:.25});
+ assert(Math.abs(real-esperado.juntas.cabeca.rotation.y)<1e-9 && Math.abs(real)>0,'próximo olhar não antecipou');
+ atualizar(1.5); atualizar(.9); assert(Math.abs(ze.juntas.cabeca.rotation.y-real)<1e-9,'seek inverso alterou o olhar');
+});
+await check('rótulo repetido com cores diferentes',async()=>{
+ const fx=await import('/biblioteca/efeitos/destaque-peca.js');
+ for(const reverse of [false,true]) {
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+  const a={t0:0,cor:'#ff0000'}, b={t0:2,cor:'#0000ff'};
+  const run=t=>{for(const e of (reverse?[b,a]:[a,b])) fx.rotuloEmPerspectiva(mesh,'PEÇA',t,e)};
+  const fill=()=>mesh.children.find(c=>c.geometry.type==='PlaneGeometry').material.map.image.getContext('2d').fillStyle;
+  run(.5); assert(fill()==='#ff0000','primeira cor incorreta');
+  run(2.5); assert(fill()==='#0000ff','segunda cor incorreta');
+  run(.5); assert(fill()==='#ff0000','cor incorreta após seek inverso');
+ }
+});
+document.body.dataset.test=JSON.stringify(errors);
+</script>

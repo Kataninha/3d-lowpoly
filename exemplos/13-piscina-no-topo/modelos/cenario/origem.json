@@ -1,0 +1,13 @@
+{
+  "nome": "cenario-piscina-no-topo",
+  "autor": "MODELADOR-3D A",
+  "origem": "modelagem procedural para o video 13 (P2): torre de luxo, sala do Ze, obra, raio-X",
+  "unidade": "1 unidade = 0,5 metro; chao y = 0",
+  "revisao": "P2-r1",
+  "reuso": [
+    "biblioteca/cenarios/cobertura-obra (cidade + elevador de obra)",
+    "biblioteca/objetos/grua-torre",
+    "biblioteca/efeitos/montagem-unidades.js"
+  ],
+  "candidato_biblioteca": "2o uso (receita): torre, sala, raio-x"
+}

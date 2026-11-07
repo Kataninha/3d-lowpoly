@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="kit/identidade/tokens.css">
+<script src="kit/vendor/gsap.min.js"></script>
+<script type="importmap">{"imports":{"three":"./kit/vendor/three.module.js","three/addons/geometries/RoundedBoxGeometry.js":"./kit/vendor/RoundedBoxGeometry.js"}}</script>
+<style>
+*{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden} #root{position:relative;width:100%;height:100%;overflow:hidden;background:#dcebea;font-family:var(--apv-fonte)} #cena3d{position:absolute;inset:0;width:100%;height:100%}
+.apv-legenda{top:69%;font-size:72px;color:var(--cor-texto)} .apv-legenda.chave{color:var(--cor-destaque)}
+.etiqueta{position:absolute;top:16%;left:50%;translate:-50% 0;padding:14px 30px;background:var(--cor-destaque);color:var(--cor-contorno);border:5px solid var(--cor-contorno);border-radius:20px;font-size:44px;font-weight:900;white-space:nowrap}
+.icone{position:absolute;top:24%;right:15%;font:900 130px/1 var(--apv-fonte);-webkit-text-stroke:7px var(--cor-contorno);paint-order:stroke fill}.positivo{color:var(--cor-positivo)}.negativo{color:var(--cor-negativo)}.controle{color:var(--cor-texto)}
+.cta{position:absolute;top:10%;left:12%;width:76%;text-align:center;color:var(--cor-texto);font:800 50px/1.2 var(--apv-fonte);-webkit-text-stroke:5px var(--cor-contorno);paint-order:stroke fill}.cta{background:var(--cor-contorno);border-radius:20px;padding:12px}.cta b{color:var(--cor-destaque)} .cta .linha{font-size:38px;line-height:1.25;white-space:nowrap}.cta .linha + .linha{margin-top:10px}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="8.000" data-width="1080" data-height="1920">
+<canvas id="cena3d" width="1080" height="1920"></canvas>
+<audio id="efeitos-sonoros" src="som/sfx.wav" data-start="0" data-duration="8.000" data-track-index="10"></audio>
+<div id="etiqueta" class="etiqueta clip" data-start="1.5" data-duration="2.6" data-track-index="1">PEÇA · 0,9 m</div>
+<div id="positivo" class="icone positivo clip" data-start="5.1" data-duration="1" data-track-index="2">✔</div>
+<div id="negativo" class="icone negativo clip" data-start="4.1" data-duration="0.8" data-track-index="2">&#10006;&#xfe0e;</div>
+<div id="avancar" class="icone controle clip" data-start="6.2" data-duration="0.5" data-track-index="2">▶▶</div>
+<div id="pausa" class="icone controle clip" data-start="6.7" data-duration="0.5" data-track-index="2">⏸</div>
+<div id="cta" class="cta clip" data-start="6" data-duration="2" data-track-index="3"><div class="linha">J&#193; SABIA? Comente <b>&#8220;T&#201;CNICO&#8221;</b></div><div class="linha">N&#195;O SABIA? Comente <b>&#8220;ABRI&#8221;</b></div></div>
+<div id="palavra-0" class="apv-legenda clip" data-start="0.500" data-duration="0.600" data-track-index="5">Veja</div>
+<div id="palavra-1" class="apv-legenda clip" data-start="1.100" data-duration="0.400" data-track-index="5">a</div>
+<div id="palavra-2" class="apv-legenda clip chave" data-start="1.500" data-duration="0.800" data-track-index="5">peça</div>
+<div id="palavra-3" class="apv-legenda clip" data-start="2.300" data-duration="0.500" data-track-index="5">por</div>
+<div id="palavra-4" class="apv-legenda clip" data-start="2.800" data-duration="2.000" data-track-index="5">dentro</div>
+<div id="palavra-5" class="apv-legenda clip" data-start="5.100" data-duration="0.700" data-track-index="5">Agora</div>
+<div id="palavra-6" class="apv-legenda clip" data-start="5.800" data-duration="1.200" data-track-index="5">funciona</div>
+</div>
+<script>
+const TEMPOS={"duracao": 8, "frases": [{"n": 0, "texto": "Veja a peça por dentro", "inicio": 0.5, "fim": 4.8}, {"n": 1, "texto": "Agora funciona", "inicio": 5.1, "fim": 7.0}], "palavras": [{"frase": 0, "palavra": "Veja", "inicio": 0.5, "fim": 1.1}, {"frase": 0, "palavra": "a", "inicio": 1.1, "fim": 1.5}, {"frase": 0, "palavra": "peça", "inicio": 1.5, "fim": 2.3, "destaque": true}, {"frase": 0, "palavra": "por", "inicio": 2.3, "fim": 2.8}, {"frase": 0, "palavra": "dentro", "inicio": 2.8, "fim": 4.8}, {"frase": 1, "palavra": "Agora", "inicio": 5.1, "fim": 5.8}, {"frase": 1, "palavra": "funciona", "inicio": 5.8, "fim": 7.0}]};
+function W(frase,palavra){const matches=TEMPOS.palavras.filter(x=>x.frase===frase&&x.palavra.toLocaleLowerCase('pt-BR')===palavra.toLocaleLowerCase('pt-BR'));if(matches.length!==1)throw Error('Palavra ausente ou ambígua: '+palavra);return matches[0].inicio}
+function E(frase){const f=TEMPOS.frases.find(x=>x.n===frase);if(!f)throw Error('Frase ausente: '+frase);return f.fim}
+const tl=gsap.timeline({paused:true}); tl.to({}, {duration:8.000},0); window.__timelines=window.__timelines||{};window.__timelines.main=tl;
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {criarZeDesmonte,luzPadrao,sombraDeContato} from './kit/personagens/ze-desmonte/ze-desmonte-padrao.js';
+import {criarLavanderia} from './kit/cenarios/lavanderia/cenario.js';
+import {criarEfeito} from './kit/efeitos/efeitos.js';
+import {criarPeca} from './kit/efeitos/contorno-toon.js';
+const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('#cena3d'),antialias:true});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);
+const cena=new THREE.Scene();cena.background=new THREE.Color(0xe6eeeb);luzPadrao(cena);
+const lavanderia=criarLavanderia();cena.add(lavanderia.raiz);
+const ze=criarZeDesmonte();ze.raiz.scale.setScalar(3.5/3.72);ze.raiz.position.set(-1.45,0,0.25);cena.add(ze.raiz);
+const objeto=new THREE.Group();objeto.position.set(1.05,0,0.20);cena.add(objeto);
+const estrutura=criarPeca(new THREE.BoxGeometry(1.45,1.8,1.2),new THREE.MeshStandardMaterial({color:0x8da6b1,roughness:.7,transparent:true,opacity:1}));estrutura.position.y=.9;objeto.add(estrutura);
+const interior=criarPeca(new THREE.CylinderGeometry(.33,.33,1.35,16),new THREE.MeshStandardMaterial({color:0xf4a72b,roughness:.7}));interior.position.y=.9;interior.rotation.z=.5;objeto.add(interior);
+estrutura.userData.casca.visible=false; interior.userData.casca.visible=false;
+// The reference floor tiles rise to y=0.015; lift shadows slightly above them.
+const sombraZe=sombraDeContato(0.9);sombraZe.position.set(-1.45,0.021,0.25);cena.add(sombraZe);
+const sombraObjeto=sombraDeContato(0.82);sombraObjeto.position.set(1.05,0.021,0.20);cena.add(sombraObjeto);
+const sombraInterior=sombraDeContato(0.36);sombraInterior.position.set(1.05,0.022,0.20);cena.add(sombraInterior);
+const palavraTempo=(w)=>TEMPOS.palavras.filter(x=>x.frase===w.frase&&x.palavra.toLocaleLowerCase('pt-BR')===w.palavra.toLocaleLowerCase('pt-BR')).length===1?W(w.frase,w.palavra):w.inicio;
+const primeira=TEMPOS.palavras[0]; const destaque=TEMPOS.palavras.find(w=>w.destaque)||TEMPOS.palavras[Math.min(2,TEMPOS.palavras.length-1)]; const interna=TEMPOS.palavras[Math.min(4,TEMPOS.palavras.length-1)]; const primeiraFrase=TEMPOS.frases[0];
+const efeito=criarEfeito('suor',{alvo:ze.juntas.cabeca,inicio:palavraTempo(primeira),duracao:2.2,escala:.8});
+const camera=new THREE.PerspectiveCamera(41,1080/1920,.1,100);const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x)};
+function desenhar(t){const aproximar=smooth((t-palavraTempo(destaque))/.45);const retornar=smooth((t-4.7)/.45);const zoom=aproximar*(1-retornar);camera.position.set(1.8+zoom*.06+t*.012,7.5,9.7-zoom*.65);camera.lookAt(-.26+zoom*.06,2.1,0);const opacidade=t>=palavraTempo(interna)&&t<E(primeiraFrase.n)?.22:1;estrutura.userData.malha.material.opacity=opacidade;estrutura.userData.malha.material.depthWrite=opacidade===1;estrutura.userData.casca.material.transparent=true;estrutura.userData.casca.material.opacity=opacidade;estrutura.userData.casca.material.depthWrite=opacidade===1;ze.misturarPoses('parado','explicar',smooth(t/.45)).emocao(t>=5?'feliz':'surpreso');ze.juntas.ombroD.rotation.z=0.05;ze.juntas.cotoveloD.rotation.set(0,0,0);ze.apontarPara(new THREE.Vector3(0.40,2.15,0.92),{lado:'E',intensidade:smooth((t-1.2)/.45)});ze.atualizar(t);efeito.atualizar(t);lavanderia.atualizar(t);renderer.render(cena,camera)}
+window.addEventListener('hf-seek',e=>desenhar(e.detail.time));desenhar(0);
+</script>
+</body>
+</html>

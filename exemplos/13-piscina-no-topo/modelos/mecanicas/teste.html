@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>teste</title>
+<script type="importmap">{"imports":{"three":"../../kit/vendor/three.module.js"}}</script>
+<pre id="r">rodando</pre>
+<script type="module">
+  // Teste automatico: (1) determinismo: seek fora de ordem == objeto novo no mesmo t; (2) hierarquia/NaN; (3) medidas.
+  import * as THREE from 'three';
+  import { CENAS } from './index.js';
+  const rd = (v) => Math.round(v * 1e4) / 1e4;
+  function snap(obj) {
+    const out = []; obj.group.updateMatrixWorld(true);
+    obj.group.traverse((o) => {
+      let vis = true; for (let p = o; p; p = p.parent) if (!p.visible) vis = false;          // no oculto: so a visibilidade conta
+      out.push(vis ? 1 : 0); if (!vis) return;
+      out.push(...o.matrixWorld.elements.map(rd));
+      if (o.isMesh) { const p = o.geometry.attributes.position.array; let s = 0; for (let i = 0; i < p.length - 2; i += 21) s += p[i] + 2 * p[i + 1] + 3 * p[i + 2]; out.push(rd(s)); }
+    });
+    return out;
+  }
+  const comp = (a, b) => { if (a.length !== b.length) return 1e9; let m = 0; for (let i = 0; i < a.length; i++) { if (Number.isNaN(a[i]) || Number.isNaN(b[i])) { m = Math.max(m, 1e6); continue; } m = Math.max(m, Math.abs(a[i] - b[i])); } return m; };
+  function medir(g) {
+    const b = new THREE.Box3(); let nan = false, meshes = 0, orfaos = 0;
+    g.updateMatrixWorld(true);
+    g.traverse((o) => { if (o.isMesh) { meshes++; if (o.visible) b.expandByObject(o); if (!o.parent) orfaos++; if (o.matrixWorld.elements.some((v) => !Number.isFinite(v))) nan = true; } });
+    const s = b.getSize(new THREE.Vector3());
+    return { meshes, nan, orfaos, w_u: +s.x.toFixed(2), h_u: +s.y.toFixed(2), d_u: +s.z.toFixed(2), w_m: +(s.x / 2).toFixed(2), h_m: +(s.y / 2).toFixed(2), d_m: +(s.z / 2).toFixed(2), minY: +b.min.y.toFixed(2) };
+  }
+  const res = {}; let falhas = 0;
+  for (const [nome, c] of Object.entries(CENAS)) {
+    const ts = [...new Set([0, ...c.tempos, c.dur, c.dur * 0.37, c.dur * 0.81])].sort((a, b) => a - b);
+    const ref = ts.map((t) => { const o = c.criar(); c.animar(o, t); return snap(o); });
+    const o = c.criar();
+    const ordem = [...ts.keys()].sort((a, b) => ((a * 7 + 3) % ts.length) - ((b * 7 + 3) % ts.length));   // ordem embaralhada fixa
+    ordem.push(...[...ordem].reverse());
+    let maxd = 0;
+    for (const i of ordem) { c.animar(o, ts[i]); maxd = Math.max(maxd, comp(snap(o), ref[i])); }
+    c.animar(o, c.dur); const med = medir(o.group);
+    const ok = maxd < 1e-3 && !med.nan && med.orfaos === 0;
+    if (!ok) falhas++;
+    res[nome] = { ok, maxDiff: +maxd.toExponential(2), seeks: ordem.length, ...med };
+  }
+  document.getElementById('r').textContent = JSON.stringify({ falhas, res }, null, 1);
+  document.title = 'teste-pronto';
+</script>

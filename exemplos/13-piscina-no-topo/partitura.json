@@ -1,0 +1,773 @@
+{
+  "metodo_tempos": "hyperframes words; real word timestamps; exact script match",
+  "takes": [
+    {
+      "take": 1,
+      "frase": "frase 0",
+      "t0": 0.0,
+      "t1": 7.273,
+      "plano": "3/4 na altura do sofá",
+      "alvo": "teto-sala",
+      "camera": "HUM 3/4 na sala; tilt no estalo; raio-X sobe ao andar de cima.",
+      "ze": "Joga pipoca para cima e pega com a boca, erra a segunda; no estalo congela com a pipoca no ar; olha para cima e a pipoca cai no colo (M04).",
+      "heroi": "ze",
+      "ze_tam": "grande",
+      "motivo_ze": "O espectador se reconhece no sofá e sente o susto.",
+      "tipo_camera": "falha",
+      "acao_peca": "Trinca fina corre no teto; painel de carga pisca verde para vermelho; lustre balança (tremer). Casca do prédio vai a 0,25 (camadaTranslucida) com varredura de cima para baixo; piscina azul cheia logo acima da sala, setas vermelhas apertando o teto.",
+      "overlay": "Pílula • 10 MIL LITROS (ponto azul) quando a piscina aparece.",
+      "sfx": "Pipoca mastigada; CREC seco no estalo; varredura curta; água balançando baixo.",
+      "termos": "",
+      "angulo": "3/4 na altura do sofá",
+      "amplitude": "tilt rápido até o teto no estalo; depois sobe atravessando o teto em raio-X até a piscina",
+      "leitura": "Trinca fina corre no teto; painel de carga pisca verde para vermelho; lustre balança (tremer). Casca do prédio vai a 0,25 (camadaTranslucida) com varredura de cima para baixo; piscina azul cheia logo acima da sala, setas vermelhas apertando o teto.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "HUM",
+      "subjectId": "ze",
+      "relatedIds": [
+        "sofa",
+        "painel-carga",
+        "piscina"
+      ],
+      "requiredVisibleIds": [
+        "ze",
+        "sofa",
+        "painel-carga",
+        "piscina"
+      ],
+      "transicao": "Corte de entrada.",
+      "prova": [
+        2.909,
+        4.364,
+        6.618
+      ],
+      "destaque": []
+    },
+    {
+      "take": 2,
+      "frase": "frase 1",
+      "t0": 7.273,
+      "t1": 12.073,
+      "plano": "3/4 na altura do sofá",
+      "alvo": "teto-sala",
+      "camera": "HUM na sala ainda em raio-X.",
+      "ze": "Abraça a pipoca e encolhe no sofá; levanta os pés quando a água chega.",
+      "heroi": "ze",
+      "ze_tam": "grande",
+      "motivo_ze": "Reação ao perigo da sala virar piscina.",
+      "tipo_camera": "falha",
+      "acao_peca": "Simulação: o teto verga, gotas pingam, a sala ganha nível de água até o sofá e uma boia passa.",
+      "overlay": "❌ vermelho no teto.",
+      "sfx": "Gotas; \"glub\" quando a água chega.",
+      "termos": "",
+      "angulo": "3/4 na altura do sofá",
+      "amplitude": "push 10% no teto que verga",
+      "leitura": "Simulação: o teto verga, gotas pingam, a sala ganha nível de água até o sofá e uma boia passa.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "HUM",
+      "subjectId": "ze",
+      "relatedIds": [
+        "sofa"
+      ],
+      "requiredVisibleIds": [
+        "ze",
+        "sofa"
+      ],
+      "transicao": "Continuidade.",
+      "prova": [
+        9.745,
+        10.764
+      ],
+      "destaque": []
+    },
+    {
+      "take": 3,
+      "frase": "frase 2",
+      "t0": 12.073,
+      "t1": 15.927,
+      "plano": "contra-plongée externo, entardecer",
+      "alvo": "torre",
+      "camera": "GER da torre inteira por fora; sala volta seca no corte.",
+      "ze": "ausente",
+      "heroi": "mundo",
+      "ze_tam": "fora",
+      "motivo_ze": "",
+      "tipo_camera": "obra",
+      "acao_peca": "Torre moderna completa: vidro azul-esverdeado, varandas com guarda-corpo de vidro, jardim vertical, LED na borda da piscina de borda infinita.",
+      "overlay": "—",
+      "sfx": "Vento leve no alto.",
+      "termos": "",
+      "angulo": "contra-plongée externo, entardecer",
+      "amplitude": "dolly lento para cima até a cobertura",
+      "leitura": "Torre moderna completa: vidro azul-esverdeado, varandas com guarda-corpo de vidro, jardim vertical, LED na borda da piscina de borda infinita.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "EST",
+      "subjectId": "torre",
+      "relatedIds": [],
+      "requiredVisibleIds": [
+        "torre"
+      ],
+      "transicao": "Corte motivado pela pergunta.",
+      "prova": [
+        13.891,
+        15.055
+      ],
+      "destaque": []
+    },
+    {
+      "take": 4,
+      "frase": "frase 3",
+      "t0": 15.927,
+      "t1": 22.473,
+      "plano": "3/4 elevado 30°",
+      "alvo": "balanca",
+      "camera": "DET na piscina, depois REL com a balança gigante sob ela.",
+      "ze": "ausente",
+      "heroi": "peca",
+      "ze_tam": "fora",
+      "motivo_ze": "",
+      "tipo_camera": "mecanismo",
+      "acao_peca": "Dez blocos azuis de \"1 t\" caem um a um numa balança gigante (▶▶ depois do terceiro); depois blocos cinza (concreto) e bonequinhos (pessoas). Ponteiro gira até o vermelho.",
+      "overlay": "Medida amarela \"10 t\" crescendo bloco a bloco.",
+      "sfx": "Um \"tum\" por bloco, mais rápido no ▶▶.",
+      "termos": "",
+      "angulo": "3/4 elevado 30°",
+      "amplitude": "push 6% acompanhando o ponteiro",
+      "leitura": "Dez blocos azuis de \"1 t\" caem um a um numa balança gigante (▶▶ depois do terceiro); depois blocos cinza (concreto) e bonequinhos (pessoas). Ponteiro gira até o vermelho.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "MEC",
+      "subjectId": "balanca",
+      "relatedIds": [],
+      "requiredVisibleIds": [
+        "balanca"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        17.309,
+        18.473,
+        21.818
+      ],
+      "destaque": []
+    },
+    {
+      "take": 5,
+      "frase": "frase 4",
+      "t0": 22.473,
+      "t1": 28.655,
+      "plano": "por cima do teto da sala, 3/4 elevado",
+      "alvo": "teto-sala",
+      "camera": "REL no teto da sala visto por cima.",
+      "ze": "Mito: aparece de capacete torto com balde de concreto e despeja no teto; o painel de carga sobe; faz cara de \"ops\" e coça a nuca.",
+      "heroi": "ze",
+      "ze_tam": "grande",
+      "motivo_ze": "A piada desmonta o mito com a ação dele.",
+      "tipo_camera": "falha",
+      "acao_peca": "Camada de concreto cresce em faixas sobre a laje (crescerPeca eixo y); a balança sobe mais.",
+      "overlay": "Pílula • + PESO (ponto vermelho). ❌ no balde.",
+      "sfx": "Concreto escorrendo; \"plim\" irônico.",
+      "termos": "",
+      "angulo": "por cima do teto da sala, 3/4 elevado",
+      "amplitude": "fixo",
+      "leitura": "Camada de concreto cresce em faixas sobre a laje (crescerPeca eixo y); a balança sobe mais.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "REL",
+      "subjectId": "ze",
+      "relatedIds": [
+        "balanca-topo"
+      ],
+      "requiredVisibleIds": [
+        "ze",
+        "balanca-topo"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        24.291,
+        27.927
+      ],
+      "destaque": []
+    },
+    {
+      "take": 6,
+      "frase": "frase 5",
+      "t0": 28.655,
+      "t1": 36.436,
+      "plano": "frontal externo, prédio inteiro",
+      "alvo": "caminho-carga",
+      "camera": "GER do prédio em raio-X; depois retrocesso.",
+      "ze": "Só depois de \"existir\": reaparece no terreno vazio, veste capacete e colete laranja no quadro (troca mostrada) e pega a prancheta.",
+      "heroi": "mundo",
+      "ze_tam": "pequeno",
+      "motivo_ze": "A troca de figurino mostra que agora ele é o construtor.",
+      "tipo_camera": "falha",
+      "acao_peca": "Uma seta vermelha desce do topo ao terreno pela estrutura e some. Em \"voltar\", o prédio desmonta ao contrário: andares se desfazem de cima para baixo até o terreno; o céu volta para manhã.",
+      "overlay": "◀◀ branco e varredura horizontal no retrocesso.",
+      "sfx": "Brilho descendente; fita rebobinando.",
+      "termos": "",
+      "angulo": "frontal externo, prédio inteiro",
+      "amplitude": "fixo; no fim, retrocesso em ordem inversa até o terreno vazio",
+      "leitura": "Uma seta vermelha desce do topo ao terreno pela estrutura e some. Em \"voltar\", o prédio desmonta ao contrário: andares se desfazem de cima para baixo até o terreno; o céu volta para manhã.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "EST",
+      "subjectId": "torre",
+      "relatedIds": [
+        "ze"
+      ],
+      "requiredVisibleIds": [
+        "torre",
+        "ze"
+      ],
+      "transicao": "Continuidade; retrocesso.",
+      "prova": [
+        33.164,
+        34.036,
+        35.927
+      ],
+      "destaque": []
+    },
+    {
+      "take": 7,
+      "frase": "frase 6",
+      "t0": 36.655,
+      "t1": 41.818,
+      "plano": "perfil do terreno em corte",
+      "alvo": "terreno",
+      "camera": "SEC em perfil do terreno com camadas visíveis.",
+      "ze": "Pisa na terra mole e afunda até a canela; puxa a bota com esforço.",
+      "heroi": "ze",
+      "ze_tam": "pequeno",
+      "motivo_ze": "Ele sente na pele a terra mole.",
+      "tipo_camera": "falha",
+      "acao_peca": "Camadas de solo montam em fatias de baixo para cima (firme escura embaixo, mole clara em cima). Prédio-fantasma translúcido afunda torto na camada mole.",
+      "overlay": "❌ vermelho no prédio torto.",
+      "sfx": "Bota afundando \"plof\"; rangido do prédio.",
+      "termos": "",
+      "angulo": "perfil do terreno em corte",
+      "amplitude": "fixo",
+      "leitura": "Camadas de solo montam em fatias de baixo para cima (firme escura embaixo, mole clara em cima). Prédio-fantasma translúcido afunda torto na camada mole.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "terreno-palco",
+      "relatedIds": [
+        "ze"
+      ],
+      "requiredVisibleIds": [
+        "terreno-palco",
+        "ze"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        40.291,
+        41.164
+      ],
+      "destaque": []
+    },
+    {
+      "take": 8,
+      "frase": "frase 7",
+      "t0": 41.818,
+      "t1": 53.455,
+      "plano": "perfil do terreno, depois 3/4 elevado",
+      "alvo": "fundacao",
+      "camera": "SEC em perfil nas estacas; REL 3/4 nos blocos.",
+      "ze": "Sinaliza o bate-estaca e tapa os ouvidos a cada golpe; no fim bate a prancheta, satisfeito.",
+      "heroi": "peca",
+      "ze_tam": "pequeno",
+      "motivo_ze": "Ele comanda a obra e reage ao golpe.",
+      "tipo_camera": "nome",
+      "acao_peca": "Estacas descem em 3 golpes visíveis com poeira, a primeira em velocidade normal e as outras em ▶▶, até a camada escura. Blocos: forma de madeira tábua por tábua, aço entra, concreto sobe e preenche, forma some.",
+      "overlay": "Pílula • CAMADA FIRME (ponto marrom). ▶▶ no canto. FUNDAÇÃO na peça. ✔ verde.",
+      "sfx": "Três golpes metálicos por estaca; tábuas; concreto.",
+      "termos": "",
+      "angulo": "perfil do terreno, depois 3/4 elevado",
+      "amplitude": "DET na ponta da estaca na camada firme; recua para REL dos blocos",
+      "leitura": "Estacas descem em 3 golpes visíveis com poeira, a primeira em velocidade normal e as outras em ▶▶, até a camada escura. Blocos: forma de madeira tábua por tábua, aço entra, concreto sobe e preenche, forma some.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "estaca",
+      "relatedIds": [
+        "terreno-estaca",
+        "ze",
+        "fundacao",
+        "bloco"
+      ],
+      "requiredVisibleIds": [
+        "estaca",
+        "terreno-estaca",
+        "ze",
+        "fundacao",
+        "bloco"
+      ],
+      "transicao": "Continuidade.",
+      "prova": [
+        44.073,
+        47.418,
+        49.309,
+        52.436
+      ],
+      "destaque": [
+        [
+          "estaca",
+          "estacas",
+          7
+        ],
+        [
+          "fundacao",
+          "fundação",
+          7
+        ]
+      ]
+    },
+    {
+      "take": 9,
+      "frase": "frase 8",
+      "t0": 53.455,
+      "t1": 59.973,
+      "plano": "frontal em bancada",
+      "alvo": "viguinha",
+      "camera": "DET na bancada ao lado da obra.",
+      "ze": "Aperta uma viguinha de concreto com as duas mãos (aguenta); estica e ela racha no meio; susto.",
+      "heroi": "ze",
+      "ze_tam": "grande",
+      "motivo_ze": "A mão dele mostra a força que o concreto não aguenta.",
+      "tipo_camera": "falha",
+      "acao_peca": "Setas azuis de aperto, depois vermelhas de esticar; trinca vermelha abre embaixo.",
+      "overlay": "Pílula • APERTO (azul) com ✔ e • ESTICAR (vermelho) com ❌.",
+      "sfx": "Rachadura seca.",
+      "termos": "",
+      "angulo": "frontal em bancada",
+      "amplitude": "fixo",
+      "leitura": "Setas azuis de aperto, depois vermelhas de esticar; trinca vermelha abre embaixo.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "DET",
+      "subjectId": "viguinha",
+      "relatedIds": [
+        "ze"
+      ],
+      "requiredVisibleIds": [
+        "viguinha",
+        "ze"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        57.5,
+        59.173
+      ],
+      "destaque": []
+    },
+    {
+      "take": 10,
+      "frase": "frase 9",
+      "t0": 59.973,
+      "t1": 69.136,
+      "plano": "corte do pilar, depois 3/4 elevado",
+      "alvo": "pilar",
+      "camera": "SEC no corte do pilar; REL de pilares e vigas no mesmo plano.",
+      "ze": "Encaixa a última barra de aço na gaiola (M01 segurar), cotovelo para fora; depois sai de quadro.",
+      "heroi": "peca",
+      "ze_tam": "pequeno",
+      "motivo_ze": "A mão encaixa o aço que a fala apresenta.",
+      "tipo_camera": "nome",
+      "acao_peca": "Gaiola de aço monta barra por barra; concreto sobe anel por anel; corte mostra o aço dentro. Viguinha armada esticada não racha. Vigas crescem de um pilar ao outro (crescerPeca eixo x); andares sobem em ▶▶ com grua e elevador de obra; a fachada de vidro veste cada trecho, painel por painel, e liga o LED.",
+      "overlay": "CONCRETO ARMADO na peça. ✔ verde. ▶▶ no canto.",
+      "sfx": "Clique metálico por barra; concreto; encaixe por viga.",
+      "termos": "",
+      "angulo": "corte do pilar, depois 3/4 elevado",
+      "amplitude": "câmera sobe ao longo do pilar; recua para REL com pilares e vigas; ▶▶ dos andares",
+      "leitura": "Gaiola de aço monta barra por barra; concreto sobe anel por anel; corte mostra o aço dentro. Viguinha armada esticada não racha. Vigas crescem de um pilar ao outro (crescerPeca eixo x); andares sobem em ▶▶ com grua e elevador de obra; a fachada de vidro veste cada trecho, painel por painel, e liga o LED.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "pilar",
+      "relatedIds": [
+        "ze",
+        "viga",
+        "torre"
+      ],
+      "requiredVisibleIds": [
+        "pilar",
+        "ze",
+        "viga",
+        "torre"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        60.627,
+        64.773,
+        66.373
+      ],
+      "destaque": [
+        [
+          "pilar",
+          "armado",
+          9
+        ],
+        [
+          "viga",
+          "vigas",
+          9
+        ]
+      ]
+    },
+    {
+      "take": 11,
+      "frase": "frase 10",
+      "t0": 69.136,
+      "t1": 79.464,
+      "plano": "perfil da laje do topo",
+      "alvo": "laje",
+      "camera": "SEC em perfil da laje; REL no fim.",
+      "ze": "Anda na laje comum com régua; põe um balde de 20 cm de água e a laje verga, ele recua devagar; na reforçada dá dois pulinhos e faz joinha.",
+      "heroi": "peca",
+      "ze_tam": "pequeno",
+      "motivo_ze": "O peso dele e do balde mostram o limite da laje.",
+      "tipo_camera": "nome",
+      "acao_peca": "Laje comum: grade fina e concreto em faixas; a régua mostra 20 cm e a laje verga. Laje reforçada lado a lado: aço mais denso, mais grossa; linhas verdes ligam a laje às vigas e pilares abaixo.",
+      "overlay": "Medida amarela \"20 cm\". ❌ na laje que verga. LAJE na peça. ✔ verde.",
+      "sfx": "Rangido baixo; encaixe grave; pulinhos.",
+      "termos": "",
+      "angulo": "perfil da laje do topo",
+      "amplitude": "recua do corte para REL da laje sobre vigas e pilares",
+      "leitura": "Laje comum: grade fina e concreto em faixas; a régua mostra 20 cm e a laje verga. Laje reforçada lado a lado: aço mais denso, mais grossa; linhas verdes ligam a laje às vigas e pilares abaixo.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "laje",
+      "relatedIds": [
+        "ze"
+      ],
+      "requiredVisibleIds": [
+        "laje",
+        "ze"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        71.391,
+        74.082,
+        75.973
+      ],
+      "destaque": [
+        [
+          "laje",
+          "laje",
+          10
+        ]
+      ]
+    },
+    {
+      "take": 12,
+      "frase": "frase 11",
+      "t0": 79.464,
+      "t1": 88.191,
+      "plano": "corte frontal da piscina",
+      "alvo": "parede-piscina",
+      "camera": "SEC no corte da piscina.",
+      "ze": "Encosta as mãos na parede e empurra para fora junto com as setas; depois sai de quadro.",
+      "heroi": "peca",
+      "ze_tam": "pequeno",
+      "motivo_ze": "Ele faz com as mãos o que a água faz.",
+      "tipo_camera": "falha",
+      "acao_peca": "Paredes sobem fiada a fiada (ordem perímetro). Água enche. Setas vermelhas laterais crescem com a profundidade; a parede sem aço abaula.",
+      "overlay": "Setas vermelhas. ❌ na parede abaulada.",
+      "sfx": "Água; rangido da parede.",
+      "termos": "",
+      "angulo": "corte frontal da piscina",
+      "amplitude": "push 10% até o fundo",
+      "leitura": "Paredes sobem fiada a fiada (ordem perímetro). Água enche. Setas vermelhas laterais crescem com a profundidade; a parede sem aço abaula.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "parede-piscina",
+      "relatedIds": [
+        "ze",
+        "agua"
+      ],
+      "requiredVisibleIds": [
+        "parede-piscina",
+        "ze",
+        "agua"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        85.5,
+        86.591
+      ],
+      "destaque": []
+    },
+    {
+      "take": 13,
+      "frase": "frase 12",
+      "t0": 88.191,
+      "t1": 92.627,
+      "plano": "corte frontal da piscina",
+      "alvo": "parede-piscina",
+      "camera": "SEC fixo no corte.",
+      "ze": "ausente",
+      "heroi": "peca",
+      "ze_tam": "fora",
+      "motivo_ze": "",
+      "tipo_camera": "mecanismo",
+      "acao_peca": "Gaiola de aço aparece dentro da parede e do fundo; a parede volta reta; setas verdes de resistência.",
+      "overlay": "✔ verde.",
+      "sfx": "Clique metálico.",
+      "termos": "",
+      "angulo": "corte frontal da piscina",
+      "amplitude": "fixo",
+      "leitura": "Gaiola de aço aparece dentro da parede e do fundo; a parede volta reta; setas verdes de resistência.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "parede-armada",
+      "relatedIds": [],
+      "requiredVisibleIds": [
+        "parede-armada"
+      ],
+      "transicao": "Continuidade.",
+      "prova": [
+        88.918,
+        91.827
+      ],
+      "destaque": []
+    },
+    {
+      "take": 14,
+      "frase": "frase 13",
+      "t0": 92.627,
+      "t1": 99.536,
+      "plano": "corte vertical: piscina em cima, sala embaixo",
+      "alvo": "fissura",
+      "camera": "SEC vertical com piscina e sala no mesmo plano.",
+      "ze": "Na sala, uma gota cai na cabeça dele; vira chuveiro e ele abre o guarda-chuva.",
+      "heroi": "ze",
+      "ze_tam": "pequeno",
+      "motivo_ze": "A piada mostra a consequência do vazamento.",
+      "tipo_camera": "falha",
+      "acao_peca": "Fissura no canto do fundo; gotas atravessam a laje e caem na sala.",
+      "overlay": "Pílula • VAZAMENTO (ponto azul). ❌ na fissura.",
+      "sfx": "Gotas; chuveiro.",
+      "termos": "",
+      "angulo": "corte vertical: piscina em cima, sala embaixo",
+      "amplitude": "fixo",
+      "leitura": "Fissura no canto do fundo; gotas atravessam a laje e caem na sala.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "SEC",
+      "subjectId": "fissura",
+      "relatedIds": [
+        "ze",
+        "piscina"
+      ],
+      "requiredVisibleIds": [
+        "fissura",
+        "ze",
+        "piscina"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        96.409,
+        98.082
+      ],
+      "destaque": []
+    },
+    {
+      "take": 15,
+      "frase": "frase 14",
+      "t0": 99.536,
+      "t1": 109.645,
+      "plano": "fundo da piscina, depois casa de máquinas",
+      "alvo": "manta",
+      "camera": "DET na manta e no cano; MEC em bomba e filtro.",
+      "ze": "De volta ao topo, desenrola a manta com o pé e aperta o anel do cano com chave; sai de quadro na bomba.",
+      "heroi": "peca",
+      "ze_tam": "pequeno",
+      "motivo_ze": "As mãos dele vedam o que vazava.",
+      "tipo_camera": "nome",
+      "acao_peca": "Manta verde rola faixa por faixa e cobre fundo e paredes; canos entram e recebem anel vedante; a fissura some. Bomba e filtro entram em arco; canos se ligam trecho a trecho; partículas escuras entram no filtro e a água volta azul limpa.",
+      "overlay": "IMPERMEABILIZAÇÃO na peça. ✔ verde. Pílulas • BOMBA e • FILTRO (azul).",
+      "sfx": "Manta desenrolando; aperto de chave; motor da bomba baixo.",
+      "termos": "",
+      "angulo": "fundo da piscina, depois casa de máquinas",
+      "amplitude": "DET na manta e no cano; MEC em corte na casa de máquinas",
+      "leitura": "Manta verde rola faixa por faixa e cobre fundo e paredes; canos entram e recebem anel vedante; a fissura some. Bomba e filtro entram em arco; canos se ligam trecho a trecho; partículas escuras entram no filtro e a água volta azul limpa.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "DET",
+      "subjectId": "manta",
+      "relatedIds": [
+        "ze",
+        "cano",
+        "bomba",
+        "filtro"
+      ],
+      "requiredVisibleIds": [
+        "manta",
+        "ze",
+        "cano",
+        "bomba",
+        "filtro"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        100.918,
+        103.973,
+        106.445,
+        108.991
+      ],
+      "destaque": [
+        [
+          "manta",
+          "impermeabilização",
+          14
+        ]
+      ]
+    },
+    {
+      "take": 16,
+      "frase": "frase 15",
+      "t0": 109.645,
+      "t1": 113.891,
+      "plano": "3/4 elevado na cobertura, entardecer",
+      "alvo": "piscina",
+      "camera": "REL na cobertura.",
+      "ze": "Abre o registro; mergulha o dedão e aprova.",
+      "heroi": "ze",
+      "ze_tam": "pequeno",
+      "motivo_ze": "Ele completa a obra.",
+      "tipo_camera": "obra",
+      "acao_peca": "Água sobe em níveis com brilho; a borda infinita transborda leve; deck, espreguiçadeiras e LED montam em volta.",
+      "overlay": "—",
+      "sfx": "Água enchendo.",
+      "termos": "",
+      "angulo": "3/4 elevado na cobertura, entardecer",
+      "amplitude": "push 6%",
+      "leitura": "Água sobe em níveis com brilho; a borda infinita transborda leve; deck, espreguiçadeiras e LED montam em volta.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "REL",
+      "subjectId": "piscina",
+      "relatedIds": [
+        "ze"
+      ],
+      "requiredVisibleIds": [
+        "piscina",
+        "ze"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        111.245,
+        112.873
+      ],
+      "destaque": []
+    },
+    {
+      "take": 17,
+      "frase": "frase 16",
+      "t0": 113.891,
+      "t1": 127.2,
+      "plano": "frontal externo em raio-X",
+      "alvo": "caminho-carga",
+      "camera": "GER do prédio inteiro em raio-X com descida.",
+      "ze": "Easter egg: no corte, o Zé aparece de passagem no sofá da sala.",
+      "heroi": "mundo",
+      "ze_tam": "pequeno",
+      "motivo_ze": "Lembra quem mora embaixo.",
+      "tipo_camera": "nome",
+      "acao_peca": "Setas acendem peça por peça na palavra de cada uma: água, fundo, laje, vigas, pilares, fundações, terreno; vermelhas viram verdes na fundação. Painel de carga da sala volta a verde. Pulso amarelo no caminho inteiro; casca volta a 1 (vidro).",
+      "overlay": "Legenda com o nome de cada peça. CAMINHO DAS CARGAS.",
+      "sfx": "Brilho por peça; acorde curto de \"fechou\".",
+      "termos": "",
+      "angulo": "frontal externo em raio-X",
+      "amplitude": "câmera desce do topo ao terreno acompanhando as setas; depois fixo",
+      "leitura": "Setas acendem peça por peça na palavra de cada uma: água, fundo, laje, vigas, pilares, fundações, terreno; vermelhas viram verdes na fundação. Painel de carga da sala volta a verde. Pulso amarelo no caminho inteiro; casca volta a 1 (vidro).",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "REV",
+      "subjectId": "caminho-carga",
+      "relatedIds": [],
+      "requiredVisibleIds": [
+        "caminho-carga"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        114.545,
+        116.873,
+        118.473,
+        121.6,
+        123.636
+      ],
+      "destaque": [
+        [
+          "caminho-carga",
+          "cargas",
+          16
+        ]
+      ]
+    },
+    {
+      "take": 18,
+      "frase": "frase 17",
+      "t0": 127.2,
+      "t1": 130.545,
+      "plano": "externo, entardecer",
+      "alvo": "torre",
+      "camera": "GER por fora com cidade acendendo luzes.",
+      "ze": "ausente",
+      "heroi": "mundo",
+      "ze_tam": "fora",
+      "motivo_ze": "",
+      "tipo_camera": "nome",
+      "acao_peca": "Torre pronta brilha (brilho de Parabéns); LED da piscina acende.",
+      "overlay": "—",
+      "sfx": "Brilho.",
+      "termos": "",
+      "angulo": "externo, entardecer",
+      "amplitude": "dolly até a cobertura",
+      "leitura": "Torre pronta brilha (brilho de Parabéns); LED da piscina acende.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "REV",
+      "subjectId": "torre",
+      "relatedIds": [
+        "piscina"
+      ],
+      "requiredVisibleIds": [
+        "torre",
+        "piscina"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        127.2,
+        129.745
+      ],
+      "destaque": []
+    },
+    {
+      "take": 19,
+      "frase": "frase 18",
+      "t0": 130.545,
+      "t1": 138.109,
+      "plano": "3/4 na altura do sofá",
+      "alvo": "ze",
+      "camera": "HUM na sala, igual à abertura.",
+      "ze": "Sem capacete (pendura no cabide), pipoca na mão; olha o teto, o painel está verde, relaxa e come; no \"otimista\" faz polegar para cima.",
+      "heroi": "ze",
+      "ze_tam": "grande",
+      "motivo_ze": "Fecho: o morador agora confia no prédio.",
+      "tipo_camera": "lista",
+      "acao_peca": "Ícones de pilar, viga e laje aparecem um por palavra; no \"vizinho\", o Zé. O robô aspirador recolhe a pipoca do chão.",
+      "overlay": "VOCÊ MORARIA EMBAIXO? nos 3 s finais.",
+      "sfx": "Pipoca; \"plim\".",
+      "termos": "",
+      "angulo": "3/4 na altura do sofá",
+      "amplitude": "fixo",
+      "leitura": "Ícones de pilar, viga e laje aparecem um por palavra; no \"vizinho\", o Zé. O robô aspirador recolhe a pipoca do chão.",
+      "justificativa": "A câmera mostra o que a fala explica.",
+      "shotType": "HUM",
+      "subjectId": "ze",
+      "relatedIds": [
+        "sofa"
+      ],
+      "requiredVisibleIds": [
+        "ze",
+        "sofa"
+      ],
+      "transicao": "Corte motivado pela mudança de alvo.",
+      "prova": [
+        131.636,
+        134.764,
+        137.455
+      ],
+      "destaque": []
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "mundo100manual-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --offline --no-install hyperframes@0.8.191 preview",
+    "check": "npx --offline --no-install hyperframes@0.8.191 check",
+    "render": "python ../../ferramentas/render_final.py"
+  }
+}

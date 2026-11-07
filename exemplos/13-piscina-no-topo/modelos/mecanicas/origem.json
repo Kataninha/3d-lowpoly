@@ -1,0 +1,10 @@
+{
+  "item": "mecanicas-piscina-no-topo",
+  "fonte": "modelado do zero em Three.js low poly (flatShading, sem contorno) pelo MODELADOR-3D B",
+  "video": "13-piscina-no-topo",
+  "revisao": "P2 r1 (2026-11-04)",
+  "escala": "1 u = 0,5 m; chao em y = 0",
+  "reuso": "biblioteca/efeitos/montagem-unidades.js (montarPorUnidades, crescerPeca) via kit/efeitos",
+  "api": "criar<X>() -> {group,...}; animar<X>(obj, t) puro; registro em index.js (CENAS)",
+  "prova": "vitrine.html?m=<mecanica>&t=<s>; gerar.py (PNGs); teste.html (determinismo, medidas)"
+}

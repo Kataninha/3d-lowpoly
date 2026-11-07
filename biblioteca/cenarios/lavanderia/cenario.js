@@ -1,5 +1,5 @@
 /**
- * CENÁRIO: lavanderia — Mundo100Manual (vídeo da máquina de lavar)
+ * CENÁRIO: lavanderia (vídeo da máquina de lavar)
  * Tons apagados (creme, cinza-azulado, azulejo claro) para as peças coloridas aparecerem.
  * Todo objeto tem volume e encosta no chão ou na parede (regra do kit: nada fino nem flutuando).
  * Escala: 1 unidade ≈ 0,5 m. Chão em y = 0. Parede do fundo com a face em z = PAREDE_Z.

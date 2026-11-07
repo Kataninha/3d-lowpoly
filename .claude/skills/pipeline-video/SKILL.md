@@ -1,9 +1,9 @@
 ---
-name: mundo100manual-pipeline
-description: Executa o workflow de produção do Mundo100Manual quando chega um tema de vídeo ou uma etapa fica pronta.
+name: pipeline-video
+description: Executa o workflow de produção de vídeo quando chega um tema de vídeo ou uma etapa fica pronta.
 ---
 
-# Pipeline Mundo100Manual
+# Pipeline de vídeo
 
 Leia o `WORKFLOW_MESTRE.md` da raiz para etapas, comandos e evidências. Rode o pré-voo editorial do `AGENTS.md` da raiz em cada etapa aplicável, inclusive ao retomar o trabalho. Leia `refs/CAMERA.md` para decisões de câmera. Consulte `BUGS.md`, o arquivo do papel e o painel vivo.
 

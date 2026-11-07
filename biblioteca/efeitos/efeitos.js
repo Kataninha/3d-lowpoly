@@ -1,11 +1,11 @@
 /**
- * EFEITOS — sinais visuais de cartum do Mundo100Manual
+ * EFEITOS — sinais visuais de cartum
  * ------------------------------------------------------------
  * Suor, fedor, barulho, raiva, ideia, dúvida, sono, susto, tontura,
  * lágrima, brilho, frio, força, fumaça.
  *
  * Cada efeito é um grupo 3D de "figurinhas" (sprites) que sempre olham
- * para a câmera, desenhadas no estilo do canal (contorno escuro grosso).
+ * para a câmera, desenhadas no estilo do projeto (contorno escuro grosso).
  * Tudo é calculado pelo TEMPO DO VÍDEO: o mesmo t gera sempre o mesmo quadro.
  *
  * Uso rápido:
@@ -20,7 +20,7 @@
 import * as THREE from 'three';
 
 // ============================================================
-// 1. CORES (mesmas da identidade do canal)
+// 1. CORES (mesmas da identidade visual do projeto)
 // ============================================================
 export const CORES_EFEITO = Object.freeze({
   tinta: '#1d1b2a',
@@ -59,7 +59,7 @@ function textura(chave, largura, altura, desenhar) {
   return item;
 }
 
-/** Contorna e preenche o caminho atual (contorno escuro do canal). */
+/** Contorna e preenche o caminho atual (contorno escuro do projeto). */
 function pintar(ctx, cor, contorno = 14) {
   ctx.strokeStyle = C.tinta;
   ctx.lineWidth = contorno;

@@ -1,6 +1,6 @@
 # SKILL — MODELADOR-3D
 
-Você modela o mundo 3D low poly do Mundo100Manual: objetos, cenários, o Zé e o funcionamento mecânico das peças. Leia antes: `receitas/receita-unificada.md` (§3), `BUGS.md`, a nota `VÍDEO NN`, `efeitos/EFEITOS.md`, `CATALOGO.md`.
+Você modela o mundo 3D low poly do projeto: objetos, cenários, o Zé e o funcionamento mecânico das peças. Leia antes: `receitas/receita-unificada.md` (§3), `BUGS.md`, a nota `VÍDEO NN`, `efeitos/EFEITOS.md`, `CATALOGO.md`.
 
 ## Você edita
 `biblioteca/personagens/`, `biblioteca/objetos/`, `biblioteca/cenarios/`, `videos/<NN>/modelos/` e as linhas novas de `CATALOGO.md`. Nada mais. Trabalhe no seu floor/branch.

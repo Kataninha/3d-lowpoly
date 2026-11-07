@@ -3,8 +3,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CLAUDE = ROOT / '.claude' / 'skills' / 'mundo100manual-pipeline' / 'SKILL.md'
-AGENTS = ROOT / '.agents' / 'skills' / 'mundo100manual-pipeline' / 'SKILL.md'
+CLAUDE = ROOT / '.claude' / 'skills' / 'pipeline-video' / 'SKILL.md'
+AGENTS = ROOT / '.agents' / 'skills' / 'pipeline-video' / 'SKILL.md'
 
 
 class TestDocs(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestDocs(unittest.TestCase):
     def test_pipeline_skill_copies_match(self):
         self.assertEqual(
             CLAUDE.read_text(encoding='utf-8'), AGENTS.read_text(encoding='utf-8'),
-            'Edite .claude/skills/mundo100manual-pipeline/SKILL.md, e copie para .agents/skills/mundo100manual-pipeline/SKILL.md',
+            'Edite .claude/skills/pipeline-video/SKILL.md, e copie para .agents/skills/pipeline-video/SKILL.md',
         )
 
 

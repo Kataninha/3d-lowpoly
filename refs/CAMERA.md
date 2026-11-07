@@ -1,6 +1,6 @@
 # Direção de câmera
 
-Guia próprio do Mundo100Manual, nascido do estudo de vídeos verticais de 30 fps com motor, ponte e estádio. Os caminhos de câmera e o software desses vídeos são desconhecidos. Os valores de QA abaixo são critérios de partida, não metas.
+Guia próprio de direção de câmera. Os valores de QA abaixo são critérios de partida, não metas.
 
 | Família | Use quando |
 |---|---|

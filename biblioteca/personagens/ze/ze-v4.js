@@ -1,5 +1,5 @@
 /**
- * ZÉ — mascote oficial do canal Mundo100Manual
+ * ZÉ — mascote oficial do projeto
  * ------------------------------------------------------------
  * Técnico adulto, boneco articulado em 3D (proporção de ~4 cabeças).
  * Módulo Three.js reutilizável em TODOS os vídeos.
@@ -669,7 +669,7 @@ export function suavizar(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-/** Luz padrão do canal: use em toda cena para o Zé ficar sempre igual. */
+/** Luz padrão do projeto: use em toda cena para o Zé ficar sempre igual. */
 export function luzPadrao(cena) {
   const ceu = new THREE.HemisphereLight(0xfff6ec, 0x8a93a8, 1.5);
   const sol = new THREE.DirectionalLight(0xffffff, 2.2);

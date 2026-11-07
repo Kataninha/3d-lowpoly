@@ -1,7 +1,7 @@
 # Efeitos e reações do Zé — como transmitir tudo VISUALMENTE
 
 Nos vídeos de referência, nenhuma sensação fica só na narração. Cansaço vira suor, cheiro ruim vira linhas verdes, barulho vira texto tremendo e descoberta vira lâmpada.
-Este guia explica como fazer isso no Mundo100Manual usando `kit/efeitos/efeitos.js`.
+Este guia explica como fazer isso neste projeto usando `kit/efeitos/efeitos.js`.
 
 Referências visuais:
 - `referencias/folha_05_reacoes.png`: todas as reações paradas.
@@ -165,7 +165,7 @@ Intensidades: leve `0.01`, médio `0.02`, forte `0.04`.
 
 ---
 
-## 4. Onomatopeias (barulho) — lista do canal
+## 4. Onomatopeias (barulho) — lista do projeto
 
 | Som | Texto | Cor sugerida |
 | --- | --- | --- |
@@ -206,7 +206,7 @@ criarEfeito("barulho", { alvo: motor, posicao: [0, 0.8, 0], texto: "BUM!", cor: 
 ## 6. Criar um efeito novo
 
 1. Abra `kit/efeitos/efeitos.js`.
-2. Em `DESENHOS`, crie a figurinha em canvas, no estilo do canal: contorno `C.tinta` grosso por baixo e cor por cima (use a função `pintar`).
+2. Em `DESENHOS`, crie a figurinha em canvas, no estilo do projeto: contorno `C.tinta` grosso por baixo e cor por cima (use a função `pintar`).
 3. Em `CATALOGO`, crie a função `meuEfeito(g, o)`. Ela adiciona figurinhas com `poe(g, figurinha(...))` e devolve `(u, k) => { ... }`, que posiciona, escala e muda a opacidade **só a partir de `u`** (segundos desde o início). Nada de `Math.random()` ou `Date.now()`.
 4. Opcional: adicione uma reação em `REACOES` (emoção + pose + lista de efeitos + tremor).
 5. Inclua o nome em `REACOES` dentro de `ferramentas/gerar_referencias.py` e rode `python ferramentas/gerar_referencias.py` para atualizar a folha 05.

@@ -1,4 +1,4 @@
-# Workflow de produção do Mundo100Manual
+# Workflow de produção
 
 Atualizado em 2026-11-07. Comece aqui. A receita editorial fica em [receitas/receita-unificada.md](receitas/receita-unificada.md). [refs/CAMERA.md](refs/CAMERA.md) traduz o estudo de câmera em decisões. [equipe/painel.md](equipe/painel.md) registra o trabalho em andamento.
 

@@ -28,7 +28,7 @@ Ativos úteis em dois ou mais vídeos devem ser promovidos à biblioteca. Cada a
 
 - `biblioteca/cenarios/cobertura-obra/elevador-obra.js`: elevador de cremalheira e transporte procedural da pilha e das partes da base.
 
-- `biblioteca/personagens/ze/ze-v3.js`: personagem com silhueta da refer?ncia do usu?rio e uniforme do canal; previews em `referencias-v3/`; API e articula??es v2 preservadas.
+- `biblioteca/personagens/ze/ze-v3.js`: personagem com silhueta da refer?ncia do usu?rio e uniforme do projeto; previews em `referencias-v3/`; API e articula??es v2 preservadas.
 
 - `biblioteca/objetos/carrinho-pneu/`: carrinho com pneu de reserva e macaquinho de garrafa com alavanca (`animarMacaquinho`); escala do Zé v3.
 - `biblioteca/objetos/guindaste-movel/`: reescrito como guindaste aranha com lança telescópica; `{fantasma:true}` dá o gigante vermelho translúcido do mito.

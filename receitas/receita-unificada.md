@@ -1,12 +1,12 @@
-# Receita editorial Mundo100Manual — v4.4
+# Receita editorial — v4.4
 
-**Versão 4.4 — 06/11/2026.** Roteiro em causa e efeito (§1.2), com o modelo de roteirista do canal (demonstrar em vez de informar, sem drama inventado, pergunta-ponte por bloco e verificação científica). Retrocesso Causal opcional (§1.1). Fluxo e portões no mestre. Câmera em [refs/CAMERA.md](../refs/CAMERA.md).
+**Versão 4.4 — 06/11/2026.** Roteiro em causa e efeito (§1.2), com o modelo de roteirista do projeto (demonstrar em vez de informar, sem drama inventado, pergunta-ponte por bloco e verificação científica). Retrocesso Causal opcional (§1.1). Fluxo e portões no mestre. Câmera em [refs/CAMERA.md](../refs/CAMERA.md).
 
 Decisões permanentes (uma linha cada): `receitas/decisoes.md`. Placar e retro por vídeo: `receitas/evolucao.md`. Bugs: `BUGS.md` (ler antes de qualquer tarefa).
 
 **Princípio:** o Maestro (Claude) é o produtor e decide o grau de qualidade. **O que explica é o protagonista; cada vídeo decide como contar.** O usuário aprova só três portões antes da produção (esqueleto, roteiro, plano visual com a ficha de direção, §0), solta a voz e aprova o corte P3 antes do render final. Perguntas ao usuário: publicar, apagar/mover, custo, instalar.
 
-**Identidade do canal (nunca muda):** 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível, solução, demonstração, nome); a imagem mostra o que a fala explica; mundo coerente que evolui; legenda curta, cores com significado, nome visto e ouvido; abertura forte; final com o resultado e pedido de comentário; nível igual ou acima dos números de referência.
+**Identidade visual do projeto (nunca muda):** 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível, solução, demonstração, nome); a imagem mostra o que a fala explica; mundo coerente que evolui; legenda curta, cores com significado, nome visto e ouvido; abertura forte; final com o resultado e pedido de comentário; nível igual ou acima dos números de referência.
 
 **Requisitos fixos (técnicos e de qualidade):** formato, LUFS e pico (§5), legibilidade e margens, escala coerente, nada atravessando nem flutuando, corte 3D real, determinismo, prova em quadro real.
 

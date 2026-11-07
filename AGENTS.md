@@ -1,12 +1,12 @@
 # Workspace HyperFrames — instruções para agentes
 
-Objetivo: produzir conteúdo para YouTube, TikTok e Instagram (explicativos, Reels, Shorts) do canal Mundo100Manual com HyperFrames (HTML + GSAP renderizados em vídeo), Three.js low poly e ffmpeg.
+Objetivo: produzir conteúdo para YouTube, TikTok e Instagram (explicativos, Reels, Shorts) do projeto com HyperFrames (HTML + GSAP renderizados em vídeo), Three.js low poly e ffmpeg.
 Todo texto — mensagens ao usuário, arquivos, skills, regras, receitas e notas da equipe — é em português. Só os identificadores de código seguem o que já existe.
 
 ## Onde ficam as regras (uma fonte para cada; não copie aqui)
 - Etapas e portões de produção: `WORKFLOW_MESTRE.md`. Referência de câmera: `refs/CAMERA.md`.
 - **Pré-voo editorial.** Antes de redigir, revisar ou conferir esqueleto, roteiro, plano visual, animação ou corte, abra `receitas/receita-unificada.md` e leia as seções aplicáveis. Em roteiros, aplique o §1 e confira, em cada ciclo, o limite visível, a solução, o resultado observável e o nome técnico depois da demonstração. Confira que o resultado leva ao próximo limite antes de pedir aprovação. Considere o Retrocesso Causal (§1.1) no esqueleto. Se for escolhido, leve o retorno aprovado e seu propósito até o plano visual e aplique os §§4 e 8 na produção e na revisão.
-- Ordem e comandos do pipeline: skill `mundo100manual-pipeline` (`.claude/skills/mundo100manual-pipeline/SKILL.md` para o Claude, `.agents/skills/mundo100manual-pipeline/SKILL.md` para o Codex e outros agentes; os dois arquivos são idênticos e `ferramentas/test_docs.py` confere).
+- Ordem e comandos do pipeline: skill `pipeline-video` (`.claude/skills/pipeline-video/SKILL.md` para o Claude, `.agents/skills/pipeline-video/SKILL.md` para o Codex e outros agentes; os dois arquivos são idênticos e `ferramentas/test_docs.py` confere).
 - Seu próprio papel: `equipe/<papel>.md`.
 - Estado vivo: `equipe/painel.md` e `python ferramentas/pipeline.py status`. Decisões permanentes: `receitas/decisoes.md`. Bugs: `BUGS.md` (leia antes de qualquer tarefa; acrescente uma entrada, nunca apague, só mude o status).
 - Kit de efeitos: `biblioteca/efeitos/EFEITOS.md`. Catálogo: `CATALOGO.md` e `ATIVOS.md`.
@@ -39,7 +39,7 @@ Pergunte antes ao usuário (via Maestro): publicar ou enviar; apagar, mover ou s
 
 ## Convenções
 - Cada vídeo: `videos/<NN>-<slug>/`, criado por `ferramentas/novo_video.py` (com `AGENTS.md`, `roteiro.txt`, `partitura.json`, `registro.md` e `tarefas/` próprios). Nada de um vídeo entra na pasta de outro.
-- Biblioteca universal `biblioteca/`: um item por pasta (`personagens/`, `objetos/`, `cenarios/<slug>/`) com arquivo principal, previews e `origem.json`; nomes em minúsculas com hífen, sem acento; registre itens novos em `CATALOGO.md`. Personagem do canal: Zé (`ze`; vídeos novos importam `ze-padrao.js`). Não use "Kiko" em arquivos novos.
+- Biblioteca universal `biblioteca/`: um item por pasta (`personagens/`, `objetos/`, `cenarios/<slug>/`) com arquivo principal, previews e `origem.json`; nomes em minúsculas com hífen, sem acento; registre itens novos em `CATALOGO.md`. Personagem do projeto: Zé (`ze`; vídeos novos importam `ze-padrao.js`). Não use "Kiko" em arquivos novos.
 - A direção (presença do Zé, ritmo, cortes, efeitos) é decidida por vídeo em `direcao.md`; números de referência são pontos de partida, nunca metas.
 - Use as skills do HyperFrames para as regras de composição; `hyperframes check` sem erros é requisito, nunca aprovação.
 - Cores: só os tokens `--cor-*` com significado em textos e ícones; teal e laranja do tema só para a marca.

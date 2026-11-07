@@ -56,5 +56,5 @@ Predio de luxo contemporaneo, torre residencial com cobertura-piscina (infinity 
 - Entorno: cidade moderna ao fundo, entardecer quente com luzes acendendo; vizinhos so como janelas iluminadas.
 - Obra (ciclos 1-3): mesmo predio em construcao, grua e elevador de obra do cobertura-obra; ao fim de cada ciclo a fachada de vidro "veste" o trecho pronto, painel por painel, e liga o LED.
 - Raio-X: casca de vidro translucida com brilho de borda; estrutura interna limpa e saturada.
-- Cores: respeitar tokens do canal; azul vidro e branco/cinza concreto como base, madeira quente no deck.
+- Cores: respeitar tokens do projeto; azul vidro e branco/cinza concreto como base, madeira quente no deck.
 Prova P2: vitrine do predio pronto (fachada, topo, corte) em 3 angulos.

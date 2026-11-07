@@ -6,7 +6,7 @@ Formato: data | decisão | quem decidiu.
 - 2026-10-27 | Workspace oficial = `teste_hyperframes`. Sem APIs pagas: só assinaturas autenticadas (Claude, ChatGPT/Codex, Google/Gemini). ElevenLabs e Google Flow só com aprovação | usuário
 - 2026-10-27 | Aprovação do usuário só para publicar, mudança estrutural, apagar/sobrescrever, instalar, custo. O resto é automático | usuário
 - 2026-10-27 | Processos em andamento do usuário (`http.server` de `modelo_lowpoly`, extração de quadros) não se tocam | Maestro
-- 2026-10-28 | Canal: Mundo100Manual. Personagem: Zé (`ze`); "Kiko" não entra em arquivo novo | usuário
+- 2026-10-28 | Personagem: Zé (`ze`); "Kiko" não entra em arquivo novo | usuário
 - 2026-10-28 | `BUGS.md` é a memória de bugs: ler antes, registrar ao achar, nunca apagar entrada | usuário
 - 2026-10-28 | Estrutura: `biblioteca/` universal (1 pasta por item) + `modelo-video/` + `ferramentas/` + `videos/<NN>-<slug>/`. Promover à biblioteca no 2º uso | usuário
 - 2026-10-28 | Textos e ícones só em cores padrão com significado; teal/laranja do tema só na marca | usuário
@@ -30,7 +30,7 @@ Formato: data | decisão | quem decidiu.
 - 2026-10-30 | Cenário bem detalhado é prioridade (detalhes chamam atenção); Maestro pode pesquisar referências na web (Pinterest etc.) e dados técnicos do roteiro, registrando em pesquisa.md | usuário
 - 2026-10-30 | Nomes difíceis viram palavras simples; o termo técnico entra só depois de "Essa é a …" (ex.: "Essa é a grua… esse é o macaco") | usuário
 - 2026-10-30 | Zé v3: corpo e rosto da imagem `biblioteca/personagens/ze/referencias-v3/referencia-usuario.png`, com a roupa do Zé; substitui o visual v2 nos vídeos novos | usuário
-- 2026-10-30 | Direção sem mínimo ou máximo fixo: os números de referência são ponto de partida e o Maestro decide por vídeo na ficha de direção, aprovada com o plano visual; identidade do canal e requisitos técnicos não mudam (receita v3.0) | usuário
+- 2026-10-30 | Direção sem mínimo ou máximo fixo: os números de referência são ponto de partida e o Maestro decide por vídeo na ficha de direção, aprovada com o plano visual; identidade visual do projeto e requisitos técnicos não mudam (receita v3.0) | usuário
 - 2026-10-30 | Zé é o "você" nos momentos fortes; substitui "≥ 5 momentos" e a coluna Zé obrigatória | usuário
 - 2026-10-30 | Nome da peça: texto amarelo sobre a peça (overlay 2D) com a peça piscando; pílula só explica. Substitui a decisão de pílula no nome | usuário
 - 2026-10-30 | Nunca usar `[whispers]` nos roteiros | usuário

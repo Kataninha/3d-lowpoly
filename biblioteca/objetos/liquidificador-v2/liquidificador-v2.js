@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 /**
- * Liquidificador v2 (Mundo100Manual). 1 u = 0,5 m; chão do balcão em y = 0; altura ~1,03 u (≈ 52 cm).
+ * Liquidificador v2. 1 u = 0,5 m; chão do balcão em y = 0; altura ~1,03 u (≈ 52 cm).
  * Flat shading, sem contorno 3D. Hierarquia: raiz > base (pé, carcaça, placa, botões, fio) · motor (> rotor > acopM)
  * · copo (> parede, nervuras, colar, piso, alça, vedação, conjuntoLamina (> acopC, eixo, lâmina)) · tampa · líquido · frutas · fx.
  * Cada animar<Mecânica>(L, t) é função pura do tempo t (segundos): chama reiniciar() e depois aplica o estado.

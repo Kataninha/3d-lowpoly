@@ -1,6 +1,6 @@
-# Mundo100Manual — estúdio de vídeos explicativos em 3D low poly
+# Estúdio de vídeos explicativos em 3D low poly
 
-Repositório de produção do canal **Mundo100Manual**: vídeos verticais (9:16, 1080 × 1920, 30 fps) para YouTube Shorts, TikTok e Instagram Reels, que explicam como as coisas funcionam com **causa e efeito**, mecanismos 3D low poly de brinquedo e um personagem fixo, o **Zé**.
+Repositório de produção de vídeos: vídeos verticais (9:16, 1080 × 1920, 30 fps) para YouTube Shorts, TikTok e Instagram Reels, que explicam como as coisas funcionam com **causa e efeito**, mecanismos 3D low poly de brinquedo e um personagem fixo, o **Zé**.
 
 Tudo é código: cenas em **Three.js**, animação em **GSAP**, composição e render em **[HyperFrames](https://hyperframes.heygen.com)** (HTML renderizado para vídeo), som procedural em Python e conferência com **FFmpeg**. Nenhuma API paga é necessária.
 
@@ -14,11 +14,11 @@ Quadros do vídeo de exemplo (`exemplos/13-piscina-no-topo`), produzido inteiram
 |---|---|---|
 | ![Abertura do vídeo: sala, pipoca e teto que estala](docs/img/video-abertura.jpg) | ![Viga sob carga, com nome da peça e ícone de erro](docs/img/video-mecanismo.jpg) | ![Prédio em corte com piscina no topo](docs/img/video-cenario.jpg) |
 
-O **Zé**, personagem do canal, e os 10 estilos de figurantes que usam o mesmo corpo:
+O **Zé**, personagem do projeto, e os 10 estilos de figurantes que usam o mesmo corpo:
 
 | Zé (padrão) | Figurantes |
 |---|---|
-| ![Zé, personagem padrão do canal](docs/img/ze-padrao.png) | ![Dez estilos de cabelo e cabeça](docs/img/estilos-personagens.png) |
+| ![Zé, personagem padrão do projeto](docs/img/ze-padrao.png) | ![Dez estilos de cabelo e cabeça](docs/img/estilos-personagens.png) |
 
 O Zé tem **31 expressões de rosto**; esta folha mostra 20 delas:
 
@@ -66,7 +66,7 @@ tema ──► esqueleto ──► roteiro ──► plano visual ──► voz 
 - A **receita editorial** (`receitas/receita-unificada.md`) define como escrever, filmar e revisar. O **workflow mestre** (`WORKFLOW_MESTRE.md`) define a ordem, os comandos e as evidências.
 - Humanos e agentes de IA (Claude, Codex, Gemini) seguem os mesmos arquivos. Os papéis estão em `equipe/`.
 
-Identidade do canal (nunca muda): 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível → solução → demonstração → nome técnico); a imagem mostra o que a fala explica; legenda curta; abertura forte; final com o resultado e pedido de comentário.
+Identidade visual do projeto (nunca muda): 3D low poly de brinquedo, 9:16, cores vivas; causa e efeito (falha visível → solução → demonstração → nome técnico); a imagem mostra o que a fala explica; legenda curta; abertura forte; final com o resultado e pedido de comentário.
 
 ---
 
@@ -161,7 +161,7 @@ Quando terminar, apague a pasta `videos/10-demo` (ela é só um teste) antes de 
 | `biblioteca/` | Ativos reutilizáveis (um item por pasta, com `origem.json`). |
 | `ferramentas/` | Scripts Python do pipeline e testes (`test_*.py`). |
 | `AGENTS.md`, `CLAUDE.md`, `GEMINI.md` | Instruções para agentes de IA. |
-| `.claude/skills/` e `.agents/skills/` | Skill `mundo100manual-pipeline` (cópias idênticas; `test_docs.py` confere). |
+| `.claude/skills/` e `.agents/skills/` | Skill `pipeline-video` (cópias idênticas; `test_docs.py` confere). |
 | `CATALOGO.md`, `ATIVOS.md` | Índice dos ativos da biblioteca e onde cada coisa mora. |
 | `BUGS.md` | Memória de bugs: ler antes de qualquer tarefa; só se acrescenta, nunca se apaga. |
 
@@ -375,7 +375,7 @@ Regras práticas para qualquer agente (detalhes em [`AGENTS.md`](AGENTS.md)):
 - Sem APIs pagas. Só assinaturas autenticadas. Publicar, apagar, instalar e custo pedem aprovação.
 - Manter `equipe/painel.md`, `videos/<NN>/registro.md` e `receitas/decisoes.md` atualizados.
 
-`CLAUDE.md` e `GEMINI.md` apenas acrescentam particularidades de cada ferramenta e importam `AGENTS.md`. A skill `mundo100manual-pipeline` (`.claude/skills/` e `.agents/skills/`) dispara o fluxo quando chega um tema.
+`CLAUDE.md` e `GEMINI.md` apenas acrescentam particularidades de cada ferramenta e importam `AGENTS.md`. A skill `pipeline-video` (`.claude/skills/` e `.agents/skills/`) dispara o fluxo quando chega um tema.
 
 ---
 
@@ -415,13 +415,13 @@ Ele fica **fora de `videos/`** de propósito: é material de leitura, e o pipeli
 ## O que não está incluído
 
 - MP4 de vídeos publicados, prévias e gravações de voz (ficam com o autor; `.gitignore` bloqueia `*.mp4`, `*.wav`, `*.mp3`, `*.png`, `*.jpg` fora das exceções de referência).
-- Os demais vídeos de produção do canal (10–12 e 14–19).
+- Os demais vídeos de produção do autor (10–12 e 14–19).
 - Configurações pessoais de ferramentas de IA (hooks e permissões locais).
 
 ---
 
 ## Licença e terceiros
 
-© 2026 Mundo100Manual. Todos os direitos reservados. Veja [`LICENSE`](LICENSE).
+© 2026. Todos os direitos reservados. Veja [`LICENSE`](LICENSE).
 
 Bibliotecas de terceiros e fontes incluídas em `biblioteca/` estão listadas, com suas licenças, em [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
